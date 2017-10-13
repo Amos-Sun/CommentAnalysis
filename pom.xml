@@ -81,7 +81,7 @@
             <version>${mybatis.version}</version>
         </dependency>
 
-        <!--配置spring test-->
+        <!--配置sprmoudlestest-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>

@@ -20,8 +20,6 @@
     </environments>
 
     <mappers>
-        <!-- <mapper resource="com/test/dao/UserMapper.xml"/>-->
-        <!-- Mapper扫描包，必须同目录同名称下-->
+        <mapper resource="com/sun/mapper/videoMapper.xml"/>
     </mappers>
-
 </configuration>

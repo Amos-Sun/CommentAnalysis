@@ -1,4 +1,4 @@
-package com.sun.moudles.crawl.util;
+package com.sun.moudles.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonParser;
@@ -9,8 +9,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+
 /**
- * Created by SunGuiyong on 2017/9/26.
+ * Created by sunguiyong on 2017/10/14.
  */
 public class JsonUtil {
     public static final String DATEFORMAT_ISO8601 = "yyyy-MM-dd HH:mm:ss";

@@ -1,0 +1,29 @@
+[INFO] [2017-10-15 16:00:21][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2017-10-15 16:00:22][org.springframework.context.support.GenericApplicationContext]Refreshing org.springframework.context.support.GenericApplicationContext@327471b5: startup date [Sun Oct 15 16:00:22 CST 2017]; root of context hierarchy
+  [INFO] [2017-10-15 16:00:23][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2017-10-15 16:00:25][org.springframework.context.support.GenericApplicationContext]Closing org.springframework.context.support.GenericApplicationContext@327471b5: startup date [Sun Oct 15 16:00:22 CST 2017]; root of context hierarchy
+  [INFO] [2017-10-15 23:16:52][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2017-10-15 23:16:53][org.springframework.context.support.GenericApplicationContext]Refreshing org.springframework.context.support.GenericApplicationContext@327471b5: startup date [Sun Oct 15 23:16:53 CST 2017]; root of context hierarchy
+  [INFO] [2017-10-15 23:16:53][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2017-10-15 23:16:55][org.springframework.context.support.GenericApplicationContext]Closing org.springframework.context.support.GenericApplicationContext@327471b5: startup date [Sun Oct 15 23:16:53 CST 2017]; root of context hierarchy
+  [INFO] [2017-10-15 23:17:25][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2017-10-15 23:17:25][org.springframework.context.support.GenericApplicationContext]Refreshing org.springframework.context.support.GenericApplicationContext@327471b5: startup date [Sun Oct 15 23:17:25 CST 2017]; root of context hierarchy
+  [INFO] [2017-10-15 23:17:25][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2017-10-15 23:17:27][org.springframework.context.support.GenericApplicationContext]Closing org.springframework.context.support.GenericApplicationContext@327471b5: startup date [Sun Oct 15 23:17:25 CST 2017]; root of context hierarchy
+  [INFO] [2017-10-15 23:17:50][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2017-10-15 23:17:51][org.springframework.context.support.GenericApplicationContext]Refreshing org.springframework.context.support.GenericApplicationContext@327471b5: startup date [Sun Oct 15 23:17:51 CST 2017]; root of context hierarchy
+  [INFO] [2017-10-15 23:17:51][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2017-10-15 23:17:53][org.springframework.context.support.GenericApplicationContext]Closing org.springframework.context.support.GenericApplicationContext@327471b5: startup date [Sun Oct 15 23:17:51 CST 2017]; root of context hierarchy
+  [INFO] [2017-10-15 23:18:14][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2017-10-15 23:18:14][org.springframework.context.support.GenericApplicationContext]Refreshing org.springframework.context.support.GenericApplicationContext@327471b5: startup date [Sun Oct 15 23:18:14 CST 2017]; root of context hierarchy
+  [INFO] [2017-10-15 23:18:14][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2017-10-15 23:18:16][org.springframework.context.support.GenericApplicationContext]Closing org.springframework.context.support.GenericApplicationContext@327471b5: startup date [Sun Oct 15 23:18:14 CST 2017]; root of context hierarchy
+  [INFO] [2017-10-15 23:19:10][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2017-10-15 23:19:10][org.springframework.context.support.GenericApplicationContext]Refreshing org.springframework.context.support.GenericApplicationContext@327471b5: startup date [Sun Oct 15 23:19:10 CST 2017]; root of context hierarchy
+  [INFO] [2017-10-15 23:19:10][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2017-10-15 23:19:12][org.springframework.context.support.GenericApplicationContext]Closing org.springframework.context.support.GenericApplicationContext@327471b5: startup date [Sun Oct 15 23:19:10 CST 2017]; root of context hierarchy
+  [INFO] [2017-10-15 23:22:15][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2017-10-15 23:22:15][org.springframework.context.support.GenericApplicationContext]Refreshing org.springframework.context.support.GenericApplicationContext@44a664f2: startup date [Sun Oct 15 23:22:15 CST 2017]; root of context hierarchy
+  [INFO] [2017-10-15 23:22:16][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2017-10-15 23:22:18][org.springframework.context.support.GenericApplicationContext]Closing org.springframework.context.support.GenericApplicationContext@44a664f2: startup date [Sun Oct 15 23:22:15 CST 2017]; root of context hierarchy
+  

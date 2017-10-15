@@ -16,3 +16,9 @@ alter table `video` drop column `v_picture`;
 alter table `video` add column `v_picture_path` varchar(256) NOT NULL COMMENT '电影剧照存储本地路径';
 alter table `video` add column `add_time` VARCHAR (16) not null;
 alter table `video` add column `modification_time` TIMESTAMP default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ;
+
+# 增加url
+alter table `video` add column `v_url` varchar(128) not null COMMENT '电影的url';
+
+# 增加电影简介
+ alter table `video` add column `v_detail` varchar(1024) default null COMMENT '电影简介';

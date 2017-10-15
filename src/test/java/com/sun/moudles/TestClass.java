@@ -7,38 +7,39 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * Created by sunguiyong on 2017/10/13.
  */
+@RunWith(SpringJUnit4ClassRunner.class)     //表示继承了SpringJUnit4ClassRunner类
+@ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})
+
 public class TestClass {
+
+    @Resource
+    private VideoDAO videoDAO;
+
+    private final String BASE_URL = "http://v.qq.com/x/list/movie?area=-1&sort=19&offset=";
 
     @Test
     public void sqlTest(){
 
+        int count = 0;
+        for(int i = 1; i < 166; i++){
+            count += 30;
+        }
+        System.out.println(BASE_URL+count);
 
-        try {
-            //1.  用配置文件构建SqlSessionFactory
-            SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().
-                    build(Resources.getResourceAsStream("mybatis-conf.xml"));
-
-            //2.  利用SqlSessionFactory打开一个和数据库的SqlSession
-            SqlSession session = sqlSessionFactory.openSession();
-
-            //3. 利用这个SqlSession获取要使用的mapper接口
-            VideoDAO videoDAO = session.getMapper(VideoDAO.class);
-
-            //4. 使用mapper接口和数据库交互，运行mapper.xml文件中的SQL语句
-            List<VideoPO> allAccountsList = videoDAO.getAllVideo();
-
-            System.out.println(allAccountsList.size());
-            //5. SqlSession提交SQL到数据库并关闭SqlSession
-            session.commit();
-            session.close();
-        }catch(Exception e){
-            e.printStackTrace();
+        if(videoDAO.getAllVideo() == null){
+            System.out.println("null");
+        }else {
+            System.out.println(videoDAO.getAllVideo().size());
         }
     }
 }

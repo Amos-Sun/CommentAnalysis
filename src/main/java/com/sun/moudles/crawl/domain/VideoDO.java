@@ -7,7 +7,7 @@ public class VideoDO {
 
     private String videoUrl;
     private String videoName;
-    private String videoPicture;
+    private String videoPicturePath;
     private String videoActors;
     private String videoType;
     private String videoDetail;
@@ -28,12 +28,12 @@ public class VideoDO {
         this.videoName = videoName;
     }
 
-    public String getVideoPicture() {
-        return videoPicture;
+    public String getVideoPicturePath() {
+        return videoPicturePath;
     }
 
-    public void setVideoPicture(String videoPicture) {
-        this.videoPicture = videoPicture;
+    public void setVideoPicturePath(String videoPicturePath) {
+        this.videoPicturePath = videoPicturePath;
     }
 
     public String getVideoActors() {

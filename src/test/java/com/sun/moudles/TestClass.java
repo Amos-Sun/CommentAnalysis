@@ -1,18 +1,12 @@
 package com.sun.moudles;
 
-import com.sun.moudles.crawl.dao.VideoDAO;
-import com.sun.moudles.crawl.po.VideoPO;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import com.sun.moudles.crawl.dao.IVideoDAO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * Created by sunguiyong on 2017/10/13.
@@ -23,7 +17,7 @@ import java.util.List;
 public class TestClass {
 
     @Resource
-    private VideoDAO videoDAO;
+    private IVideoDAO IVideoDAO;
 
     private final String BASE_URL = "http://v.qq.com/x/list/movie?area=-1&sort=19&offset=";
 
@@ -36,10 +30,10 @@ public class TestClass {
         }
         System.out.println(BASE_URL+count);
 
-        if(videoDAO.getAllVideo() == null){
+        if(IVideoDAO.getAllVideo() == null){
             System.out.println("null");
         }else {
-            System.out.println(videoDAO.getAllVideo().size());
+            System.out.println(IVideoDAO.getAllVideo().size());
         }
     }
 }

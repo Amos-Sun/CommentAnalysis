@@ -13,6 +13,7 @@ public class VideoPO {
     private String vType;
     private String vGoodPercent;
     private String vBadPercent;
+    private String addTime;
 
     public Integer getId() {
         return id;
@@ -76,5 +77,13 @@ public class VideoPO {
 
     public void setvBadPercent(String vBadPercent) {
         this.vBadPercent = vBadPercent;
+    }
+
+    public String getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(String addTime) {
+        this.addTime = addTime;
     }
 }

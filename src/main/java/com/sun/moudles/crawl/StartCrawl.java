@@ -1,6 +1,6 @@
 package com.sun.moudles.crawl;
 
-import com.sun.moudles.crawl.parser.HtmlParser;
+import com.sun.moudles.crawl.parser.GetVideoDetail;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
@@ -74,7 +74,11 @@ public class StartCrawl {
             e.printStackTrace();
         }*/
 
-        HtmlParser htmlParser = new HtmlParser();
-        htmlParser.getPageContent();
+        GetVideoDetail getVideoDetail = new GetVideoDetail();
+        try {
+            getVideoDetail.getPageContent();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

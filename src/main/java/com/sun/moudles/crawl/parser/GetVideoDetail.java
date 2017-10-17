@@ -1,13 +1,16 @@
 package com.sun.moudles.crawl.parser;
 
 import com.google.common.base.Joiner;
+import com.sun.moudles.crawl.dao.IVideoDAO;
 import com.sun.moudles.crawl.domain.VideoDO;
 import com.sun.moudles.util.StrUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +18,7 @@ import java.util.List;
 /**
  * Created by SunGuiyong on 2017/9/26.
  */
-public class HtmlParser {
+public class GetVideoDetail {
 
 //        全部
 //        最新上架
@@ -24,6 +27,8 @@ public class HtmlParser {
      * get from video url
      */
 
+    @Resource
+    private IVideoDAO videoDAO;
     /**
      * 这个界面中可以得到url name picture
      */
@@ -54,18 +59,20 @@ public class HtmlParser {
 
                 title = liDoc.select("a img");
                 //图片地址 r-lazyload
-                videoDO.setVideoPicture(title.attr("r-lazyload"));
+                videoDO.setVideoPicturePath(title.attr("r-lazyload"));
 
                 Document detailDoc = Jsoup.connect(videoDO.getVideoUrl()).get();
 
                 getTypeAndTime(detailDoc, videoDO);
                 getActors(detailDoc, videoDO);
                 getDetail(detailDoc, videoDO);
-
                 videoDoList.add(videoDO);
+                break;
             }
             System.out.println(videoDoList.size());
+            break;
         }
+        videoDAO.insertVideoInfo(videoDoList);
     }
 
     /**
@@ -131,7 +138,7 @@ public class HtmlParser {
             actor = item.text().trim();
             actorsList.add(actor);
         }
-        videoDO.setVideoType(Joiner.on(",").skipNulls().join(actorsList));
+        videoDO.setVideoActors(Joiner.on(",").skipNulls().join(actorsList));
     }
 
     /**

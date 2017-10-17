@@ -20,7 +20,7 @@ public class JsonTypeHandler implements TypeHandler<Object> {
 
     public void setParameter(PreparedStatement ps, int i, Object parameter, JdbcType jdbcType) throws SQLException {
         if(parameter == null) {
-            ps.setString(i, "");
+            ps.setString(i, (String)null);
         } else {
             String json = JsonUtil.toJson(parameter);
             json = json + ';' + parameter.getClass().getName();

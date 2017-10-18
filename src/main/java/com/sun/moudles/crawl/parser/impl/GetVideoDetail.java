@@ -1,14 +1,20 @@
-package com.sun.moudles.crawl.parser;
+package com.sun.moudles.crawl.parser.impl;
 
 import com.google.common.base.Joiner;
 import com.sun.moudles.crawl.dao.IVideoDAO;
 import com.sun.moudles.crawl.domain.VideoDO;
+import com.sun.moudles.crawl.parser.IGetVideoDetail;
 import com.sun.moudles.util.StrUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -18,7 +24,7 @@ import java.util.List;
 /**
  * Created by SunGuiyong on 2017/9/26.
  */
-public class GetVideoDetail {
+public class GetVideoDetail implements IGetVideoDetail {
 
 //        全部
 //        最新上架
@@ -27,21 +33,25 @@ public class GetVideoDetail {
      * get from video url
      */
 
-    @Resource
-    private IVideoDAO videoDAO;
+    /*@Resource
+    private IVideoDAO videoDAO;*/
     /**
      * 这个界面中可以得到url name picture
      */
     private final String url = "http://v.qq.com/x/list/movie?area=-1&sort=19&offset=0";
 
     private String BASE_URL = "http://v.qq.com/x/list/movie?area=-1&sort=19&offset=";
-    //存放整理好的video数据
-    private List<VideoDO> videoDoList = new ArrayList<VideoDO>();
 
     private List<String> willCrwalUrl = new ArrayList<String>();
 
-    public void getPageContent() throws IOException {
+    public List<VideoDO> getVideoInfo() throws IOException {
+        AbstractApplicationContext ctx
+                = new ClassPathXmlApplicationContext(new String[]{"spring-mybatis.xml"});
+        IVideoDAO videoDAO = (IVideoDAO) ctx.getBean("videoDAO");
         initCrawlList();
+
+        //存放整理好的video数据
+        List<VideoDO> videoDoList = new ArrayList<VideoDO>();
         for (int i = 0; i < willCrwalUrl.size(); i++) {
             Document doc = Jsoup.connect(willCrwalUrl.get(i)).get();
 
@@ -72,7 +82,8 @@ public class GetVideoDetail {
             System.out.println(videoDoList.size());
             break;
         }
-        videoDAO.insertVideoInfo(videoDoList);
+        //videoDAO.insertVideoInfo(videoDoList);
+        return videoDoList;
     }
 
     /**

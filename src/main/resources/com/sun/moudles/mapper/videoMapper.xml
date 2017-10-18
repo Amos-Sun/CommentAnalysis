@@ -5,11 +5,11 @@
 <mapper namespace="com.sun.moudles.crawl.dao.IVideoDAO">
 
     <insert id="insertVideoInfo" parameterType="list">
-        INSERT into video(v_name,v_time,v_actors,v_type,v_url,v_picture_path,v_detail)
+        INSERT into video(v_name,v_time,v_actors,v_type,v_url,v_picture_path,v_detail,add_time,motification_time)
         VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.videoName},#{item.videoTime},#{item.videoActors},#{item.videoType},
-            #{item.videoUrl},#{item.videoPicturePath},#{item.videoDetail})
+            #{item.videoUrl},#{item.videoPicturePath},#{item.videoDetail},unix_timestamp(),unix_timestamp())
         </foreach>
     </insert>
 </mapper>

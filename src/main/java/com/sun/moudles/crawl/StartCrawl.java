@@ -1,6 +1,7 @@
 package com.sun.moudles.crawl;
 
-import com.sun.moudles.crawl.parser.GetVideoDetail;
+import com.sun.moudles.crawl.domain.VideoDO;
+import com.sun.moudles.crawl.parser.impl.GetVideoDetail;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
@@ -8,10 +9,12 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -76,7 +79,8 @@ public class StartCrawl {
 
         GetVideoDetail getVideoDetail = new GetVideoDetail();
         try {
-            getVideoDetail.getPageContent();
+            List<VideoDO> videoDOList = getVideoDetail.getVideoInfo();
+
         }catch(Exception e){
             e.printStackTrace();
         }

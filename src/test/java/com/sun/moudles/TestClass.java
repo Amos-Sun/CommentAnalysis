@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 public class TestClass {
 
     @Resource
-    private IVideoDAO IVideoDAO;
+    private IVideoDAO videoDAO;
 
     private final String BASE_URL = "http://v.qq.com/x/list/movie?area=-1&sort=19&offset=";
 
@@ -30,10 +30,10 @@ public class TestClass {
         }
         System.out.println(BASE_URL+count);
 
-        if(IVideoDAO.getAllVideo() == null){
+        if(videoDAO.getAllVideo() == null){
             System.out.println("null");
         }else {
-            System.out.println(IVideoDAO.getAllVideo().size());
+            System.out.println(videoDAO.getAllVideo().size());
         }
     }
 }

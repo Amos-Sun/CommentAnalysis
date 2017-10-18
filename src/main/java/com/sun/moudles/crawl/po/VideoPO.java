@@ -14,6 +14,7 @@ public class VideoPO {
     private String vGoodPercent;
     private String vBadPercent;
     private String addTime;
+    private String motificationTime;
 
     public Integer getId() {
         return id;
@@ -85,5 +86,13 @@ public class VideoPO {
 
     public void setAddTime(String addTime) {
         this.addTime = addTime;
+    }
+
+    public String getMotificationTime() {
+        return motificationTime;
+    }
+
+    public void setMotificationTime(String motificationTime) {
+        this.motificationTime = motificationTime;
     }
 }

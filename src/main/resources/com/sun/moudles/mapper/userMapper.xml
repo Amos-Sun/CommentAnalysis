@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sun.moudles.crawl.dao.IUserDAO">
+
+    <insert id="insertUserInfo" parameterType="list">
+        INSERT into video(u_name,u_age,u_sex,add_time,motification_time)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.userName},#{item.userAge},#{item.userSex},unix_timestamp(),unix_timestamp())
+        </foreach>
+    </insert>
+</mapper>

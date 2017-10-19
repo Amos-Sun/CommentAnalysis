@@ -10,6 +10,9 @@
 
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>GBK</project.reporting.outputEncoding>
+
         <httpclient.version>4.3.5</httpclient.version>
         <jsoup.version>1.7.3</jsoup.version>
         <guava.version>19.0</guava.version>
@@ -21,7 +24,7 @@
         <log4j.version>1.2.17</log4j.version>
         <sl4j.version>1.7.7</sl4j.version>
         <c3p0.version>0.9.1</c3p0.version>
-        <lucene.version>4.8.1</lucene.version>
+        <lucene.version>4.8.0</lucene.version>
         <paoding.version>2.0.4</paoding.version>
     </properties>
 
@@ -206,6 +209,12 @@
             <scope>system</scope>
             <version>${paoding.version}</version>
             <systemPath>${project.basedir}/lib/paoding-analysis-2.0.4.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
         </dependency>
 
     </dependencies>

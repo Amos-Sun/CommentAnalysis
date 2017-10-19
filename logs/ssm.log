@@ -286,4 +286,59 @@ Caused by: java.lang.IllegalStateException: Cannot convert value of type [org.ap
   [INFO] [2017-10-18 17:54:21][org.springframework.context.support.GenericApplicationContext]Refreshing org.springframework.context.support.GenericApplicationContext@1f97b55: startup date [Wed Oct 18 17:54:21 CST 2017]; root of context hierarchy
   [INFO] [2017-10-18 17:54:22][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
   [INFO] [2017-10-18 17:54:23][org.springframework.context.support.GenericApplicationContext]Closing org.springframework.context.support.GenericApplicationContext@1f97b55: startup date [Wed Oct 18 17:54:21 CST 2017]; root of context hierarchy
+  [INFO] [2017-10-19 14:22:31][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 14:22:31][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.CJKKnife
+  [INFO] [2017-10-19 14:22:31][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.LetterKnife
+  [INFO] [2017-10-19 14:22:31][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.NumberKnife
+  [INFO] [2017-10-19 14:22:31][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.CJKKnife
+  [INFO] [2017-10-19 14:22:31][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.LetterKnife
+  [INFO] [2017-10-19 14:22:31][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.NumberKnife
+  [INFO] [2017-10-19 14:22:31][net.paoding.analysis.knife.FileDictionaries]loading dictionaries from F:\selfproject\CommentAnalysis\dic
+  [INFO] [2017-10-19 14:22:31][net.paoding.analysis.knife.FileDictionaries]loaded success!
+  [INFO] [2017-10-19 14:24:25][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 14:24:25][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.CJKKnife
+  [INFO] [2017-10-19 14:24:25][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.LetterKnife
+  [INFO] [2017-10-19 14:24:25][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.NumberKnife
+  [INFO] [2017-10-19 14:26:08][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 14:26:08][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.CJKKnife
+  [INFO] [2017-10-19 14:26:08][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.LetterKnife
+  [INFO] [2017-10-19 14:26:08][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.NumberKnife
+  [INFO] [2017-10-19 14:28:35][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 14:28:35][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.CJKKnife
+  [INFO] [2017-10-19 14:28:35][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.LetterKnife
+  [INFO] [2017-10-19 14:28:35][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.NumberKnife
+  [INFO] [2017-10-19 14:29:59][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 14:30:16][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 14:31:35][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 14:31:51][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 14:34:25][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 14:42:14][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 14:42:23][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 14:44:45][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 14:45:47][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 14:46:13][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 14:46:28][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 14:49:49][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 14:50:10][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 14:50:14][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 15:25:05][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 15:25:53][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 15:26:04][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 15:29:24][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 15:31:47][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 15:41:37][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 15:44:12][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 16:01:44][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 16:03:20][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties
+  [INFO] [2017-10-19 19:18:59][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties;F:\selfproject\CommentAnalysis\target\classes\paoding-dic-home.properties
+  [INFO] [2017-10-19 19:18:59][net.paoding.analysis.knife.FileDictionaries]loading dictionaries from F:\selfproject\CommentAnalysis\dic
+  [INFO] [2017-10-19 19:18:59][net.paoding.analysis.knife.FileDictionaries]loaded success!
+  [INFO] [2017-10-19 19:20:12][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties;F:\selfproject\CommentAnalysis\target\classes\paoding-analysis-default.properties;F:\selfproject\CommentAnalysis\target\classes\paoding-analyzer.properties;F:\selfproject\CommentAnalysis\target\classes\paoding-dic-home.properties;F:\selfproject\CommentAnalysis\dic\paoding-dic-names.properties;F:\selfproject\CommentAnalysis\target\classes\paoding-knives.properties;F:\selfproject\CommentAnalysis\target\classes\paoding-knives-user.properties
+  [INFO] [2017-10-19 19:20:12][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.CJKKnife
+  [INFO] [2017-10-19 19:20:12][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.LetterKnife
+  [INFO] [2017-10-19 19:20:12][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.NumberKnife
+  [INFO] [2017-10-19 19:27:20][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties;F:\selfproject\CommentAnalysis\target\classes\paoding-analysis-default.properties;F:\selfproject\CommentAnalysis\target\classes\paoding-analyzer.properties;F:\selfproject\CommentAnalysis\target\classes\paoding-dic-home.properties;F:\selfproject\CommentAnalysis\dic\paoding-dic-names.properties;F:\selfproject\CommentAnalysis\target\classes\paoding-knives.properties;F:\selfproject\CommentAnalysis\target\classes\paoding-knives-user.properties
+  [INFO] [2017-10-19 19:27:20][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.CJKKnife
+  [INFO] [2017-10-19 19:27:20][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.LetterKnife
+  [INFO] [2017-10-19 19:27:20][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.NumberKnife
   

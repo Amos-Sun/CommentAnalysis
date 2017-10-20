@@ -3,21 +3,11 @@ package com.sun.moudles.analysis;
 import java.io.*;
 import java.util.Iterator;
 
-import org.apache.lucene.analysis.TokenStream;
-import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
-import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
-import org.apache.lucene.analysis.util.CharArraySet;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
-import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.util.Version;
-import org.springframework.stereotype.Component;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-
-import org.apache.lucene.analysis.Analyzer;
 import net.paoding.analysis.analyzer.PaodingAnalyzer;
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.Token;
+import org.apache.lucene.analysis.TokenStream;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by SunGuiyong on 2017/10/10.
@@ -25,10 +15,10 @@ import net.paoding.analysis.analyzer.PaodingAnalyzer;
 @Component
 public class Analysis {
 
-    public void smartcnPartWords(String handleText) throws IOException {
+    /*public void smartcnPartWords(String handleText) throws IOException {
         // 自定义停用词
         String[] self_stop_words = {"的", "在", "了", "呢", "，", "0", "：", ",", "是"};
-        CharArraySet cas = new CharArraySet(Version.LUCENE_48, 0, true);
+        CharArraySet cas = new CharArraySet(Version.LUCENE_46, 0, true);
         for (int i = 0; i < self_stop_words.length; i++) {
             cas.add(self_stop_words[i]);
         }
@@ -51,82 +41,54 @@ public class Analysis {
         }
         ts.end();
         ts.close();
-    }
-
-    /*public static void main(String[] args) throws IOException {
-        Analyzer analyzer = new PaodingAnalyzer();
-        String indexStr = "我的QQ号码是58472399";
-        StringReader reader = new StringReader(indexStr);
-        TokenStream token = analyzer.tokenStream(indexStr, reader);
-        token.reset();
-        CharTermAttribute ta = token.addAttribute(CharTermAttribute.class);
-
-        while (token.incrementToken()) {
-
-            System.out.print(ta.toString());
-        }
-        System.out.println("t");
     }*/
 
-/*    public static void parse(Analyzer analyzer, String text) throws IOException {
-        TokenStream ts = analyzer.tokenStream("text", new StringReader(text));
-        ts.reset();
-        // 添加工具类 注意：以下这些与之前lucene2.x版本不同的地方
-        CharTermAttribute offAtt = ts.addAttribute(CharTermAttribute.class);
-        // 循环打印出分词的结果，及分词出现的位置
-        while (ts.incrementToken()) {
-            System.out.print(offAtt.toString() + "\t");
-        }
-        ts.close();
-    }
-
-
-    public static void main(String[] args) throws IOException {
-        Analyzer paodingAnalyzer = new PaodingAnalyzer();
-
-        String text = "你吃饭了吗";
-        parse(paodingAnalyzer, text);
-        parse(paodingAnalyzer, text);
-        parse(paodingAnalyzer, text);
-        parse(paodingAnalyzer, text);
-        parse(paodingAnalyzer, text);
-    }*/
-
-
-    public static void main(String[] args) throws Exception {
-        String dataDir="data";
-        String indexDir="luceneindex";
-
-        File[] files=new File(dataDir).listFiles();
-        System.out.println(files.length);
-
+   /* public static void main(String[] args) {
+// TODOAuto-generated method stub
         Analyzer analyzer=new PaodingAnalyzer();
-        Directory dir= FSDirectory.open(new File(indexDir));
-        IndexWriter writer=new IndexWriter(dir, new IndexWriterConfig(Version.LUCENE_48,analyzer));
-
-        for(int i=0;i<files.length;i++){
-            StringBuffer strBuffer=new StringBuffer();
-            String line="";
-            FileInputStream is=new FileInputStream(files[i].getCanonicalPath());
-            BufferedReader reader=new BufferedReader(new InputStreamReader(is,"utf8"));
-            line=reader.readLine();
-            while(line != null){
-                strBuffer.append(line);
-                strBuffer.append("\n");
-                line=reader.readLine();
+        String docText=null;
+        File file=new File("F:\\selfproject\\CommentAnalysis\\data\\test.txt");
+        docText=readText(file);
+        TokenStream tokenStream=analyzer.tokenStream(docText, new StringReader(docText));
+        try{
+            Token t;
+            //System.out.println(docText);
+            while((t=tokenStream.next())!=null){
+                System.out.println(t);
             }
-
-            Document doc=new Document();
-            doc.add(new Field("fileName", files[i].getName(), Field.Store.YES, Field.Index.ANALYZED));
-            doc.add(new Field("contents", strBuffer.toString(), Field.Store.YES, Field.Index.ANALYZED));
-            writer.addDocument(doc);
-            reader.close();
-            is.close();
+        }catch(IOException e){
+            e.printStackTrace();
         }
-
-        writer.commit();
-        writer.close();
-        dir.close();
-        System.out.println("ok");
     }
+
+    private static String readText(File file) {
+        // TODOAuto-generated method stub
+        String text=null;
+        try{
+            InputStreamReader read1=new InputStreamReader(new FileInputStream(file),"GBK");
+            BufferedReader br1=new BufferedReader(read1);
+            StringBuffer buff1=new StringBuffer();
+            while((text=br1.readLine())!=null){
+                buff1.append(text+"/r/n");
+            }
+            br1.close();
+            text=buff1.toString();
+        }catch(FileNotFoundException e){
+            System.out.println(e);
+        }catch(IOException e){
+            System.out.println(e);
+        }
+        return text;
+    }*/
+
+   public void paodingAnalysis(String indexStr)throws IOException{
+       Analyzer analyzer = new PaodingAnalyzer();
+       StringReader reader = new StringReader(indexStr);
+       TokenStream ts = analyzer.tokenStream(indexStr, reader);
+       Token t = ts.next();
+       while (t != null) {
+           System.out.print(t.termText()+"  ");
+           t = ts.next();
+       }
+   }
 }

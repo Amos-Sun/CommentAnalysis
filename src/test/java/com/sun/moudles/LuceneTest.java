@@ -74,7 +74,8 @@ public class LuceneTest {
                 "在外面打拼根本养不了狗狗，但是就是特别特别想养，无奈真的没有办法";
 
         try {
-            analysis.smartcnPartWords(vaText);
+//            analysis.smartcnPartWords(vaText);
+            analysis.paodingAnalysis(vaText);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,13 +1,13 @@
-package com.sun.moudles.crawl.po;
+package com.sun.moudles.bean.domain;
 
 /**
- * Created by sunguiyong on 2017/10/16.
+ * Created by sunguiyong on 2017/10/17.
  */
-public class UserPO {
+public class UserDO {
 
     private String userName;
-    private String userSex;
     private Integer userAge;
+    private String userSex;
     private String addTime;
     private String motificationTime;
 
@@ -19,20 +19,20 @@ public class UserPO {
         this.userName = userName;
     }
 
-    public String getUserSex() {
-        return userSex;
-    }
-
-    public void setUserSex(String userSex) {
-        this.userSex = userSex;
-    }
-
     public Integer getUserAge() {
         return userAge;
     }
 
     public void setUserAge(Integer userAge) {
         this.userAge = userAge;
+    }
+
+    public String getUserSex() {
+        return userSex;
+    }
+
+    public void setUserSex(String userSex) {
+        this.userSex = userSex;
     }
 
     public String getAddTime() {

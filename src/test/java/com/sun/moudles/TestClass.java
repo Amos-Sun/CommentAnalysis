@@ -1,6 +1,8 @@
 package com.sun.moudles;
 
-import com.sun.moudles.crawl.dao.IVideoDAO;
+import com.sun.moudles.bean.dao.IVideoDAO;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -35,5 +37,18 @@ public class TestClass {
         }else {
             System.out.println(videoDAO.getAllVideo().size());
         }
+    }
+
+    @Test
+    public void aa() {
+        String html = "<html><head><title>First parse</title></head>"
+                + "<body><iframe><html><body>Parsed HTML into a doc.</body></html></iframe></body></html>";
+
+        Document doc = Jsoup.parse(html);
+        String body = doc.select("iframe").first().text();// 得到ifrmae下的html字符串
+        Document ifmDoc = Jsoup.parseBodyFragment(body); // 将html字符串转成Document对象
+// System.out.println(ifmDoc);
+        String ibody = ifmDoc.select("body").text();
+        System.out.println(ibody);
     }
 }

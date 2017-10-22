@@ -1,6 +1,6 @@
-package com.sun.moudles.crawl.dao;
+package com.sun.moudles.bean.dao;
 
-import com.sun.moudles.crawl.domain.UserDO;
+import com.sun.moudles.bean.domain.UserDO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.sun.moudles.crawl.parser;
 
-import com.sun.moudles.crawl.domain.UserDO;
-import com.sun.moudles.crawl.domain.VideoDO;
+import com.sun.moudles.bean.domain.UserDO;
+import com.sun.moudles.bean.domain.VideoDO;
 
 import java.io.IOException;
 import java.util.List;

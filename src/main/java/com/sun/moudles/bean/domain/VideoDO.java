@@ -1,4 +1,4 @@
-package com.sun.moudles.crawl.domain;
+package com.sun.moudles.bean.domain;
 
 /**
  * Created by sunguiyong on 2017/10/15.

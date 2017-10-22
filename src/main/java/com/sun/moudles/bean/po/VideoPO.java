@@ -1,4 +1,4 @@
-package com.sun.moudles.crawl.po;
+package com.sun.moudles.bean.po;
 
 /**
  * Created by sunguiyong on 2017/10/8.

@@ -1,6 +1,8 @@
 package com.sun.moudles.crawl;
 
-import com.sun.moudles.crawl.domain.VideoDO;
+import com.sun.moudles.bean.domain.UserDO;
+import com.sun.moudles.bean.domain.VideoDO;
+import com.sun.moudles.crawl.parser.impl.GetUserDetail;
 import com.sun.moudles.crawl.parser.impl.GetVideoDetail;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
@@ -78,9 +80,10 @@ public class StartCrawl {
         }*/
 
         GetVideoDetail getVideoDetail = new GetVideoDetail();
+        GetUserDetail getUserDetail = new GetUserDetail();
         try {
             List<VideoDO> videoDOList = getVideoDetail.getVideoInfo();
-
+            List<UserDO> userList = getUserDetail.getUserInfo(videoDOList);
         }catch(Exception e){
             e.printStackTrace();
         }

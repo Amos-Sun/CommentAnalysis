@@ -1,22 +1,17 @@
 package com.sun.moudles.crawl.parser.impl;
 
 import com.google.common.base.Joiner;
-import com.sun.moudles.crawl.dao.IVideoDAO;
-import com.sun.moudles.crawl.domain.VideoDO;
+import com.sun.moudles.bean.dao.IVideoDAO;
+import com.sun.moudles.bean.domain.VideoDO;
 import com.sun.moudles.crawl.parser.IGetVideoDetail;
 import com.sun.moudles.util.StrUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,10 +48,10 @@ public class GetVideoDetail implements IGetVideoDetail {
         //存放整理好的video数据
         List<VideoDO> videoDoList = new ArrayList<VideoDO>();
         for (int i = 0; i < willCrwalUrl.size(); i++) {
-            Document doc = Jsoup.connect(willCrwalUrl.get(i)).get();
+            Document doc = Jsoup.connect(willCrwalUrl.get(i)).timeout(5000).get();
 
             //figures_list
-            Document ulDoc = getChileDocument(doc, "figures_list");
+            Document ulDoc = getChildDocument(doc, "figures_list");
             Elements liContainer = ulDoc.select(".list_item");
 
             VideoDO videoDO = new VideoDO();
@@ -109,10 +104,10 @@ public class GetVideoDetail implements IGetVideoDetail {
     private void getTypeAndTime(Document doc, VideoDO videoDO) throws IOException {
 
         //video_tags _video_tags
-        Document infoDoc = getChileDocument(doc, "video_info");
+        Document infoDoc = getChildDocument(doc, "video_info");
 
         //video_tags
-        Document tagsDoc = getChileDocument(infoDoc, "video_tags");
+        Document tagsDoc = getChildDocument(infoDoc, "video_tags");
 
         Elements tagElements = tagsDoc.getElementsByTag("a");
         List<String> tagList = new ArrayList<String>();
@@ -137,10 +132,10 @@ public class GetVideoDetail implements IGetVideoDetail {
     private void getActors(Document doc, VideoDO videoDO) {
 
         //mod_bd
-        Document infoDoc = getChileDocument(doc, "mod_bd");
+        Document infoDoc = getChildDocument(doc, "mod_bd");
 
         //director
-        Document tagsDoc = getChileDocument(infoDoc, "director");
+        Document tagsDoc = getChildDocument(infoDoc, "director");
 
         Elements actors = tagsDoc.getElementsByTag("a");
         List<String> actorsList = new ArrayList<String>();
@@ -161,7 +156,7 @@ public class GetVideoDetail implements IGetVideoDetail {
     private void getDetail(Document doc, VideoDO videoDO) {
 
         //video_summary open
-        Document infoDoc = getChileDocument(doc, "video_summary");
+        Document infoDoc = getChildDocument(doc, "video_summary");
 
         Elements detail = infoDoc.select("p");
         videoDO.setVideoDetail(detail.text().trim());
@@ -174,7 +169,7 @@ public class GetVideoDetail implements IGetVideoDetail {
      * @param tag 大div的子集class 或者 tags
      * @return 根据className 或者 tagsName获取到的子集document
      */
-    private Document getChileDocument(Document doc, String tag) {
+    private Document getChildDocument(Document doc, String tag) {
         Elements info = doc.getElementsByClass(tag);
         return Jsoup.parse(info.toString());
     }

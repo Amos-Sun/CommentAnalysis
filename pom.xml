@@ -24,8 +24,7 @@
         <log4j.version>1.2.17</log4j.version>
         <sl4j.version>1.7.7</sl4j.version>
         <c3p0.version>0.9.1</c3p0.version>
-        <lucene.version>2.2.0</lucene.version>
-        <paoding.version>2.0.4</paoding.version>
+        <lucene.version>4.8.1</lucene.version>
     </properties>
 
 
@@ -189,7 +188,15 @@
             <artifactId>lucene-highlighter</artifactId>
             <version> ${lucene.version}</version>
         </dependency>
-        <!--<dependency>
+
+        <dependency>
+            <groupId>org.wltea.ik-analyzer</groupId>
+            <artifactId>ik-analyzer</artifactId>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/IKAnalyzer2012FF_u1.jar</systemPath>
+        </dependency>
+
+        <dependency>
             <groupId> org.apache.lucene</groupId>
             <artifactId>lucene-analyzers-common</artifactId>
             <version> ${lucene.version}</version>
@@ -198,13 +205,17 @@
             <groupId> org.apache.lucene</groupId>
             <artifactId>lucene-queryparser</artifactId>
             <version> ${lucene.version}</version>
-        </dependency>-->
-       <!-- <dependency>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-analyzers-smartcn</artifactId>
+            <version>${lucene.version}</version>
+        </dependency>
+        <!--<dependency>
             <groupId>net.paoding</groupId>
             <artifactId>paoding-analysis</artifactId>
-            <version>${paoding.version}</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/paoding-analysis-2.0.4.jar</systemPath>
+            <systemPath>${project.basedir}/lib/paoding-analysis.jar</systemPath>
         </dependency>-->
 
     </dependencies>

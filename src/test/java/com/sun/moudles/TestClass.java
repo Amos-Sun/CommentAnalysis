@@ -3,12 +3,14 @@ package com.sun.moudles;
 import com.sun.moudles.bean.dao.IVideoDAO;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 
 /**
  * Created by sunguiyong on 2017/10/13.
@@ -40,13 +42,16 @@ public class TestClass {
     }
 
     @Test
-    public void aa() {
+    public void aa() throws IOException{
         String html = "<html><head><title>First parse</title></head>"
-                + "<body><iframe><html><body>Parsed HTML into a doc.</body></html></iframe></body></html>";
+                + "<body><iframe src=\"http://www.baidu.com\"><html><body><div><p>djalfjasdfjasjfdlk<div id=\"Test\">Parsed HTML into a doc.</div></div></body></html></iframe></body></html>";
 
-        Document doc = Jsoup.parse(html);
+//        Document doc = Jsoup.parse(html);
+        Document doc = Jsoup.connect("https://v.qq.com/x/cover/lqp2m6v1m450l3n.html").timeout(5000).get();
         String body = doc.select("iframe").first().text();// 得到ifrmae下的html字符串
         Document ifmDoc = Jsoup.parseBodyFragment(body); // 将html字符串转成Document对象
+        Elements elements = doc.select("iframe");
+        System.out.println("attr : " + elements.attr("src"));
 // System.out.println(ifmDoc);
         String ibody = ifmDoc.select("body").text();
         System.out.println(ibody);

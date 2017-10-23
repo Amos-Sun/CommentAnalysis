@@ -7,18 +7,43 @@ import net.paoding.analysis.analyzer.PaodingAnalyzer;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.Token;
 import org.apache.lucene.analysis.TokenStream;
+import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
+import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
+import org.apache.lucene.analysis.util.CharArraySet;
+import org.apache.lucene.document.Document;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.util.Version;
 import org.springframework.stereotype.Component;
+import org.wltea.analyzer.core.IKSegmenter;
+import org.wltea.analyzer.core.Lexeme;
+import org.wltea.analyzer.lucene.IKAnalyzer;
 
 /**
  * Created by SunGuiyong on 2017/10/10.
  */
 @Component
 public class Analysis {
-
-    /*public void smartcnPartWords(String handleText) throws IOException {
+    /**
+     * smartcn 分词
+     *
+     * @param handleText
+     * @throws IOException
+     */
+    public String smartcnPartWords(String handleText) throws IOException {
+        StringBuilder sbContent = new StringBuilder();
         // 自定义停用词
         String[] self_stop_words = {"的", "在", "了", "呢", "，", "0", "：", ",", "是"};
-        CharArraySet cas = new CharArraySet(Version.LUCENE_46, 0, true);
+        CharArraySet cas = new CharArraySet(Version.LUCENE_48, 0, true);
         for (int i = 0; i < self_stop_words.length; i++) {
             cas.add(self_stop_words[i]);
         }
@@ -37,58 +62,136 @@ public class Analysis {
 
         ts.reset();
         while (ts.incrementToken()) {
-            System.out.print(ch.toString() + "\\");
+            sbContent.append(ch.toString() + "|");
+            System.out.print(ch.toString() + "|");
         }
+        System.out.println();
         ts.end();
         ts.close();
-    }*/
-
-   /* public static void main(String[] args) {
-// TODOAuto-generated method stub
-        Analyzer analyzer=new PaodingAnalyzer();
-        String docText=null;
-        File file=new File("F:\\selfproject\\CommentAnalysis\\data\\test.txt");
-        docText=readText(file);
-        TokenStream tokenStream=analyzer.tokenStream(docText, new StringReader(docText));
-        try{
-            Token t;
-            //System.out.println(docText);
-            while((t=tokenStream.next())!=null){
-                System.out.println(t);
-            }
-        }catch(IOException e){
-            e.printStackTrace();
-        }
+        return sbContent.toString();
     }
 
-    private static String readText(File file) {
-        // TODOAuto-generated method stub
-        String text=null;
-        try{
-            InputStreamReader read1=new InputStreamReader(new FileInputStream(file),"GBK");
-            BufferedReader br1=new BufferedReader(read1);
-            StringBuffer buff1=new StringBuffer();
-            while((text=br1.readLine())!=null){
-                buff1.append(text+"/r/n");
-            }
-            br1.close();
-            text=buff1.toString();
-        }catch(FileNotFoundException e){
-            System.out.println(e);
-        }catch(IOException e){
-            System.out.println(e);
+    /**
+     * paoding分词
+     *
+     * @param indexStr
+     * @throws IOException
+     */
+    public String paodingAnalysis(String indexStr) throws IOException {
+        StringBuilder sbContent = new StringBuilder();
+        Analyzer analyzer = new PaodingAnalyzer();
+        StringReader reader = new StringReader(indexStr);
+        TokenStream ts = analyzer.tokenStream(indexStr, reader);
+        ts.reset();
+        CharTermAttribute term = ts.getAttribute(CharTermAttribute.class);
+        while (ts.incrementToken()) {
+            sbContent.append(term + "|");
+            System.out.print(term + "|");
         }
-        return text;
-    }*/
+        System.out.println();
+        return sbContent.toString();
 
-   public void paodingAnalysis(String indexStr)throws IOException{
-       Analyzer analyzer = new PaodingAnalyzer();
-       StringReader reader = new StringReader(indexStr);
-       TokenStream ts = analyzer.tokenStream(indexStr, reader);
-       Token t = ts.next();
-       while (t != null) {
-           System.out.print(t.termText()+"  ");
-           t = ts.next();
-       }
-   }
+        /*String dataDir = "data";
+        String indexDir = "luceneindex";
+
+        File[] files = new File(dataDir).listFiles();
+        System.out.println(files.length);
+
+        Analyzer analyzer = new PaodingAnalyzer();
+        Directory dir = FSDirectory.open(new File(indexDir));
+        IndexWriter writer = new IndexWriter(dir, new IndexWriterConfig(Version.LUCENE_48, analyzer));
+
+        for (int i = 0; i < files.length; i++) {
+            StringBuffer strBuffer = new StringBuffer();
+            String line = "";
+            FileInputStream is = new FileInputStream(files[i].getCanonicalPath());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf8"));
+            line = reader.readLine();
+            while (line != null) {
+                strBuffer.append(line);
+                strBuffer.append("\n");
+                line = reader.readLine();
+            }
+
+            Document doc = new Document();
+            doc.add(new Field("fileName", files[i].getName(), Field.Store.YES, Field.Index.ANALYZED));
+            doc.add(new Field("contents", strBuffer.toString(), Field.Store.YES, Field.Index.ANALYZED));
+            writer.addDocument(doc);
+            reader.close();
+            is.close();
+        }
+
+        writer.commit();
+        writer.close();
+        dir.close();
+        System.out.println("ok");*/
+    }
+
+    public void readIndex() throws Exception {
+        String indexDir = "luceneindex";
+        Analyzer analyzer = new PaodingAnalyzer();
+        String search_text = "六小龄童的眼睛和耳朵变成小和尚";
+        StringReader reader = new StringReader(search_text);
+        TokenStream ts = analyzer.tokenStream(search_text, reader);
+        CharTermAttribute ta = ts.getAttribute(CharTermAttribute.class);
+        while (ts.incrementToken()) {
+            System.out.print(ta.toString() + " ");
+        }
+        ts.close();
+
+        Directory dir = FSDirectory.open(new File(indexDir));
+        DirectoryReader dr = DirectoryReader.open(dir);
+        IndexSearcher searcher = new IndexSearcher(dr);
+        QueryParser parser = new QueryParser(Version.LUCENE_48, "contents",
+                analyzer);
+        Query query = parser.parse(search_text);
+        //Term term=new Term("contents", search_text);
+        //TermQuery query=new TermQuery(term);
+        System.out.println("\n" + query.toString());
+
+        TopDocs docs = searcher.search(query, 1000);
+        ScoreDoc[] hits = docs.scoreDocs;
+        System.out.println(hits.length);
+        for (int i = 0; i < hits.length; i++) {
+            Document doc = searcher.doc(hits[i].doc);
+            System.out.print(doc.get("fileName") + "--:\n");
+            System.out.println(doc.get("contents") + "\n");
+        }
+
+        // searcher.close();
+        dir.close();
+    }
+
+
+    /**
+     * IK分词
+     *
+     * @param news
+     * @throws Exception
+     */
+    public String ikAnalyzer(String news) throws Exception {
+
+        StringBuilder sbContent = new StringBuilder();
+        Analyzer analyzer = new IKAnalyzer(false);
+        StringReader reader = new StringReader(news);
+        TokenStream ts = analyzer.tokenStream(news, reader);
+        ts.reset();
+        CharTermAttribute term = ts.getAttribute(CharTermAttribute.class);
+        while (ts.incrementToken()) {
+            System.out.print(term.toString() + "|");
+        }
+        analyzer.close();
+        reader.close();
+
+        System.out.println();
+        StringReader re = new StringReader(news);
+        IKSegmenter ik = new IKSegmenter(re, true);
+        Lexeme lex = null;
+        while ((lex = ik.next()) != null) {
+            sbContent.append(lex.getLexemeText() + "|");
+            System.out.print(lex.getLexemeText() + "|");
+        }
+        System.out.println();
+        return sbContent.toString();
+    }
 }

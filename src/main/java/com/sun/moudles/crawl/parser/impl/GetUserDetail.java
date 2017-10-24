@@ -24,18 +24,33 @@ public class GetUserDetail implements IGetUserInfo {
             Document doc = Jsoup.connect(infoUrl).timeout(5000).get();
             getAllComments(doc);
 
-            System.out.println(infoUrl);
+            System.out.println("video detail url ：" + infoUrl);
             break;
         }
         return null;
     }
 
     private void getAllComments(Document doc) {
-        String iframeText = doc.select("iframe#commentIframe").first().text();
+        Document leftContent = Jsoup.parse(doc.select("div#leftdown_content").toString());
+        Elements elements = leftContent.select(".mod_row_box");
+
+        for (Element item : elements) {
+            if(item.text().contains("乐高幻影忍者大电影的影评")){
+                System.out.println(item.toString());
+                System.out.println(item.getElementById("iframe#commentIframe").toString());
+            }
+
+            if (0 != item.select("iframe").size()) {
+                System.out.println("iframe");
+                System.out.print(item.select("iframe").attr("src"));
+            }
+        }
+
+       /* String iframeText = doc.select("iframe#commentIframe").first().text();
         Document ifmDoc = Jsoup.parseBodyFragment(iframeText); // 将html字符串转成Document对象
         String ibody = ifmDoc.select("body").text();
         System.out.println(ibody);
         //post-list np-comment-list
-        System.out.println("comments list :");
+        System.out.println("comments list :");*/
     }
 }

@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="146db944-887a-41de-bc02-8c9050af53bf" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/sun/moudles/bean/dao/IUserDAO.java" afterPath="$PROJECT_DIR$/src/main/java/com/sun/moudles/bean/dao/IUserDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/sun/moudles/bean/dao/IVideoDAO.java" afterPath="$PROJECT_DIR$/src/main/java/com/sun/moudles/bean/dao/IVideoDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/sun/moudles/bean/po/UserPO.java" afterPath="$PROJECT_DIR$/src/main/java/com/sun/moudles/bean/po/UserPO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/sun/moudles/bean/po/VideoPO.java" afterPath="$PROJECT_DIR$/src/main/java/com/sun/moudles/bean/po/VideoPO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/sun/moudles/crawl/parser/IGetVideoDetail.java" afterPath="$PROJECT_DIR$/src/main/java/com/sun/moudles/crawl/parser/IGetVideoDetail.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/sun/moudles/crawl/parser/impl/GetVideoDetail.java" afterPath="$PROJECT_DIR$/src/main/java/com/sun/moudles/crawl/parser/impl/GetVideoDetail.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/com/sun/moudles/mapper/userMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/com/sun/moudles/mapper/userMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/com/sun/moudles/mapper/videoMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/com/sun/moudles/mapper/videoMapper.xml" />
-    </list>
+    <list default="true" id="146db944-887a-41de-bc02-8c9050af53bf" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,8 +17,8 @@
       <file leaf-file-name="GetVideoDetail.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/sun/moudles/crawl/parser/impl/GetVideoDetail.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="32">
-              <caret line="80" column="26" lean-forward="false" selection-start-line="80" selection-start-column="15" selection-end-line="80" selection-end-column="26" />
+            <state relative-caret-position="132">
+              <caret line="84" column="18" lean-forward="true" selection-start-line="84" selection-start-column="18" selection-end-line="84" selection-end-column="18" />
               <folding>
                 <element signature="e#1505#1514#0" expanded="true" />
               </folding>
@@ -676,6 +666,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../sentiment-api-example-java" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -1249,7 +1240,7 @@
       <workItem from="1508471893106" duration="6034000" />
       <workItem from="1508662977934" duration="6958000" />
       <workItem from="1508847402504" duration="1228000" />
-      <workItem from="1508935116767" duration="3262000" />
+      <workItem from="1508935116767" duration="3762000" />
     </task>
     <servers />
   </component>
@@ -1286,7 +1277,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104076000" />
+    <option name="totallyTimeSpent" value="104576000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -1312,7 +1303,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39836067" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2602118" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32786885" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1662,8 +1653,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/sun/moudles/crawl/parser/impl/GetVideoDetail.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="32">
-          <caret line="80" column="26" lean-forward="false" selection-start-line="80" selection-start-column="15" selection-end-line="80" selection-end-column="26" />
+        <state relative-caret-position="132">
+          <caret line="84" column="18" lean-forward="true" selection-start-line="84" selection-start-column="18" selection-end-line="84" selection-end-column="18" />
           <folding>
             <element signature="e#1505#1514#0" expanded="true" />
           </folding>

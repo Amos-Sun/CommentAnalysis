@@ -6,13 +6,15 @@ package com.sun.moudles.bean.po;
 public class VideoPO {
 
     private Integer id;
-    private String vName;
-    private String vPicture;
-    private String vTime;
-    private String vActors;
-    private String vType;
-    private String vGoodPercent;
-    private String vBadPercent;
+    private String videoName;
+    private String videoPicturePath;
+    private String videoTime;
+    private String videoActors;
+    private String videoType;
+    private String videoUrl;
+    private String videoDetail;
+    private String videoGoodPercent;
+    private String videoBadPercent;
     private String addTime;
     private String motificationTime;
 
@@ -24,60 +26,68 @@ public class VideoPO {
         this.id = id;
     }
 
-    public String getvName() {
-        return vName;
+    public String getVideoName() {
+        return videoName;
     }
 
-    public void setvName(String vName) {
-        this.vName = vName;
+    public void setVideoName(String videoName) {
+        this.videoName = videoName;
     }
 
-    public String getvPicture() {
-        return vPicture;
+    public String getVideoPicturePath() {
+        return videoPicturePath;
     }
 
-    public void setvPicture(String vPicture) {
-        this.vPicture = vPicture;
+    public void setVideoPicturePath(String videoPicturePath) {
+        this.videoPicturePath = videoPicturePath;
     }
 
-    public String getvTime() {
-        return vTime;
+    public String getVideoTime() {
+        return videoTime;
     }
 
-    public void setvTime(String vTime) {
-        this.vTime = vTime;
+    public void setVideoTime(String videoTime) {
+        this.videoTime = videoTime;
     }
 
-    public String getvActors() {
-        return vActors;
+    public String getVideoActors() {
+        return videoActors;
     }
 
-    public void setvActors(String vActors) {
-        this.vActors = vActors;
+    public void setVideoActors(String videoActors) {
+        this.videoActors = videoActors;
     }
 
-    public String getvType() {
-        return vType;
+    public String getVideoType() {
+        return videoType;
     }
 
-    public void setvType(String vType) {
-        this.vType = vType;
+    public void setVideoType(String videoType) {
+        this.videoType = videoType;
     }
 
-    public String getvGoodPercent() {
-        return vGoodPercent;
+    public String getVideoDetail() {
+        return videoDetail;
     }
 
-    public void setvGoodPercent(String vGoodPercent) {
-        this.vGoodPercent = vGoodPercent;
+    public void setVideoDetail(String videoDetail) {
+        this.videoDetail = videoDetail;
     }
 
-    public String getvBadPercent() {
-        return vBadPercent;
+    public String getVideoGoodPercent() {
+        return videoGoodPercent;
     }
 
-    public void setvBadPercent(String vBadPercent) {
-        this.vBadPercent = vBadPercent;
+    public void setVideoGoodPercent(String videoGoodPercent) {
+        this.videoGoodPercent = videoGoodPercent;
+    }
+
+    public String getVideoBadPercent() {
+        return videoBadPercent;
+    }
+
+    public void setVideoBadPercent(String videoBadPercent) {
+        this.videoBadPercent = videoBadPercent;
     }
 
     public String getAddTime() {
@@ -94,5 +104,13 @@ public class VideoPO {
 
     public void setMotificationTime(String motificationTime) {
         this.motificationTime = motificationTime;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 }

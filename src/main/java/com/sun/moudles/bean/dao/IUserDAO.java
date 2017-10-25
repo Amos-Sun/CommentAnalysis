@@ -1,6 +1,7 @@
 package com.sun.moudles.bean.dao;
 
 import com.sun.moudles.bean.domain.UserDO;
+import com.sun.moudles.bean.po.UserPO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,5 +12,5 @@ import java.util.List;
 @Repository
 public interface IUserDAO {
 
-    void insertUserInfo(List<UserDO> list);
+    void insertUserInfo(List<UserPO> list);
 }

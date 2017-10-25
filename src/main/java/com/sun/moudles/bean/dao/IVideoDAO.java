@@ -16,5 +16,5 @@ public interface IVideoDAO {
     @Select("select * from video")
     List<VideoPO> getAllVideo();
 
-    void insertVideoInfo(List<VideoDO> list);
+    void insertVideoInfo(List<VideoPO> list);
 }

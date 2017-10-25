@@ -5,11 +5,20 @@ package com.sun.moudles.bean.po;
  */
 public class UserPO {
 
+    private Integer id;
     private String userName;
     private String userSex;
     private Integer userAge;
     private String addTime;
     private String motificationTime;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getUserName() {
         return userName;

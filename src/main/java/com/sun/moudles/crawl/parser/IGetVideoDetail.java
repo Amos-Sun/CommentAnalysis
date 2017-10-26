@@ -1,7 +1,6 @@
 package com.sun.moudles.crawl.parser;
 
 import com.sun.moudles.bean.domain.VideoDO;
-import com.sun.moudles.bean.po.VideoPO;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,5 +10,5 @@ import java.util.List;
  */
 public interface IGetVideoDetail {
 
-    List<VideoPO> getVideoInfo() throws IOException;
+    List<VideoDO> getVideoInfo() throws IOException;
 }

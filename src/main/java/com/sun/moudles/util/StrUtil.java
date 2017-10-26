@@ -8,9 +8,15 @@ import java.util.regex.Pattern;
  */
 public class StrUtil {
 
+    private StrUtil() {
+        throw new Error("can't get this class's instance");
+    }
+
     private static Pattern NUMBER_PATTERN = Pattern.compile("[0-9]*");
+
     /**
      * 判断一个字符串是否是数字
+     *
      * @param str
      * @return
      */

@@ -14,6 +14,11 @@ import java.text.SimpleDateFormat;
  * Created by sunguiyong on 2017/10/14.
  */
 public class JsonUtil {
+
+    private JsonUtil() {
+        throw new Error("can't get this class's instance");
+    }
+
     public static final String DATEFORMAT_ISO8601 = "yyyy-MM-dd HH:mm:ss";
     public static final String DATEFORMAT_UTC = "yyyy-MM-dd'T'HH:mm:ss'+08:00'";
     static final ObjectMapper mapper = new ObjectMapper();
@@ -30,8 +35,12 @@ public class JsonUtil {
     }
 
     public static String toJson(Object obj) {
-        if (obj == null) return null;
-        if (obj.getClass() == String.class) return obj.toString();
+        if (obj == null) {
+            return null;
+        }
+        if (obj.getClass() == String.class) {
+            return obj.toString();
+        }
         String json;
         try {
             json = mapper.writeValueAsString(obj);
@@ -43,8 +52,12 @@ public class JsonUtil {
 
 
     public static <T> T fromJson(String content, Class<T> classType) {
-        if (!jsonCheck(content)) return null;
-        if (classType == String.class) return (T) content;
+        if (!jsonCheck(content)) {
+            return null;
+        }
+        if (classType == String.class) {
+            return (T) content;
+        }
         try {
             return mapper.readValue(content, classType);
         } catch (IOException e) {
@@ -53,16 +66,20 @@ public class JsonUtil {
     }
 
     public static <T> T fromJson(String content, TypeReference<T> valueTypeRef) {
-        if (!jsonCheck(content)) return null;
+        if (!jsonCheck(content)) {
+            return null;
+        }
         try {
             return (T) mapper.readValue(content, valueTypeRef);
         } catch (IOException e) {
-            throw new RuntimeException(String.format("json:%s\nmsg:%s", content, e.getMessage()),e);
+            throw new RuntimeException(String.format("json:%s\nmsg:%s", content, e.getMessage()), e);
         }
     }
 
     static boolean jsonCheck(String content) {
-        if (content == null || content.equals("")) return false;
+        if (content == null || content.equals("")) {
+            return false;
+        }
 //        if (!(content.startsWith("{") && content.endsWith("}"))) {
 //            throw new RuntimeException(String.format("json数据格式错误，无法完成反序列化:\n%s", content));
 //        }

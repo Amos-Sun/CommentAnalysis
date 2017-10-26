@@ -14,6 +14,12 @@ import java.io.IOException;
 public class FileHandler {
 
     /**
+     * 不进行实例化
+     */
+    private FileHandler(){
+        throw new Error("can't get this class's instance");
+    }
+    /**
      * 写入文件
      *
      * @param content  要写入的文件内容

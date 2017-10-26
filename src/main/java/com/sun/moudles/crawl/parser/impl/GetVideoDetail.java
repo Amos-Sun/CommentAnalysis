@@ -2,7 +2,7 @@ package com.sun.moudles.crawl.parser.impl;
 
 import com.google.common.base.Joiner;
 import com.sun.moudles.bean.dao.IVideoDAO;
-import com.sun.moudles.bean.domain.VideoDO;
+import com.sun.moudles.bean.po.VideoPO;
 import com.sun.moudles.crawl.parser.IGetVideoDetail;
 import com.sun.moudles.util.StrUtil;
 import org.jsoup.Jsoup;
@@ -39,14 +39,14 @@ public class GetVideoDetail implements IGetVideoDetail {
 
     private List<String> willCrwalUrl = new ArrayList<String>();
 
-    public List<VideoDO> getVideoInfo() throws IOException {
+    public List<VideoPO> getVideoInfo() throws IOException {
         AbstractApplicationContext ctx
                 = new ClassPathXmlApplicationContext(new String[]{"spring-mybatis.xml"});
         IVideoDAO videoDAO = (IVideoDAO) ctx.getBean("videoDAO");
         initCrawlList();
 
         //存放整理好的video数据
-        List<VideoDO> videoDoList = new ArrayList<VideoDO>();
+        List<VideoPO> videoPOList = new ArrayList<VideoPO>();
         for (int i = 0; i < willCrwalUrl.size(); i++) {
             Document doc = Jsoup.connect(willCrwalUrl.get(i)).timeout(5000).get();
 
@@ -54,31 +54,31 @@ public class GetVideoDetail implements IGetVideoDetail {
             Document ulDoc = getChildDocument(doc, "figures_list");
             Elements liContainer = ulDoc.select(".list_item");
 
-            VideoDO videoDO = new VideoDO();
+            VideoPO videoPO = new VideoPO();
             for (Element liItem : liContainer) {
                 Document liDoc = Jsoup.parse(liItem.toString());
                 Elements title = liDoc.select("strong a");
 
-                videoDO.setVideoUrl(title.attr("href"));
-                videoDO.setVideoName(title.text());
+                videoPO.setVideoUrl(title.attr("href"));
+                videoPO.setVideoName(title.text());
 
                 title = liDoc.select("a img");
                 //图片地址 r-lazyload
-                videoDO.setVideoPicturePath(title.attr("r-lazyload"));
+                videoPO.setVideoPicturePath(title.attr("r-lazyload"));
 
-                Document detailDoc = Jsoup.connect(videoDO.getVideoUrl()).get();
+                Document detailDoc = Jsoup.connect(videoPO.getVideoUrl()).get();
 
-                getTypeAndTime(detailDoc, videoDO);
-                getActors(detailDoc, videoDO);
-                getDetail(detailDoc, videoDO);
-                videoDoList.add(videoDO);
+                getTypeAndTime(detailDoc, videoPO);
+                getActors(detailDoc, videoPO);
+                getDetail(detailDoc, videoPO);
+                videoPOList.add(videoPO);
                 break;
             }
-            System.out.println(videoDoList.size());
+            System.out.println(videoPOList.size());
             break;
         }
         //videoDAO.insertVideoInfo(videoDoList);
-        return videoDoList;
+        return videoPOList;
     }
 
     /**
@@ -98,10 +98,10 @@ public class GetVideoDetail implements IGetVideoDetail {
      * 获取电影的详细信息
      * type and time
      *
-     * @param videoDO
+     * @param videoPO
      * @param doc     connect utl get document
      */
-    private void getTypeAndTime(Document doc, VideoDO videoDO) throws IOException {
+    private void getTypeAndTime(Document doc, VideoPO videoPO) throws IOException {
 
         //video_tags _video_tags
         Document infoDoc = getChildDocument(doc, "video_info");
@@ -115,21 +115,21 @@ public class GetVideoDetail implements IGetVideoDetail {
         for (Element item : tagElements) {
             str = item.text().trim();
             if (StrUtil.judgeIsNum(str)) {
-                videoDO.setVideoTime(str);
+                videoPO.setVideoTime(str);
             } else {
                 tagList.add(item.text().trim());
             }
         }
-        videoDO.setVideoType(Joiner.on(",").skipNulls().join(tagList));
+        videoPO.setVideoType(Joiner.on(",").skipNulls().join(tagList));
     }
 
     /**
      * 获取演员列表
      *
      * @param doc
-     * @param videoDO
+     * @param videoPO
      */
-    private void getActors(Document doc, VideoDO videoDO) {
+    private void getActors(Document doc, VideoPO videoPO) {
 
         //mod_bd
         Document infoDoc = getChildDocument(doc, "mod_bd");
@@ -144,22 +144,22 @@ public class GetVideoDetail implements IGetVideoDetail {
             actor = item.text().trim();
             actorsList.add(actor);
         }
-        videoDO.setVideoActors(Joiner.on(",").skipNulls().join(actorsList));
+        videoPO.setVideoActors(Joiner.on(",").skipNulls().join(actorsList));
     }
 
     /**
      * 获取演员列表
      *
      * @param doc
-     * @param videoDO
+     * @param videoPO
      */
-    private void getDetail(Document doc, VideoDO videoDO) {
+    private void getDetail(Document doc, VideoPO videoPO) {
 
         //video_summary open
         Document infoDoc = getChildDocument(doc, "video_summary");
 
         Elements detail = infoDoc.select("p");
-        videoDO.setVideoDetail(detail.text().trim());
+        videoPO.setVideoDetail(detail.text().trim());
     }
 
     /**

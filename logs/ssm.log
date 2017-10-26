@@ -853,4 +853,20 @@ Caused by: java.lang.IllegalStateException: Cannot convert value of type [org.ap
   [INFO] [2017-10-23 21:17:12][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@43814d18: startup date [Mon Oct 23 21:17:12 CST 2017]; root of context hierarchy
   [INFO] [2017-10-23 21:17:12][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
   [INFO] [2017-10-23 21:17:13][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2017-10-26 17:05:32][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1f70c54: startup date [Thu Oct 26 17:05:32 CST 2017]; root of context hierarchy
+  [INFO] [2017-10-26 17:05:32][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2017-10-26 17:05:33][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2017-10-26 17:05:34][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2017-10-26 17:05:34][org.springframework.context.support.GenericApplicationContext]Refreshing org.springframework.context.support.GenericApplicationContext@975c28: startup date [Thu Oct 26 17:05:34 CST 2017]; root of context hierarchy
+  [INFO] [2017-10-26 17:05:34][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2017-10-26 17:05:34][net.paoding.analysis.knife.PaodingMaker]config paoding analysis from: F:\selfproject\CommentAnalysis\target\classes\paoding-analysis.properties;F:\selfproject\CommentAnalysis\target\classes\paoding-analysis-default.properties;F:\selfproject\CommentAnalysis\target\classes\paoding-analyzer.properties;F:\selfproject\CommentAnalysis\target\classes\paoding-dic-home.properties;F:\selfproject\CommentAnalysis\dic\paoding-dic-names.properties;F:\selfproject\CommentAnalysis\target\classes\paoding-knives.properties;F:\selfproject\CommentAnalysis\target\classes\paoding-knives-user.properties
+  [INFO] [2017-10-26 17:05:34][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.CJKKnife
+  [INFO] [2017-10-26 17:05:34][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.LetterKnife
+  [INFO] [2017-10-26 17:05:34][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.NumberKnife
+  [INFO] [2017-10-26 17:05:34][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.CJKKnife
+  [INFO] [2017-10-26 17:05:34][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.LetterKnife
+  [INFO] [2017-10-26 17:05:34][net.paoding.analysis.knife.PaodingMaker]add knike: net.paoding.analysis.knife.NumberKnife
+  [INFO] [2017-10-26 17:05:34][net.paoding.analysis.knife.FileDictionaries]loading dictionaries from F:\selfproject\CommentAnalysis\dic
+  [INFO] [2017-10-26 17:05:35][net.paoding.analysis.knife.FileDictionaries]loaded success!
+  [INFO] [2017-10-26 17:05:38][org.springframework.context.support.GenericApplicationContext]Closing org.springframework.context.support.GenericApplicationContext@975c28: startup date [Thu Oct 26 17:05:34 CST 2017]; root of context hierarchy
   

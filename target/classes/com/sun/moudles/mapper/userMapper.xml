@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.sun.moudles.bean.dao.IUserDAO">
+<mapper namespace="com.sun.moudles.bean.domain.UserDO">
 
     <insert id="insertUserInfo" parameterType="list">
         INSERT into video(u_name,u_age,u_sex,add_time,motification_time)

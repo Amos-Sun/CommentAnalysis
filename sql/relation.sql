@@ -12,5 +12,10 @@ alter table `relation` add column  `u_comment` text(2000) DEFAULT NULL COMMENT '
 alter table `relation` add column `add_time` VARCHAR (16) not null;
 alter table `relation` add column `modification_time` TIMESTAMP default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ;
 
-alter table `relation` add column `good_percent` varchar(5) DEFAULT '0' COMMENT '好评百分比';
-alter table `relation` add column `bad_percent` varchar(5) DEFAULT '0' COMMENT '差评百分比';
+-- alter table `relation` add column `good_percent` varchar(5) DEFAULT '0' COMMENT '好评百分比';
+-- alter table `relation` add column `bad_percent` varchar(5) DEFAULT '0' COMMENT '差评百分比';
+alter table `relation` drop column `good_percent`;
+alter table `relation` drop column `bad_percent`;
+alter table `relation` drop column `evaluattion`;
+
+alter table `relation` add column `evaluation` tinyint DEFAULT '0' COMMENT '评价类别 -1 负面评价 0 中性 1 正面评价';

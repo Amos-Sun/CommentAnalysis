@@ -22,3 +22,6 @@ alter table `video` add column `v_url` varchar(128) not null COMMENT '电影的u
 
 # 增加电影简介
  alter table `video` add column `v_detail` varchar(1024) default null COMMENT '电影简介';
+
+# 增加当前最新一条评论的时间
+alter table `video` add column `last_evaluate_time` VARCHAR (10) default null COMMENT '最后一条评论的时间';

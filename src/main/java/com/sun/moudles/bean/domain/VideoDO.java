@@ -12,6 +12,8 @@ public class VideoDO {
     private String videoType;
     private String videoDetail;
     private String videoTime;
+    private String lastEvaluateTime;
+
     public String getVideoUrl() {
         return videoUrl;
     }
@@ -66,5 +68,13 @@ public class VideoDO {
 
     public void setVideoTime(String videoTime) {
         this.videoTime = videoTime;
+    }
+
+    public String getLastEvaluateTime() {
+        return lastEvaluateTime;
+    }
+
+    public void setLastEvaluateTime(String lastEvaluateTime) {
+        this.lastEvaluateTime = lastEvaluateTime;
     }
 }

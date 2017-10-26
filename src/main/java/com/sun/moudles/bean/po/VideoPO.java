@@ -15,6 +15,7 @@ public class VideoPO {
     private String videoDetail;
     private String videoGoodPercent;
     private String videoBadPercent;
+    private String lastEvaluateTime;
     private String addTime;
     private String motificationTime;
 
@@ -112,5 +113,13 @@ public class VideoPO {
 
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
+    }
+
+    public String getLastEvaluateTime() {
+        return lastEvaluateTime;
+    }
+
+    public void setLastEvaluateTime(String lastEvaluateTime) {
+        this.lastEvaluateTime = lastEvaluateTime;
     }
 }

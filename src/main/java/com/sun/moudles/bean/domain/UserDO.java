@@ -8,7 +8,6 @@ public class UserDO {
     private String userName;
     private Integer userAge;
     private String userSex;
-    private String addTime;
     private String motificationTime;
 
     public String getUserName() {
@@ -33,14 +32,6 @@ public class UserDO {
 
     public void setUserSex(String userSex) {
         this.userSex = userSex;
-    }
-
-    public String getAddTime() {
-        return addTime;
-    }
-
-    public void setAddTime(String addTime) {
-        this.addTime = addTime;
     }
 
     public String getMotificationTime() {

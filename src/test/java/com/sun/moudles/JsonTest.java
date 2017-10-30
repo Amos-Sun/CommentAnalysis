@@ -3,6 +3,7 @@ package com.sun.moudles;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.moudles.bean.json.DataDetail;
 import com.sun.moudles.util.JsonUtil;
+import com.sun.moudles.util.StrUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -18,7 +19,14 @@ public class JsonTest {
 
     @Test
     public void jsonTest(){
+        boolean flag = StrUtil.hasSpecifyString(jsonData, "abstract");
+        System.out.println(flag);
+        if(flag){
+            StrUtil.replaceString(jsonData, "abstract", "abstract__");
+        }
+
         DataDetail dataDetail = JsonUtil.fromJson(jsonData, DataDetail.class);
         System.out.println(dataDetail.getErrCode());
+        System.out.println(dataDetail.getData().getCommentid().get(0).getContent());
     }
 }

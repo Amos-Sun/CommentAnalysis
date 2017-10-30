@@ -1,5 +1,7 @@
 package com.sun.moudles.bean.json;
 
+import java.util.List;
+
 /**
  * Created by sunguiyong on 2017/10/26.
  */
@@ -31,7 +33,7 @@ public class CommentDetail {
     private String richtype;
     private String userid;
     private String poke;
-    private String abstract_;
+    private String abstract__;
     private String thirdid;
     private Integer ispick;
     private Integer ishide;
@@ -100,10 +102,10 @@ public class CommentDetail {
         private String certinfo;
         private String remark;
         private String fnd;
-        private WBUserInfo wbuserinfo;
+        private List<WBUserInfo> wbuserinfo;
 
         public static class WBUserInfo{
-
+            public WBUserInfo(){}
         }
 
         public String getUserid() {
@@ -234,11 +236,11 @@ public class CommentDetail {
             this.fnd = fnd;
         }
 
-        public WBUserInfo getWbuserinfo() {
+        public List<WBUserInfo> getWbuserinfo() {
             return wbuserinfo;
         }
 
-        public void setWbuserinfo(WBUserInfo wbuserinfo) {
+        public void setWbuserinfo(List<WBUserInfo> wbuserinfo) {
             this.wbuserinfo = wbuserinfo;
         }
     }
@@ -539,11 +541,11 @@ public class CommentDetail {
         this.userinfo = userinfo;
     }
 
-    public String getAbstract_() {
-        return abstract_;
+    public String getAbstract__() {
+        return abstract__;
     }
 
-    public void setAbstract_(String abstract_) {
-        this.abstract_ = abstract_;
+    public void setAbstract__(String abstract__) {
+        this.abstract__ = abstract__;
     }
 }

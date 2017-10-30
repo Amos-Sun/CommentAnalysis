@@ -1,5 +1,7 @@
 package com.sun.moudles.bean.json;
 
+import java.util.List;
+
 /**
  * Created by sunguiyong on 2017/10/26.
  */
@@ -18,8 +20,8 @@ public class DataDetail {
         private String first; //一次返回评论数据中 第一个评论的id
         private String last; //一次返回评论数据中 最后一个评论的id
         private boolean hasnext; //是否还有下一条评论
-        private CommentDetail commentid; //评论详细信息
         private CommentTargetInfo targetinfo;
+        private List<CommentDetail> commentid; //评论详细信息
 
         public String getTargetid() {
             return targetid;
@@ -93,11 +95,11 @@ public class DataDetail {
             this.hasnext = hasnext;
         }
 
-        public CommentDetail getCommentid() {
+        public List<CommentDetail> getCommentid() {
             return commentid;
         }
 
-        public void setCommentid(CommentDetail commentid) {
+        public void setCommentid(List<CommentDetail> commentid) {
             this.commentid = commentid;
         }
 

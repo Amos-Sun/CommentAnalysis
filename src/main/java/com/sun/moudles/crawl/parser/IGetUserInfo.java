@@ -11,5 +11,12 @@ import java.util.List;
  */
 public interface IGetUserInfo {
 
+    /**
+     * 获取用户信息
+     *
+     * @param videoDOList
+     * @return
+     * @throws IOException
+     */
     List<UserDO> getUserInfo(List<VideoDO> videoDOList) throws IOException;
 }

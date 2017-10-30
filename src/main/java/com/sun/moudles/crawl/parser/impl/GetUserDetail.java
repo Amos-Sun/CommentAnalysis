@@ -35,7 +35,7 @@ public class GetUserDetail implements IGetUserInfo {
         Elements elements = leftContent.select(".mod_row_box");
 
         for (Element item : elements) {
-            if(item.text().contains("乐高幻影忍者大电影的影评")){
+            if (item.text().contains("乐高幻影忍者大电影的影评")) {
                 System.out.println(item.toString());
                 System.out.println(item.getElementById("iframe#commentIframe").toString());
             }

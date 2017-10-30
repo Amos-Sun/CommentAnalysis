@@ -10,5 +10,11 @@ import java.util.List;
  */
 public interface IGetVideoDetail {
 
+    /**
+     * 获取电影信息
+     *
+     * @return
+     * @throws IOException
+     */
     List<VideoDO> getVideoInfo() throws IOException;
 }

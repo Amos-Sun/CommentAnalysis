@@ -32,7 +32,7 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
  * Created by SunGuiyong on 2017/10/10.
  */
 @Component
-public class Analysis {
+public class WordSegmentation {
     /**
      * smartcn 分词
      *
@@ -170,9 +170,8 @@ public class Analysis {
      * @throws Exception
      */
     public String ikAnalyzer(String news) throws Exception {
-
         StringBuilder sbContent = new StringBuilder();
-        Analyzer analyzer = new IKAnalyzer(false);
+      /* Analyzer analyzer = new IKAnalyzer(false);//不用只能分词
         StringReader reader = new StringReader(news);
         TokenStream ts = analyzer.tokenStream(news, reader);
         ts.reset();
@@ -182,7 +181,7 @@ public class Analysis {
         }
         analyzer.close();
         reader.close();
-
+*/
         System.out.println();
         StringReader re = new StringReader(news);
         IKSegmenter ik = new IKSegmenter(re, true);

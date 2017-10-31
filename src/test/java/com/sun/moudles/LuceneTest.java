@@ -1,16 +1,14 @@
 package com.sun.moudles;
 
-import com.sun.moudles.analysis.Analysis;
-import com.sun.moudles.util.FileHandler;
+import com.sun.moudles.analysis.WordSegmentation;
+import com.sun.moudles.util.FileUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.annotation.Resource;
 import java.io.IOException;
 
 /**
@@ -22,12 +20,12 @@ public class LuceneTest {
 
     /*@Resource
     private Analysis analysis;*/
-    private static Analysis analysis;
+    private static WordSegmentation wordSegmentation;
 
     static {
         AbstractApplicationContext ctx
                 = new ClassPathXmlApplicationContext(new String[]{"spring-mybatis.xml"});
-        analysis = (Analysis) ctx.getBean("analysis");
+        wordSegmentation = (WordSegmentation) ctx.getBean("wordSegmentation");
     }
 
 
@@ -82,11 +80,14 @@ public class LuceneTest {
     private String vaText = "看着特别心疼，让我哭了好久，从小都很喜欢狗狗，可是现在越来越大了，" +
             "在外面打拼根本养不了狗狗，但是就是特别特别想养，无奈真的没有办法";
 
+    private String commentText = "大陆的导演你们看看。这特么才叫电影，郑华健";
+    private String adjText = "高兴的，快乐的";
+
     @Test
     public void smartcnTest() {
 
         try {
-            analysis.smartcnPartWords(vaText);
+            wordSegmentation.smartcnPartWords(commentText);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -95,8 +96,8 @@ public class LuceneTest {
     @Test
     public void ikTest() {
         try {
-            System.out.println(vaText);
-            analysis.ikAnalyzer(vaText);
+            System.out.println(adjText);
+            wordSegmentation.ikAnalyzer(adjText);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -105,8 +106,8 @@ public class LuceneTest {
     @Test
     public void paodingTest() {
         try {
-            analysis.paodingAnalysis(vaText);
-            analysis.readIndex();
+            wordSegmentation.paodingAnalysis(adjText);
+            wordSegmentation.readIndex();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -117,17 +118,17 @@ public class LuceneTest {
         try {
             StringBuilder text = new StringBuilder("===========smartcn============\r\n");
             System.out.println("===========smartcn============");
-            text.append(analysis.smartcnPartWords(vaText)+"\r\n");
+            text.append(wordSegmentation.smartcnPartWords(vaText)+"\r\n");
 
             System.out.println("===========paoding============");
             text.append("===========paoding============\r\n");
-            text.append(analysis.paodingAnalysis(vaText)+"\r\n");
+            text.append(wordSegmentation.paodingAnalysis(vaText)+"\r\n");
 
             text.append("===========ikAnalyzer============\r\n");
             System.out.println("===========ikAnalyzer============\r\n");
-            text.append(analysis.ikAnalyzer(vaText)+"\r\n");
+            text.append(wordSegmentation.ikAnalyzer(vaText)+"\r\n");
 
-            FileHandler.writeFile(text.toString(), "data//result.txt");
+            FileUtil.writeFile(text.toString(), "data//result.txt");
         }catch(Exception e){
             e.printStackTrace();
         }

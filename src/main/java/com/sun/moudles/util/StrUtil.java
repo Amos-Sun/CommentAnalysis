@@ -16,6 +16,22 @@ public class StrUtil {
 
     private static Pattern CONSTANT_ABSTRACT_PATTERN = Pattern.compile("abstract");
 
+    private static Pattern EMOTION_PATTERN = Pattern.compile("[\ud83c\udc00-\ud83c\udfff]|[\ud83d\udc00-\ud83d\udfff]|[\u2600-\u27ff]");
+
+    /**
+     * 判断字符串中是否包含表情符号
+     *
+     * @param str
+     * @return
+     */
+    public static boolean hasEmotion(String str) {
+        Matcher hasEmotion = EMOTION_PATTERN.matcher(str);
+        if (hasEmotion.matches()) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * 判断一个字符串是否是数字
      *
@@ -32,7 +48,8 @@ public class StrUtil {
 
     /**
      * 判断数据中是否有指定的字符串
-     * @param data 数据
+     *
+     * @param data       数据
      * @param specifyStr 指定字符串
      * @return
      */

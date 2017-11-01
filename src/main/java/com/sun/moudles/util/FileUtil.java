@@ -40,13 +40,18 @@ public class FileUtil {
     /**
      * 读取文件内容,按行读
      *
-     * @param fileName 文件名
+     * @param filePath 文件名
      * @return
      * @throws IOException
      */
-    public static String readFileByLine(String fileName) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(fileName));
-        return br.readLine();
+    public static String readFileAllContents(String filePath) throws IOException {
+        StringBuffer sb = new StringBuffer();
+        BufferedReader br = new BufferedReader(new FileReader(filePath));
+        String s = null;
+        while ((s = br.readLine()) != null) {
+            sb.append(" " + s);
+        }
+        return sb.toString();
     }
 
     /**

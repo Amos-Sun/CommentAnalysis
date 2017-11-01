@@ -21,32 +21,44 @@ public class FileTest {
         WordSegmentation wordSegmentation = new WordSegmentation();
         String fileText;
         String segResult;
+        int numbers = 0;
         for (File item : files) {
-            fileText = FileUtil.readFileByLine(item.getPath());
+            if (numbers == 26) {
+                break;
+            }
+            fileText = FileUtil.readFileAllContents(item.getPath());
             segResult = wordSegmentation.ikAnalyzer(fileText);
             String[] words = segResult.split("\\|");
             for (String word : words) {
-                if (StopWords.STOP_WORD.contains(word)) {
-                    continue;
-                }
                 FileUtil.writeFile(word, newFileName);
             }
+            numbers++;
         }
     }
 
     @Test
-    public void setClassWords() throws Exception{
+    public void setClassWords() throws Exception {
         writeClassWords("./data/positive", "./data/positiveResult.txt");
         writeClassWords("./data/negative", "./data/negativeResult.txt");
         writeClassWords("./data/neuter", "./data/neuterResult.txt");
     }
 
     @Test
-    public void readResultText(){
+    public void readResultText() {
         try {
-            String res = FileUtil.readFileByLine("./data/positiveResult.txt");
+            String res = FileUtil.readFileAllContents("./data/positiveResult.txt");
             System.out.println(res);
-        }catch(Exception e){
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void readText() {
+        try {
+            String res = FileUtil.readFileAllContents("./data/positive/1.txt");
+            System.out.println(res);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

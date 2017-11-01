@@ -3,6 +3,7 @@ package com.sun.moudles.analysis;
 import java.io.*;
 import java.util.Iterator;
 
+import com.sun.moudles.constants.StopWords;
 import net.paoding.analysis.analyzer.PaodingAnalyzer;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.Token;
@@ -181,16 +182,16 @@ public class WordSegmentation {
         }
         analyzer.close();
         reader.close();
-*/
-        System.out.println();
+        */
         StringReader re = new StringReader(news);
         IKSegmenter ik = new IKSegmenter(re, true);
         Lexeme lex = null;
         while ((lex = ik.next()) != null) {
+            if (StopWords.STOP_WORD.contains(lex.getLexemeText())) {
+                continue;
+            }
             sbContent.append(lex.getLexemeText() + "|");
-            System.out.print(lex.getLexemeText() + "|");
         }
-        System.out.println();
         return sbContent.toString();
     }
 }

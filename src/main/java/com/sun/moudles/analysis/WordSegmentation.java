@@ -163,7 +163,6 @@ public class WordSegmentation {
         dir.close();
     }
 
-
     /**
      * IK分词
      *

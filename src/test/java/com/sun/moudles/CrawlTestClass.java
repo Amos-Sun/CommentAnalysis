@@ -18,7 +18,7 @@ import java.io.IOException;
 @RunWith(SpringJUnit4ClassRunner.class)     //表示继承了SpringJUnit4ClassRunner类
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})
 
-public class TestClass {
+public class CrawlTestClass {
 
     @Resource
     private IVideoDAO videoDAO;

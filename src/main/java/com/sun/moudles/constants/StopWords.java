@@ -1,20 +1,23 @@
 package com.sun.moudles.constants;
 
+import com.sun.moudles.util.FileUtil;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class StopWords {
 
-    public static List<String> STOP_WORD = new ArrayList<String>(
-            Arrays.asList("的", "了", "你", "我", "他", "她", "它", "这个", "那个",
-                    "我们", "你们", "他们", "她们", "它们", "看", "那", "这", "哪",
-                    "哪个", "只", "来", "有", "个", "演", "完", "超", "谁", "比",
-                    "片", "吗", "呢", "啊", "阿", "是", "从", "把", "吧", "能",
-                    "还", "啦", "也", "呀", "看懂", "爱吃", "实在", "下去了", "黄",
-                    "小明", "演技", "现在", "老婆", "杨", "颖", "戏", "更", "也是",
-                    "到家", "电影", "女", "什么", "啥", "码", "太", "特", "佘诗曼", "继续",
-                    "延续", "几十", "年前", "港片", "那种", "拍", "给", "了吧", "中国",
-                    "这样", "会", "直接", "被", "解放军", "当", "不存", "在吗", "黄晓明",
-                    "天王", "刘德华", "大陆", "导演", "张家辉", "古天乐", "和"));
+    public static List<String> STOP_WORD = new ArrayList<String>();
+
+    static{
+        try {
+            String readWords = FileUtil.readFileAllContents("./src/main/resources/dic/stopWord.dic");
+            String[] words = readWords.trim().split(" ");
+            STOP_WORD.addAll(new ArrayList<String>(Arrays.asList(words)));
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
 }

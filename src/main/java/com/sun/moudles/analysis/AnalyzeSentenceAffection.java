@@ -28,11 +28,11 @@ public class AnalyzeSentenceAffection {
     private final double INIT_NEGATIVE_PR = 26 / 112.0;
     private final double INIT_NEUTER_PR = 28 / 112.0;
 
-    static {
+    /*static {
         setData("./data/positiveResult.txt", positiveWords);
         setData("./data/negativeResult.txt", negativeWords);
         setData("./data/neuterResult.txt", neuterWords);
-    }
+    }*/
 
     /**
      * 初始化词概率map

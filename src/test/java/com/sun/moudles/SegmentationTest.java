@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-mybatis.xml"})
-public class LuceneTest {
+public class SegmentationTest {
 
     /*@Resource
     private Analysis analysis;*/
@@ -81,7 +81,7 @@ public class LuceneTest {
             "在外面打拼根本养不了狗狗，但是就是特别特别想养，无奈真的没有办法";
 
     private String commentText = "大陆的导演你们看看。这特么才叫电影，郑华健";
-    private String adjText = "高兴的，快乐的";
+    private String adjText = "高兴的，快乐的,这个好看，刘亦菲,人民大会堂，这个电影不错，好看，很好，非常好";
 
     @Test
     public void smartcnTest() {
@@ -97,7 +97,7 @@ public class LuceneTest {
     public void ikTest() {
         try {
             System.out.println(adjText);
-            wordSegmentation.ikAnalyzer(adjText);
+            System.out.println(wordSegmentation.ikAnalyzer(adjText));
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -43,10 +43,10 @@ public class WordSegmentation {
     public String smartcnPartWords(String handleText) throws IOException {
         StringBuilder sbContent = new StringBuilder();
         // 自定义停用词
-        String[] self_stop_words = {"的", "在", "了", "呢", "，", "0", "：", ",", "是"};
+        //String[] self_stop_words = {"的", "在", "了", "呢", "，", "0", "：", ",", "是"};
         CharArraySet cas = new CharArraySet(Version.LUCENE_48, 0, true);
-        for (int i = 0; i < self_stop_words.length; i++) {
-            cas.add(self_stop_words[i]);
+        for (int i = 0; i < StopWords.STOP_WORD.size(); i++) {
+            cas.add(StopWords.STOP_WORD.get(i));
         }
 
         // 加入系统默认停用词

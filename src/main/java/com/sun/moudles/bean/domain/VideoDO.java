@@ -14,6 +14,16 @@ public class VideoDO {
     private String videoTime;
     private String lastEvaluateTime;
 
+    private String cid;
+
+    public String getCid() {
+        return cid;
+    }
+
+    public void setCid(String cid) {
+        this.cid = cid;
+    }
+
     public String getVideoUrl() {
         return videoUrl;
     }

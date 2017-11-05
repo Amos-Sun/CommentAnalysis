@@ -69,7 +69,21 @@ public class StrUtil {
      * @return
      */
     public static String replaceString(String data, String toReplace, String replaceWith) {
-        data.replace(toReplace, replaceWith);
+        data = data.replaceAll(toReplace, replaceWith);
         return data;
+    }
+
+    /**
+     * 按照要求，获取目的字符串
+     *
+     * @param str
+     * @param startString
+     * @param endString
+     * @return
+     */
+    public static String getAimedString(String str, String startString, String endString) {
+        int startIndex = str.indexOf(startString);
+        int endIndex = str.indexOf(endString);
+        return str.substring(startIndex + startString.length(), endIndex);
     }
 }

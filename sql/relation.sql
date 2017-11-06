@@ -19,3 +19,5 @@ alter table `relation` drop column `bad_percent`;
 alter table `relation` drop column `evaluattion`;
 
 alter table `relation` add column `evaluation` tinyint DEFAULT '0' COMMENT '评价类别 -1 负面评价 0 中性 1 正面评价';
+
+# cid 用来标识电影

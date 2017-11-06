@@ -10,6 +10,16 @@ public class RelationDO {
     private String userComment;
     private Integer evaluation;
 
+    private String cid;//外键
+
+    public String getCid() {
+        return cid;
+    }
+
+    public void setCid(String cid) {
+        this.cid = cid;
+    }
+
     public Integer getUserId() {
         return userId;
     }

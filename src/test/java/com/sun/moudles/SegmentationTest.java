@@ -106,8 +106,8 @@ public class SegmentationTest {
     @Test
     public void paodingTest() {
         try {
-            wordSegmentation.paodingAnalysis(adjText);
-            wordSegmentation.readIndex();
+            /*wordSegmentation.paodingAnalysis(adjText);
+            wordSegmentation.readIndex();*/
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -122,7 +122,7 @@ public class SegmentationTest {
 
             System.out.println("===========paoding============");
             text.append("===========paoding============\r\n");
-            text.append(wordSegmentation.paodingAnalysis(vaText)+"\r\n");
+//            text.append(wordSegmentation.paodingAnalysis(vaText)+"\r\n");
 
             text.append("===========ikAnalyzer============\r\n");
             System.out.println("===========ikAnalyzer============\r\n");

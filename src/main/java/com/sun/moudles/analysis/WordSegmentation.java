@@ -4,30 +4,15 @@ import java.io.*;
 import java.util.Iterator;
 
 import com.sun.moudles.constants.StopWords;
-import net.paoding.analysis.analyzer.PaodingAnalyzer;
-import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.Token;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.util.CharArraySet;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
-import org.apache.lucene.queryparser.classic.QueryParser;
-import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.ScoreDoc;
-import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.wltea.analyzer.core.IKSegmenter;
 import org.wltea.analyzer.core.Lexeme;
-import org.wltea.analyzer.lucene.IKAnalyzer;
 
 /**
  * Created by SunGuiyong on 2017/10/10.
@@ -72,13 +57,14 @@ public class WordSegmentation {
         return sbContent.toString();
     }
 
+
     /**
      * paoding分词
      *
      * @param indexStr
      * @throws IOException
      */
-    public String paodingAnalysis(String indexStr) throws IOException {
+/*    public String paodingAnalysis(String indexStr) throws IOException {
         StringBuilder sbContent = new StringBuilder();
         Analyzer analyzer = new PaodingAnalyzer();
         StringReader reader = new StringReader(indexStr);
@@ -92,13 +78,13 @@ public class WordSegmentation {
         System.out.println();
         return sbContent.toString();
 
-        /*String dataDir = "data";
+        String dataDir = "data";
         String indexDir = "luceneindex";
 
         File[] files = new File(dataDir).listFiles();
         System.out.println(files.length);
 
-        Analyzer analyzer = new PaodingAnalyzer();
+        *//*Analyzer analyzer = new PaodingAnalyzer();
         Directory dir = FSDirectory.open(new File(indexDir));
         IndexWriter writer = new IndexWriter(dir, new IndexWriterConfig(Version.LUCENE_48, analyzer));
 
@@ -125,10 +111,10 @@ public class WordSegmentation {
         writer.commit();
         writer.close();
         dir.close();
-        System.out.println("ok");*/
-    }
+        System.out.println("ok");*//*
+    }*/
 
-    public void readIndex() throws Exception {
+/*    public void readIndex() throws Exception {
         String indexDir = "luceneindex";
         Analyzer analyzer = new PaodingAnalyzer();
         String search_text = "六小龄童的眼睛和耳朵变成小和尚";
@@ -161,28 +147,20 @@ public class WordSegmentation {
 
         // searcher.close();
         dir.close();
-    }
+    }*/
 
     /**
      * IK分词
      *
-     * @param news
+     * @param text
      * @throws Exception
      */
-    public String ikAnalyzer(String news) throws Exception {
-        StringBuilder sbContent = new StringBuilder();
-      /* Analyzer analyzer = new IKAnalyzer(false);//不用只能分词
-        StringReader reader = new StringReader(news);
-        TokenStream ts = analyzer.tokenStream(news, reader);
-        ts.reset();
-        CharTermAttribute term = ts.getAttribute(CharTermAttribute.class);
-        while (ts.incrementToken()) {
-            System.out.print(term.toString() + "|");
+    public String ikAnalyzer(String text) throws Exception {
+        if(StringUtils.isEmpty(text)){
+            return "";
         }
-        analyzer.close();
-        reader.close();
-        */
-        StringReader re = new StringReader(news);
+        StringBuilder sbContent = new StringBuilder();
+        StringReader re = new StringReader(text);
         IKSegmenter ik = new IKSegmenter(re, true);
         Lexeme lex = null;
         while ((lex = ik.next()) != null) {

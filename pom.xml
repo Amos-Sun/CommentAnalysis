@@ -218,6 +218,21 @@
             <systemPath>${project.basedir}/lib/paoding-analysis.jar</systemPath>
         </dependency>-->
 
+        <!--进行单元测试-->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>2.7.19</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.8.7</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

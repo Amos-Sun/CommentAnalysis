@@ -9,3 +9,9 @@ CREATE TABLE `user` (
 
 alter table `user` add column `add_time` VARCHAR (16) not null;
 alter table `user` add column `modification_time` TIMESTAMP default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ;
+
+# 删除主键，并修改
+Alter table `user` drop primary key;
+Alter table `user` drop column `id`;
+
+Alter table `user` add primary key(`u_name`);

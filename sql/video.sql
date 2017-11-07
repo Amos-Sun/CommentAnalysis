@@ -27,3 +27,7 @@ alter table `video` add column `v_url` varchar(128) not null COMMENT '电影的u
 alter table `video` add column `last_evaluate_time` VARCHAR (10) default null COMMENT '最后一条评论的时间';
 
 # cid 用来标识电影
+Alter table `video` drop primary key;
+Alter table `video` drop column `id`;
+alter table `video` add column `cid` varchar(32) default not null COMMENT '电影的唯一标识';
+Alter table `video` add primary key(`cid`);

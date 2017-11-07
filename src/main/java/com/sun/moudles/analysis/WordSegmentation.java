@@ -1,14 +1,18 @@
 package com.sun.moudles.analysis;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import com.sun.moudles.constants.StopWords;
+import com.sun.moudles.util.FileUtil;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.util.CharArraySet;
 import org.apache.lucene.util.Version;
+import org.junit.Test;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.wltea.analyzer.core.IKSegmenter;
@@ -57,98 +61,6 @@ public class WordSegmentation {
         return sbContent.toString();
     }
 
-
-    /**
-     * paoding分词
-     *
-     * @param indexStr
-     * @throws IOException
-     */
-/*    public String paodingAnalysis(String indexStr) throws IOException {
-        StringBuilder sbContent = new StringBuilder();
-        Analyzer analyzer = new PaodingAnalyzer();
-        StringReader reader = new StringReader(indexStr);
-        TokenStream ts = analyzer.tokenStream(indexStr, reader);
-        ts.reset();
-        CharTermAttribute term = ts.getAttribute(CharTermAttribute.class);
-        while (ts.incrementToken()) {
-            sbContent.append(term + "|");
-            System.out.print(term + "|");
-        }
-        System.out.println();
-        return sbContent.toString();
-
-        String dataDir = "data";
-        String indexDir = "luceneindex";
-
-        File[] files = new File(dataDir).listFiles();
-        System.out.println(files.length);
-
-        *//*Analyzer analyzer = new PaodingAnalyzer();
-        Directory dir = FSDirectory.open(new File(indexDir));
-        IndexWriter writer = new IndexWriter(dir, new IndexWriterConfig(Version.LUCENE_48, analyzer));
-
-        for (int i = 0; i < files.length; i++) {
-            StringBuffer strBuffer = new StringBuffer();
-            String line = "";
-            FileInputStream is = new FileInputStream(files[i].getCanonicalPath());
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "utf8"));
-            line = reader.readLine();
-            while (line != null) {
-                strBuffer.append(line);
-                strBuffer.append("\n");
-                line = reader.readLine();
-            }
-
-            Document doc = new Document();
-            doc.add(new Field("fileName", files[i].getName(), Field.Store.YES, Field.Index.ANALYZED));
-            doc.add(new Field("contents", strBuffer.toString(), Field.Store.YES, Field.Index.ANALYZED));
-            writer.addDocument(doc);
-            reader.close();
-            is.close();
-        }
-
-        writer.commit();
-        writer.close();
-        dir.close();
-        System.out.println("ok");*//*
-    }*/
-
-/*    public void readIndex() throws Exception {
-        String indexDir = "luceneindex";
-        Analyzer analyzer = new PaodingAnalyzer();
-        String search_text = "六小龄童的眼睛和耳朵变成小和尚";
-        StringReader reader = new StringReader(search_text);
-        TokenStream ts = analyzer.tokenStream(search_text, reader);
-        CharTermAttribute ta = ts.getAttribute(CharTermAttribute.class);
-        while (ts.incrementToken()) {
-            System.out.print(ta.toString() + " ");
-        }
-        ts.close();
-
-        Directory dir = FSDirectory.open(new File(indexDir));
-        DirectoryReader dr = DirectoryReader.open(dir);
-        IndexSearcher searcher = new IndexSearcher(dr);
-        QueryParser parser = new QueryParser(Version.LUCENE_48, "contents",
-                analyzer);
-        Query query = parser.parse(search_text);
-        //Term term=new Term("contents", search_text);
-        //TermQuery query=new TermQuery(term);
-        System.out.println("\n" + query.toString());
-
-        TopDocs docs = searcher.search(query, 1000);
-        ScoreDoc[] hits = docs.scoreDocs;
-        System.out.println(hits.length);
-        for (int i = 0; i < hits.length; i++) {
-            Document doc = searcher.doc(hits[i].doc);
-            System.out.print(doc.get("fileName") + "--:\n");
-            System.out.println(doc.get("contents") + "\n");
-        }
-
-        // searcher.close();
-        dir.close();
-    }*/
-
     /**
      * IK分词
      *
@@ -170,5 +82,42 @@ public class WordSegmentation {
             sbContent.append(lex.getLexemeText() + "|");
         }
         return sbContent.toString();
+    }
+
+    /**
+     * 把分词结果存到文件中
+     *
+     * @param filePath    未分词文件路径
+     * @param newFileName 分词后，存储路径
+     */
+    private void writeClassWords(String filePath, String newFileName) throws Exception {
+        File file = new File(filePath);
+        File[] files = file.listFiles();
+
+        WordSegmentation wordSegmentation = new WordSegmentation();
+        String fileText;
+        String segResult;
+        int numbers = 0;
+        List<String> wordList = new ArrayList<String>();
+        for (File item : files) {
+/*            if (numbers == 26) {
+                break;
+            }*/
+            fileText = FileUtil.readFileAllContents(item.getPath());
+            segResult = wordSegmentation.ikAnalyzer(fileText);
+
+            //每一个文本存成一个向量
+            wordList.add(segResult.trim());
+            numbers++;
+        }
+        FileUtil.writeFileInBatch(wordList, newFileName);
+    }
+
+
+    public static void main(String[] args) throws Exception {
+        WordSegmentation wordSegmentation = new WordSegmentation();
+        wordSegmentation.writeClassWords("./data/positive", "./data/positiveResult.txt");
+        wordSegmentation.writeClassWords("./data/negative", "./data/negativeResult.txt");
+        wordSegmentation.writeClassWords("./data/neuter", "./data/neuterResult.txt");
     }
 }

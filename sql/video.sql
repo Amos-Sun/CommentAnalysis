@@ -29,5 +29,7 @@ alter table `video` add column `last_evaluate_time` VARCHAR (10) default null CO
 # cid 用来标识电影
 Alter table `video` drop primary key;
 Alter table `video` drop column `id`;
-alter table `video` add column `cid` varchar(32) default not null COMMENT '电影的唯一标识';
+alter table `video` add column `cid` varchar(32) not null COMMENT '电影的唯一标识';
 Alter table `video` add primary key(`cid`);
+
+alter table `video` modify `cid` varchar(32) first;

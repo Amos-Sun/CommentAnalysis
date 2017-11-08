@@ -25,7 +25,7 @@ ALTER TABLE `relation` DROP INDEX `v_u_id`;
 Alter table `relation` drop column `v_id`;
 Alter table `relation` drop column `u_id`;
 
-alter table `relation` add column `cid` varchar(32) default not null COMMENT '电影的唯一标识';
-alter table `relation` add column `u_name` varchar(64) NOT NULL COMMENT '用户名',;
+alter table `relation` add column `cid` varchar(32) not null COMMENT '电影的唯一标识';
+alter table `relation` add column `u_name` varchar(64) NOT NULL COMMENT '用户名';
 
 Alter table `relation` add unique key `user_cid`(`u_name`);

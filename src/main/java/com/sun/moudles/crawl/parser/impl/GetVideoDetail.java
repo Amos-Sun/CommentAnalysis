@@ -67,13 +67,13 @@ public class GetVideoDetail implements IGetVideoDetail {
                 //图片地址 r-lazyload
                 videoDO.setVideoPicturePath(title.attr("r-lazyload"));
 
-                Document detailDoc = Jsoup.connect(videoDO.getVideoUrl()).get();
+                Document detailDoc = Jsoup.connect(videoDO.getVideoUrl()).timeout(5000).get();
 
                 getTypeAndTime(detailDoc, videoDO);
                 getActors(detailDoc, videoDO);
                 getDetail(detailDoc, videoDO);
                 videoDOList.add(videoDO);
-                break;
+                //break;
             }
             System.out.println(videoDOList.size());
             break;

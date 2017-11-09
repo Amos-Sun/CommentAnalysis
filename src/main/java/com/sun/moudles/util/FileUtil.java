@@ -3,6 +3,7 @@ package com.sun.moudles.util;
 import java.io.*;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * 文件存储操作
@@ -55,7 +56,7 @@ public class FileUtil {
             String value;
             while (it.hasNext()) {
                 value = it.next();
-                if("".equals(value)){
+                if ("".equals(value)) {
                     continue;
                 }
                 bw.write(value + "\r\n");
@@ -66,8 +67,33 @@ public class FileUtil {
         } finally {
             bw.close();// 最后记得关闭文件
         }
+    }
 
+    /**
+     * 向文件中批量写去数据
+     *
+     * @param map      传入的map
+     * @param filePath 文件名
+     */
+    public static void writeFileInBatch(Map<String, Double> map, String filePath) throws IOException {
+        String msg = "";
+        BufferedWriter bw = null;
+        try {
+            File file = new File(filePath);
+            msg = createFile(file);
+            bw = new BufferedWriter(new FileWriter(file, false));
 
+            double value = 0;
+            for (String key : map.keySet()) {
+                value = map.get(key);
+                bw.write(key + " " + value + "\r\n");
+                bw.flush();
+            }
+        } catch (IOException e) {
+            throw new IOException(msg);
+        } finally {
+            bw.close();// 最后记得关闭文件
+        }
     }
 
     /**

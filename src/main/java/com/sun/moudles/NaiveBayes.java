@@ -18,15 +18,97 @@ import com.data.util.IoUtil;
 public class NativeBayes {
     */
 /**
-     * 默认频率
-     *//*
+ * 默认频率
+ * <p>
+ * 训练数据的比例
+ * <p>
+ * 每个分类的频率
+ * <p>
+ * 特征总数
+ * <p>
+ * 计算准确率
+ *
+ * @param reallist 真实类别
+ * @param pridlist 预测类别
+ * <p>
+ * 计算精确率和召回率
+ * @param reallist
+ * @param pridlist
+ * @param classname
+ * <p>
+ * 用模型进行预测
+ * <p>
+ * 模型训练
+ * <p>
+ * 加载训练数据
+ * <p>
+ * 将数据分为训练数据和测试数据
+ * @param dataDir
+ * <p>
+ * 打印统计信息
+ * @param m
+ * <p>
+ * 训练数据的比例
+ * <p>
+ * 每个分类的频率
+ * <p>
+ * 特征总数
+ * <p>
+ * 计算准确率
+ * @param reallist 真实类别
+ * @param pridlist 预测类别
+ * <p>
+ * 计算精确率和召回率
+ * @param reallist
+ * @param pridlist
+ * @param classname
+ * <p>
+ * 用模型进行预测
+ * <p>
+ * 模型训练
+ * <p>
+ * 加载训练数据
+ * <p>
+ * 将数据分为训练数据和测试数据
+ * @param dataDir
+ * <p>
+ * 打印统计信息
+ * @param m
+ * <p>
+ * 训练数据的比例
+ * <p>
+ * 每个分类的频率
+ * <p>
+ * 特征总数
+ * <p>
+ * 计算准确率
+ * @param reallist 真实类别
+ * @param pridlist 预测类别
+ * <p>
+ * 计算精确率和召回率
+ * @param reallist
+ * @param pridlist
+ * @param classname
+ * <p>
+ * 用模型进行预测
+ * <p>
+ * 模型训练
+ * <p>
+ * 加载训练数据
+ * <p>
+ * 将数据分为训练数据和测试数据
+ * @param dataDir
+ * <p>
+ * 打印统计信息
+ * @param m
+ *//*
 
     private double defaultFreq = 0.1;
 
     */
 /**
-     * 训练数据的比例
-     *//*
+ * 训练数据的比例
+ *//*
 
     private Double trainingPercent = 0.8;
 
@@ -42,8 +124,8 @@ public class NativeBayes {
 
     */
 /**
-     * 每个分类的频率
-     *//*
+ * 每个分类的频率
+ *//*
 
     private Map<String, Integer> classFreq = new HashMap<String, Integer>();
 
@@ -51,8 +133,8 @@ public class NativeBayes {
 
     */
 /**
-     * 特征总数
-     *//*
+ * 特征总数
+ *//*
 
     private Set<String> WordDict = new HashSet<String>();
 
@@ -64,11 +146,11 @@ public class NativeBayes {
 
     */
 /**
-     * 计算准确率
-     *
-     * @param reallist 真实类别
-     * @param pridlist 预测类别
-     *//*
+ * 计算准确率
+ *
+ * @param reallist 真实类别
+ * @param pridlist 预测类别
+ *//*
 
     public void Evaluate(List<String> reallist, List<String> pridlist) {
         double correctNum = 0.0;
@@ -83,12 +165,12 @@ public class NativeBayes {
 
     */
 /**
-     * 计算精确率和召回率
-     *
-     * @param reallist
-     * @param pridlist
-     * @param classname
-     *//*
+ * 计算精确率和召回率
+ *
+ * @param reallist
+ * @param pridlist
+ * @param classname
+ *//*
 
     public void CalPreRec(List<String> reallist, List<String> pridlist, String classname) {
         double correctNum = 0.0;
@@ -111,8 +193,8 @@ public class NativeBayes {
 
     */
 /**
-     * 用模型进行预测
-     *//*
+ * 用模型进行预测
+ *//*
 
     public void PredictTestData() {
         List<String> reallist = new ArrayList<String>();
@@ -167,8 +249,8 @@ public class NativeBayes {
 
     */
 /**
-     * 模型训练
-     *//*
+ * 模型训练
+ *//*
 
     public void createModel() {
         double sum = 0.0;
@@ -201,8 +283,8 @@ public class NativeBayes {
 
     */
 /**
-     * 加载训练数据
-     *//*
+ * 加载训练数据
+ *//*
 
     public void loadTrainData() {
         for (Entry<String, List<String>> entry : files_train.entrySet()) {
@@ -236,10 +318,10 @@ public class NativeBayes {
 
     */
 /**
-     * 将数据分为训练数据和测试数据
-     *
-     * @param dataDir
-     *//*
+ * 将数据分为训练数据和测试数据
+ *
+ * @param dataDir
+ *//*
 
     public void splitData(String dataDir) {
         // 用文件名区分类别
@@ -296,10 +378,10 @@ public class NativeBayes {
 
     */
 /**
-     * 打印统计信息
-     *
-     * @param m
-     *//*
+ * 打印统计信息
+ *
+ * @param m
+ *//*
 
     public void printStatistics(Map<String, List<String>> m) {
         for (Entry<String, List<String>> entry : m.entrySet()) {
@@ -322,15 +404,15 @@ public class NativeBayes {
 }*/
 package com.sun.moudles;
 
-public class NaiveBayes{
+public class NaiveBayes {
 
-    public static void main(String[] args){
-        String str = "test";
-        String str1 = "test|go";
-
-        String[] arrStr = str.split("\\|");
-        for(String item : arrStr){
-            System.out.println(item);
-        }
+    public static void main(String[] args) {
+        Long last = 6334275723935249582L;
+        Long last_1 = 75723935249582L;
+        Long first = 6334295153255862406L;
+        Long first_1 = 95153255862406L;
+        Long r = first + 150110;
+        Long res = last - first;
+        System.out.println(res);
     }
 }

@@ -106,7 +106,7 @@ public class FileUtil {
         BufferedReader br = new BufferedReader(new FileReader(filePath));
         String s = null;
         while ((s = br.readLine()) != null) {
-            sb.append(" " + s);
+            sb.append(s+"\r\n");
         }
         return sb.toString();
     }

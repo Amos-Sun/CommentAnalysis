@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author
- * @date
+ * @author sunguiyong
+ * @date 2017-10.30
  */
 @Component
 public class AnalyzeSentenceAffection {
@@ -24,9 +24,9 @@ public class AnalyzeSentenceAffection {
     /**
      * 设各个类别的初始概率都为1/3
      */
-    private final double INIT_POSITIVE_PR = 58 / 112.0;
-    private final double INIT_NEGATIVE_PR = 26 / 112.0;
-    private final double INIT_NEUTER_PR = 28 / 112.0;
+    private final double INIT_POSITIVE_PR = 141 / 310.0;
+    private final double INIT_NEGATIVE_PR = 88 / 310.0;
+    private final double INIT_NEUTER_PR = 81 / 310.0;
 
     /*static {
         setData("./data/positiveResult.txt", positiveWords);
@@ -43,19 +43,15 @@ public class AnalyzeSentenceAffection {
     private static void setData(String filePath, Map<String, Double> prMap) {
         try {
             String keys = FileUtil.readFileAllContents(filePath);
-            String[] keyArray = keys.split(" ");
+            String[] keyArray = keys.split("\r\n");
             for (String word : keyArray) {
-                if ("".equals(word)) {
+                String[] wordValue = word.split(" ");
+                if (0 == wordValue.length) {
                     continue;
                 }
-                if (prMap.containsKey(word)) {
-                    Double value = prMap.get(word);
-                    prMap.put(word, value + 1);
-                } else {
-                    prMap.put(word, 1.0);
-                }
+                prMap.put(wordValue[0], Double.parseDouble(wordValue[1]));
             }
-            setWordsProbability(prMap);
+            //setWordsProbability(prMap);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -115,5 +111,9 @@ public class AnalyzeSentenceAffection {
             }
         }
         return sentenceRate;
+    }
+
+    public static void main(String[] args) {
+        setData("./data/neuterResult.txt", neuterWords);
     }
 }

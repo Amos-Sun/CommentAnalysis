@@ -107,7 +107,7 @@ public class WordSegmentation {
             //每一个文本存成一个向量
             docList.add(segResult.trim());
         }
-        //<词,频率> 二元组
+        //<词,权重> 二元组
         Map<String, Double> wordTfIdfMap = new HashMap<String, Double>(16);
         getWordTfIdf(docList, wordTfIdfMap);
 

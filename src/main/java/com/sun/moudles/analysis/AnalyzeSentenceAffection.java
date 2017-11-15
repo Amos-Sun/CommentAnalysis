@@ -3,6 +3,7 @@ package com.sun.moudles.analysis;
 import com.sun.moudles.util.FileUtil;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -81,9 +82,9 @@ public class AnalyzeSentenceAffection {
      * @return 1->positive   0->neuter   -1->negative
      */
     public int getSentenceAffection(String[] words) {
-        double positivePR = getProbability(words, positiveWords);
-        double negativePR = getProbability(words, negativeWords);
-        double neuterPR = getProbability(words, neuterWords);
+        double positivePR = getProbability(words, positiveWords, INIT_POSITIVE_PR);
+        double negativePR = getProbability(words, negativeWords, INIT_NEGATIVE_PR);
+        double neuterPR = getProbability(words, neuterWords, INIT_NEUTER_PR);
 
         if (positivePR > negativePR && positivePR > neuterPR) {
             return 1;
@@ -100,14 +101,13 @@ public class AnalyzeSentenceAffection {
      * @param words
      * @return
      */
-    private double getProbability(String[] words, Map<String, Double> prMap) {
+    private double getProbability(String[] words, Map<String, Double> prMap, double initPR) {
         double sentenceRate = 1.0;
         for (String word : words) {
             if (prMap.containsKey(word)) {
                 sentenceRate *= prMap.get(word);
             } else {
-                //没有出现在词库中的词置为0.01
-                sentenceRate = sentenceRate * sentenceRate * 0.1;
+                sentenceRate = sentenceRate * initPR;
             }
         }
         return sentenceRate;
@@ -115,5 +115,32 @@ public class AnalyzeSentenceAffection {
 
     public static void main(String[] args) {
         setData("./data/neuterResult.txt", neuterWords);
+        setData("./data/positiveResult.txt", positiveWords);
+        setData("./data/negativeResult.txt", negativeWords);
+        File file = new File("./data/train/negative");
+        File[] files = file.listFiles();
+
+        WordSegmentation wordSegmentation = new WordSegmentation();
+        String content = "";
+        String segmentResult = "";
+        try {
+            int sum = 0;
+            int num = 0;
+            for (File item : files) {
+                num++;
+                content = FileUtil.readFileAllContents(item.getPath());
+                segmentResult = wordSegmentation.ikAnalyzer(content).trim();
+                String[] words = segmentResult.split("\\|");
+                int res = new AnalyzeSentenceAffection().getSentenceAffection(words);
+                if (1 == res) {
+                    sum++;
+                }
+            }
+            System.out.println("文件总数：" + num);
+            System.out.println("negative数目：" + sum);
+            System.out.println("准确率：" + sum * 1.0 / num);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1725,4 +1725,13 @@ Caused by: java.lang.IllegalStateException: Cannot convert value of type [org.ap
   [INFO] [2017-11-09 17:21:21][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@5ccd43c2: startup date [Thu Nov 09 17:21:21 CST 2017]; root of context hierarchy
   [INFO] [2017-11-09 17:21:21][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
   [INFO] [2017-11-09 17:21:21][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2017-12-21 23:30:27][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@2c13da15: startup date [Thu Dec 21 23:30:27 CST 2017]; root of context hierarchy
+  [INFO] [2017-12-21 23:30:27][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2017-12-21 23:30:29][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2017-12-21 23:44:11][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@32709393: startup date [Thu Dec 21 23:44:11 CST 2017]; root of context hierarchy
+  [INFO] [2017-12-21 23:44:11][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2017-12-21 23:44:12][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2017-12-21 23:44:48][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@32709393: startup date [Thu Dec 21 23:44:48 CST 2017]; root of context hierarchy
+  [INFO] [2017-12-21 23:44:49][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2017-12-21 23:44:49][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
   

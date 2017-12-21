@@ -25,6 +25,7 @@
         <sl4j.version>1.7.7</sl4j.version>
         <c3p0.version>0.9.1</c3p0.version>
         <lucene.version>4.8.1</lucene.version>
+        <codehaus.version>1.9.4</codehaus.version>
     </properties>
 
 
@@ -60,6 +61,11 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${fasterxml.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>${codehaus.version}</version>
         </dependency>
 
         <!-- spring核心包 -->
@@ -108,17 +114,18 @@
             <version>${spring.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
         <!--配置mysql-->
         <dependency>
             <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <artifactId>mysql-CONNECTOR-java</artifactId>
             <version>${mysql.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- ibatis.jar 从网络获取，则不需要手动导入ibatis的jar包！-->
@@ -179,37 +186,57 @@
             <version>1.1.1</version>
         </dependency>
         <dependency>
-            <groupId> org.apache.lucene</groupId>
+            <groupId>org.apache.lucene</groupId>
             <artifactId>lucene-core</artifactId>
-            <version> ${lucene.version}</version>
+            <version>${lucene.version}</version>
         </dependency>
         <dependency>
-            <groupId> org.apache.lucene</groupId>
+            <groupId>org.apache.lucene</groupId>
             <artifactId>lucene-highlighter</artifactId>
-            <version> ${lucene.version}</version>
+            <version>${lucene.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.wltea.ik-analyzer</groupId>
             <artifactId>ik-analyzer</artifactId>
             <scope>system</scope>
+            <version>1.0</version>
             <systemPath>${project.basedir}/lib/IKAnalyzer2012FF_u1.jar</systemPath>
         </dependency>
 
         <dependency>
-            <groupId> org.apache.lucene</groupId>
+            <groupId>org.apache.lucene</groupId>
             <artifactId>lucene-analyzers-common</artifactId>
-            <version> ${lucene.version}</version>
+            <version>${lucene.version}</version>
         </dependency>
         <dependency>
-            <groupId> org.apache.lucene</groupId>
+            <groupId>org.apache.lucene</groupId>
             <artifactId>lucene-queryparser</artifactId>
-            <version> ${lucene.version}</version>
+            <version>${lucene.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.lucene</groupId>
             <artifactId>lucene-analyzers-smartcn</artifactId>
             <version>${lucene.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+
+        <!--使用freemarker进行html视图解析-->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker-gae</artifactId>
+            <version>2.3.18</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.1</version>
         </dependency>
         <!--<dependency>
             <groupId>net.paoding</groupId>

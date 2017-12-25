@@ -3,17 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        #header{
+            text-align: center;height: 50px; width: 95%;/* background-color: deepskyblue;*/ margin: 10px;
+        }
+        #left{
+            /*background-color: darksalmon;*/height: 550px;width: 25%;float: left;margin: 10px;
+        }
+        .gap{
+            height:20px;width: 68.5%;float: left;margin: 10px; background-color:lavender
+        }
+        .main-contain{
+            height:400px;width: 65%;float: left;margin: 10px;
+        }
+    </style>
 </head>
 <body>
+
+<!--这个区域是显示标题的-->
+<div id="header" >
+    <span>
+        <font size="20em" color="black" style="font-family: 隶书">电影爱好人群分析</font>
+    </span>
+</div>
+<!--这个区域显示电影的一些信息-->
+<div id="left" >
+    <div class="mod_figure mod_figure_v mod_figure_v_default">
+        <ul class="figure_list">
+            <li class="list_item" __wind="">
+                <a href="https://v.qq.com/x/cover/xyaud3hk6mmi6ss.html" target="_blank" class="figure" tabindex="-1" _stat="movie_v3_new:img" data-float="xyaud3hk6mmi6ss">
+                    <img class="figure_pic" alt="追龙" onerror="picerr(this,'v')" src="//puui.qpic.cn/tv/0/16646093_209290/0" style="visibility: visible;">
+                    <i class="mark_v"><img src="//i.gtimg.cn/qqlive/images/mark/mark_5.png" srcset="//i.gtimg.cn/qqlive/images/mark/mark_5@2x.png 2x" alt="VIP" onerror="picerr(this)"></i>
+                    <div class="figure_count">
+                        02:08:57
+                    </div>
+                </a>
+                <div class="figure_detail figure_detail_two_row">
+                    <strong class="figure_title figure_title_two_row"><a href="https://v.qq.com/x/cover/xyaud3hk6mmi6ss.html" title="追龙" _stat="movie_v3_new:title" target="_blank">追龙</a></strong>
+                    <div class="figure_desc" title="年度最佳港片没有之一">
+                        年度最佳港片没有之一
+                    </div>
+                </div>
+
+            </li>
+        </ul>
+    </div>
+</div>
+<!--分界线-->
+<div class="gap" ></div>
 <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-<div id="main" style="height:400px"></div>
+<div id="main" class="main-contain"></div>
+<!--分界线-->
+<div class="gap"></div>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main1" class="main-contain"></div>
+
 <!-- ECharts单文件引入 -->
-<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+<!--<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>-->
 <script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
 <script type="text/javascript">
     // 路径配置
     // 基于准备好的dom，初始化echarts图表
     var myChart = echarts.init(document.getElementById('main'));
+    var myChart1 = echarts.init(document.getElementById('main1'));
 
     var option = {
         title: {
@@ -70,6 +122,7 @@
     };
     // 为echarts对象加载数据
     myChart.setOption(option);
+    myChart1.setOption(option);
 </script>
 </body>
 </html>

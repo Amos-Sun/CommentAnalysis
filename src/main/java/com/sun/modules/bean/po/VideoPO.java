@@ -6,18 +6,20 @@ package com.sun.modules.bean.po;
 public class VideoPO {
 
     private Integer id;
-    private String videoName;
-    private String videoPicturePath;
-    private String videoTime;
-    private String videoActors;
-    private String videoType;
-    private String videoUrl;
-    private String videoDetail;
-    private String videoGoodPercent;
-    private String videoBadPercent;
+    private String name;
+    private String cid;
+    private String picturePath;
+    private String time;
+    private String actors;
+    private String type;
+    private String url;
+    private String detail;
+    private String goodPercent;
+    private String badPercent;
+    private String evaluate;
     private String lastEvaluateTime;
     private String addTime;
-    private String motificationTime;
+    private String modificationTime;
 
     public Integer getId() {
         return id;
@@ -27,68 +29,100 @@ public class VideoPO {
         this.id = id;
     }
 
-    public String getVideoName() {
-        return videoName;
+    public String getName() {
+        return name;
     }
 
-    public void setVideoName(String videoName) {
-        this.videoName = videoName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getVideoPicturePath() {
-        return videoPicturePath;
+    public String getCid() {
+        return cid;
     }
 
-    public void setVideoPicturePath(String videoPicturePath) {
-        this.videoPicturePath = videoPicturePath;
+    public void setCid(String cid) {
+        this.cid = cid;
     }
 
-    public String getVideoTime() {
-        return videoTime;
+    public String getPicturePath() {
+        return picturePath;
     }
 
-    public void setVideoTime(String videoTime) {
-        this.videoTime = videoTime;
+    public void setPicturePath(String picturePath) {
+        this.picturePath = picturePath;
     }
 
-    public String getVideoActors() {
-        return videoActors;
+    public String getEvaluate() {
+        return evaluate;
     }
 
-    public void setVideoActors(String videoActors) {
-        this.videoActors = videoActors;
+    public void setEvaluate(String evaluate) {
+        this.evaluate = evaluate;
     }
 
-    public String getVideoType() {
-        return videoType;
+    public String getTime() {
+        return time;
     }
 
-    public void setVideoType(String videoType) {
-        this.videoType = videoType;
+    public void setTime(String time) {
+        this.time = time;
     }
 
-    public String getVideoDetail() {
-        return videoDetail;
+    public String getActors() {
+        return actors;
     }
 
-    public void setVideoDetail(String videoDetail) {
-        this.videoDetail = videoDetail;
+    public void setActors(String actors) {
+        this.actors = actors;
     }
 
-    public String getVideoGoodPercent() {
-        return videoGoodPercent;
+    public String getType() {
+        return type;
     }
 
-    public void setVideoGoodPercent(String videoGoodPercent) {
-        this.videoGoodPercent = videoGoodPercent;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getVideoBadPercent() {
-        return videoBadPercent;
+    public String getUrl() {
+        return url;
     }
 
-    public void setVideoBadPercent(String videoBadPercent) {
-        this.videoBadPercent = videoBadPercent;
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public String getGoodPercent() {
+        return goodPercent;
+    }
+
+    public void setGoodPercent(String goodPercent) {
+        this.goodPercent = goodPercent;
+    }
+
+    public String getBadPercent() {
+        return badPercent;
+    }
+
+    public void setBadPercent(String badPercent) {
+        this.badPercent = badPercent;
+    }
+
+    public String getLastEvaluateTime() {
+        return lastEvaluateTime;
+    }
+
+    public void setLastEvaluateTime(String lastEvaluateTime) {
+        this.lastEvaluateTime = lastEvaluateTime;
     }
 
     public String getAddTime() {
@@ -99,27 +133,11 @@ public class VideoPO {
         this.addTime = addTime;
     }
 
-    public String getMotificationTime() {
-        return motificationTime;
+    public String getModificationTime() {
+        return modificationTime;
     }
 
-    public void setMotificationTime(String motificationTime) {
-        this.motificationTime = motificationTime;
-    }
-
-    public String getVideoUrl() {
-        return videoUrl;
-    }
-
-    public void setVideoUrl(String videoUrl) {
-        this.videoUrl = videoUrl;
-    }
-
-    public String getLastEvaluateTime() {
-        return lastEvaluateTime;
-    }
-
-    public void setLastEvaluateTime(String lastEvaluateTime) {
-        this.lastEvaluateTime = lastEvaluateTime;
+    public void setModificationTime(String modificationTime) {
+        this.modificationTime = modificationTime;
     }
 }

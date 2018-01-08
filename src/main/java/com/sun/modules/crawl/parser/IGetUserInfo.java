@@ -1,7 +1,7 @@
 package com.sun.modules.crawl.parser;
 
-import com.sun.modules.bean.domain.UserDO;
-import com.sun.modules.bean.domain.VideoDO;
+import com.sun.modules.bean.po.UserPO;
+import com.sun.modules.bean.po.VideoPO;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,5 +18,5 @@ public interface IGetUserInfo {
      * @return
      * @throws IOException
      */
-    List<UserDO> getUserInfo(List<VideoDO> videoDOList) throws IOException;
+    List<UserPO> getUserInfo(List<VideoPO> videoDOList) throws IOException;
 }

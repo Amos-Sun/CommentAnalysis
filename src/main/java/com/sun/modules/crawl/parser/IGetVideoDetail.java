@@ -1,6 +1,6 @@
 package com.sun.modules.crawl.parser;
 
-import com.sun.modules.bean.domain.VideoDO;
+import com.sun.modules.bean.po.VideoPO;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,5 +16,5 @@ public interface IGetVideoDetail {
      * @return
      * @throws IOException
      */
-    List<VideoDO> getVideoInfo() throws IOException;
+    List<VideoPO> getVideoInfo() throws IOException;
 }

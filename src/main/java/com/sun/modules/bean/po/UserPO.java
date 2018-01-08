@@ -6,11 +6,11 @@ package com.sun.modules.bean.po;
 public class UserPO {
 
     private Integer id;
-    private String userName;
-    private String userSex;
-    private Integer userAge;
+    private String name;
+    private String sex;
+    private Integer age;
     private String addTime;
-    private String motificationTime;
+    private String modificationTime;
 
     public Integer getId() {
         return id;
@@ -20,28 +20,28 @@ public class UserPO {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getUserSex() {
-        return userSex;
+    public String getSex() {
+        return sex;
     }
 
-    public void setUserSex(String userSex) {
-        this.userSex = userSex;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
-    public Integer getUserAge() {
-        return userAge;
+    public Integer getAge() {
+        return age;
     }
 
-    public void setUserAge(Integer userAge) {
-        this.userAge = userAge;
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public String getAddTime() {
@@ -52,11 +52,11 @@ public class UserPO {
         this.addTime = addTime;
     }
 
-    public String getMotificationTime() {
-        return motificationTime;
+    public String getModificationTime() {
+        return modificationTime;
     }
 
-    public void setMotificationTime(String motificationTime) {
-        this.motificationTime = motificationTime;
+    public void setModificationTime(String modificationTime) {
+        this.modificationTime = modificationTime;
     }
 }

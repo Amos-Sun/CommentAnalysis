@@ -5,35 +5,44 @@ package com.sun.modules.bean.po;
  */
 public class RelationPO {
 
-    private Integer videoId;
-    private Integer userId;
-    private String userComment;
+    private Integer id;
+    private Integer cid;
+    private String userName;
+    private String comment;
     private Integer evaluation;
     private String addTime;
     private String modificationTime;
 
-    public Integer getVideoId() {
-        return videoId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setVideoId(Integer videoId) {
-        this.videoId = videoId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getCid() {
+        return cid;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setCid(Integer cid) {
+        this.cid = cid;
     }
 
-    public String getUserComment() {
-        return userComment;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserComment(String userComment) {
-        this.userComment = userComment;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public Integer getEvaluation() {

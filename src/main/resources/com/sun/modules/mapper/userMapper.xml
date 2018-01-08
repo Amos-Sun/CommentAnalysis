@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.sun.modules.bean.domain.UserDO">
+<mapper namespace="com.sun.modules.bean.dao.IUserDAO">
 
     <insert id="insertUserInfo" parameterType="list">
-        INSERT into video(u_name,u_age,u_sex,add_time,motification_time)
+        INSERT into user(`name`,`age`,`sex`,`add_time`,`modification_time`)
         VALUES
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.userName},#{item.userAge},#{item.userSex},unix_timestamp(),unix_timestamp())
+            (#{item.name},#{item.age},#{item.sex},unix_timestamp(),unix_timestamp())
         </foreach>
     </insert>
 </mapper>

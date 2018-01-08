@@ -1,11 +1,11 @@
 package com.sun.modules.crawl.parser.impl;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.sun.modules.bean.domain.UserDO;
-import com.sun.modules.bean.domain.VideoDO;
 import com.sun.modules.bean.json.CommentDetail;
 import com.sun.modules.bean.json.DataDetail;
 import com.sun.modules.bean.json.VideoCommentId;
+import com.sun.modules.bean.po.UserPO;
+import com.sun.modules.bean.po.VideoPO;
 import com.sun.modules.crawl.parser.IGetUserInfo;
 import com.sun.modules.util.FileUtil;
 import com.sun.modules.util.JsonUtil;
@@ -35,18 +35,17 @@ public class GetUserDetail implements IGetUserInfo {
      */
     private String COMMENT_DETAIL_URL = "https://coral.qq.com/article/";
 
-    public List<UserDO> getUserInfo(List<VideoDO> videoDOList) throws IOException {
+    public List<UserPO> getUserInfo(List<VideoPO> videoPOList) throws IOException {
 
         Connection con = Jsoup.connect(COMMENT_ID_URL).timeout(5000);
         VideoCommentId videoCommentId;
         int i = 0;
-        for (VideoDO item : videoDOList) {
+        for (VideoPO item : videoPOList) {
             if (i != 2) {
                 i++;
                 continue;
             }
-            System.out.println(item.getVideoUrl());
-            getCid(item);
+            System.out.println(item.getUrl());
             Document doc = con.data("cid", item.getCid())
                     .ignoreContentType(true).get();
             String pageStr = doc.toString();
@@ -93,21 +92,6 @@ public class GetUserDetail implements IGetUserInfo {
         for (CommentDetail item : commentDetail) {
             comments.add(item.getContent() + "\r\n=====================\r\n");
         }
-    }
-
-    /**
-     * 获取cid
-     *
-     * @param videoDO
-     */
-    private void getCid(VideoDO videoDO) {
-        //https://v.qq.com/x/cover/bt0g0evoxcqxz8d.html
-        String[] info = videoDO.getVideoUrl().split("/");
-        String[] cid = info[info.length - 1].split("\\.");//正则的时候注意 \\
-        if (0 == cid.length) {
-            throw new Error("没有cid");
-        }
-        videoDO.setCid(cid[0]);
     }
 
     /**

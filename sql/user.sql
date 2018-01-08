@@ -1,17 +1,11 @@
+drop table if exists `user`;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `u_name` varchar(64) NOT NULL COMMENT '用户名',
-  `u_age` int(3) NOT NULL DEFAULT '0' COMMENT '用户年龄',
-  `u_sex` char(2) DEFAULT NULL COMMENT '用户性别',
+  `name` varchar(64) NOT NULL COMMENT '用户名',
+  `age` int(3) NOT NULL DEFAULT '0' COMMENT '用户年龄',
+  `sex` char(2) DEFAULT NULL COMMENT '用户性别',
+  `add_time` DateTime not null,
+  `modification_time` TIMESTAMP not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `u_name` (`u_name`)
+  UNIQUE KEY `user_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-alter table `user` add column `add_time` VARCHAR (16) not null;
-alter table `user` add column `modification_time` TIMESTAMP default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ;
-
-# 删除主键，并修改
-Alter table `user` drop primary key;
-Alter table `user` drop column `id`;
-
-Alter table `user` add primary key(`u_name`);

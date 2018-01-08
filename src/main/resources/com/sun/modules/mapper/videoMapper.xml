@@ -2,14 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.sun.modules.bean.domain.VideoDO">
+<mapper namespace="com.sun.modules.bean.dao.IVideoDAO">
 
     <insert id="insertVideoInfo" parameterType="list">
-        INSERT into video(cid,v_name,v_time,v_actors,v_type,v_url,v_picture_path,v_detail,add_time,motification_time)
+        INSERT into
+        video(`cid`,`name`,`time`,`actors`,`type`,`url`,`picture_path`,`detail`,`add_time`,`modification_time`)
         VALUES
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.cid},#{item.videoName},#{item.videoTime},#{item.videoActors},#{item.videoType},
-            #{item.videoUrl},#{item.videoPicturePath},#{item.videoDetail},unix_timestamp(),unix_timestamp())
+            (#{item.cid},#{item.name},#{item.time},#{item.actors},#{item.type},
+            #{item.url},#{item.picturePath},#{item.detail},CURRENT_DATE ,CURRENT_TIMESTAMP )
         </foreach>
     </insert>
 </mapper>

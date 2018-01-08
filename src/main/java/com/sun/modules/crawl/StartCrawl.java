@@ -1,7 +1,7 @@
 package com.sun.modules.crawl;
 
-import com.sun.modules.bean.domain.UserDO;
-import com.sun.modules.bean.domain.VideoDO;
+import com.sun.modules.bean.po.UserPO;
+import com.sun.modules.bean.po.VideoPO;
 import com.sun.modules.crawl.parser.impl.GetUserDetail;
 import com.sun.modules.crawl.parser.impl.GetVideoDetail;
 import org.apache.http.HttpEntity;
@@ -82,8 +82,8 @@ public class StartCrawl {
         GetVideoDetail getVideoDetail = new GetVideoDetail();
         GetUserDetail getUserDetail = new GetUserDetail();
         try {
-            List<VideoDO> videoDOList = getVideoDetail.getVideoInfo();
-            List<UserDO> userList = getUserDetail.getUserInfo(videoDOList);
+            List<VideoPO> videoPOList = getVideoDetail.getVideoInfo();
+            List<UserPO> userList = getUserDetail.getUserInfo(videoPOList);
         }catch(Exception e){
             e.printStackTrace();
         }

@@ -14,12 +14,11 @@
         <property name="location" value="classpath:database.properties"/>
     </bean>
 
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-          destroy-method="close">
-        <property name="driverClassName" value="${db.driver}"/>
-        <property name="url" value="${db.url}"/>
-        <property name="username" value="${db.username}"/>
-        <property name="password" value="${db.password}"/>
+    <bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${local.username}"/>
+        <property name="password" value="${local.password}"/>
         <!-- 初始化连接大小 -->
         <property name="initialSize" value="${initialSize}"/>
         <!-- 连接池最大数量 -->

@@ -117,7 +117,7 @@
         <!--配置mysql-->
         <dependency>
             <groupId>mysql</groupId>
-            <artifactId>mysql-CONNECTOR-java</artifactId>
+            <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
         </dependency>
 

@@ -2,12 +2,15 @@ package com.sun.modules.crawl.parser.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.sun.modules.bean.dao.IRelationDAO;
 import com.sun.modules.bean.dao.IUserDAO;
 import com.sun.modules.bean.json.CommentDetail;
 import com.sun.modules.bean.json.DataDetail;
 import com.sun.modules.bean.json.VideoCommentId;
+import com.sun.modules.bean.po.RelationPO;
 import com.sun.modules.bean.po.UserPO;
 import com.sun.modules.bean.po.VideoPO;
+import com.sun.modules.constants.SexEnum;
 import com.sun.modules.crawl.parser.IGetUserInfo;
 import com.sun.modules.util.FileUtil;
 import com.sun.modules.util.JsonUtil;
@@ -43,7 +46,11 @@ public class GetUserDetail implements IGetUserInfo {
         AbstractApplicationContext ctx
                 = new ClassPathXmlApplicationContext(new String[]{"spring-mybatis.xml"});
         IUserDAO userDAO = (IUserDAO) ctx.getBean("userDAO");
+        IRelationDAO relationDAO = (IRelationDAO) ctx.getBean("relationDAO");
 
+        List<UserPO> userPOList = new ArrayList<>();
+        List<RelationPO> relationPOList = new ArrayList<>();
+        List<String> userNameList = new ArrayList<>();
         Connection con = Jsoup.connect(COMMENT_ID_URL).timeout(5000);
         VideoCommentId videoCommentId;
         int i = 0;
@@ -75,16 +82,18 @@ public class GetUserDetail implements IGetUserInfo {
 
                 DataDetail.Data data = commentData.getData();
                 //获取评论
-                getAllComments(data, comments);
+                getAllComments(data, comments, userPOList, relationPOList, userNameList, item.getCid());
                 numbers += data.getRetnum();
                 last = data.getLast();
                 if (numbers >= data.getTotal()) {
                     break;
                 }
             }
-            FileUtil.writeFileInBatch(comments, "./data/comments.txt");
+//            FileUtil.writeFileInBatch(comments, "./data/comments.txt");
             break;
         }
+        userDAO.insertUserInfo(userPOList);
+        relationDAO.insertRecord(relationPOList);
         return null;
     }
 
@@ -93,11 +102,27 @@ public class GetUserDetail implements IGetUserInfo {
      *
      * @param data
      * @param comments
+     * @param relaiotn
+     * @param user
      */
-    private void getAllComments(DataDetail.Data data, List<String> comments) {
+    private void getAllComments(DataDetail.Data data, List<String> comments,
+                                List<UserPO> user, List<RelationPO> relaiotn, List<String> nameList, String cid) {
         List<CommentDetail> commentDetail = data.getCommentid();
         for (CommentDetail item : commentDetail) {
-            comments.add(item.getContent() + "\r\n=====================\r\n");
+            UserPO userPO = new UserPO();
+            String name = item.getUserinfo().getNick();
+            if (!nameList.contains(name)) {
+                userPO.setName(name);
+                userPO.setSex(SexEnum.getByValue(item.getUserinfo().getGender()).getDesc());
+                user.add(userPO);
+            }
+
+            RelationPO relationPO = new RelationPO();
+            relationPO.setUserName(name);
+            relationPO.setCid(cid);
+            relationPO.setComment(item.getContent());
+            relaiotn.add(relationPO);
+//            comments.add(item.getContent() + "\r\n=====================\r\n");
         }
     }
 

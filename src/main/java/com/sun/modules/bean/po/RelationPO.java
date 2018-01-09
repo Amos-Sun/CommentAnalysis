@@ -6,7 +6,7 @@ package com.sun.modules.bean.po;
 public class RelationPO {
 
     private Integer id;
-    private Integer cid;
+    private String cid;
     private String userName;
     private String comment;
     private Integer evaluation;
@@ -21,11 +21,11 @@ public class RelationPO {
         this.id = id;
     }
 
-    public Integer getCid() {
+    public String getCid() {
         return cid;
     }
 
-    public void setCid(Integer cid) {
+    public void setCid(String cid) {
         this.cid = cid;
     }
 

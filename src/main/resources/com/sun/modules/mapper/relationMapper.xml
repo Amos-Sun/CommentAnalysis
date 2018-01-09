@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.sun.modules.bean.dao.IUserDAO">
+<mapper namespace="com.sun.modules.bean.dao.IRelationDAO">
 
-    <insert id="insertUserInfo" parameterType="list">
-        INSERT into user(`name`,`age`,`sex`,`add_time`,`modification_time`)
+    <insert id="insertRecord" parameterType="list">
+        INSERT into user(`cid`,`user_name`,`comment`,`add_time`,`modification_time`)
         VALUES
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.name},#{item.age},#{item.sex},CURRENT_DATE ,CURRENT_TIMESTAMP)
+            (#{item.cid},#{item.userName},#{item.comment},CURRENT_DATE ,CURRENT_TIMESTAMP)
         </foreach>
     </insert>
 </mapper>

@@ -77,4 +77,18 @@ public class CommentTargetInfo {
     public void setCommup(String commup) {
         this.commup = commup;
     }
+
+    @Override
+    public String toString() {
+        return "CommentTargetInfo{" +
+                "orgcommentnum='" + orgcommentnum + '\'' +
+                ", commentnum='" + commentnum + '\'' +
+                ", checkstatus='" + checkstatus + '\'' +
+                ", checktype='" + checktype + '\'' +
+                ", city='" + city + '\'' +
+                ", voteid='" + voteid + '\'' +
+                ", topicids='" + topicids + '\'' +
+                ", commup='" + commup + '\'' +
+                '}';
+    }
 }

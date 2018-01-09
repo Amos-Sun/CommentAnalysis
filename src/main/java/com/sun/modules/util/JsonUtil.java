@@ -61,7 +61,8 @@ public class JsonUtil {
         try {
             return mapper.readValue(content, classType);
         } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
+            System.out.println("json parser error  " + e.getMessage());
+            return null;
         }
     }
 

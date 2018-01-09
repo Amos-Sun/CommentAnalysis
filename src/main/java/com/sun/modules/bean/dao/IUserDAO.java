@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by sunguiyong on 2017/10/17.
  */
-@Repository
+@Repository(value = "userDAO")
 public interface IUserDAO {
 
     void insertUserInfo(List<UserPO> list);

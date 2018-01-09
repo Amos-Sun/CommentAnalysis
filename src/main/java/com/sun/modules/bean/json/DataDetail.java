@@ -110,10 +110,35 @@ public class DataDetail {
         public void setTargetinfo(CommentTargetInfo targetinfo) {
             this.targetinfo = targetinfo;
         }
+
+        @Override
+        public String toString() {
+            return "Data{" +
+                    "targetid='" + targetid + '\'' +
+                    ", display=" + display +
+                    ", total=" + total +
+                    ", reqnum=" + reqnum +
+                    ", retnum=" + retnum +
+                    ", maxid='" + maxid + '\'' +
+                    ", first='" + first + '\'' +
+                    ", last='" + last + '\'' +
+                    ", hasnext=" + hasnext +
+                    ", targetinfo=" + targetinfo +
+                    ", commentid=" + commentid +
+                    '}';
+        }
     }
 
     public static class Info {
         private String time;
+
+        public String getTime() {
+            return time;
+        }
+
+        public void setTime(String time) {
+            this.time = time;
+        }
     }
 
     public Integer getErrCode() {

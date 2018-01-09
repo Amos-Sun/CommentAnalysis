@@ -1,6 +1,8 @@
 package com.sun.modules.crawl.parser.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.sun.modules.bean.dao.IUserDAO;
 import com.sun.modules.bean.json.CommentDetail;
 import com.sun.modules.bean.json.DataDetail;
 import com.sun.modules.bean.json.VideoCommentId;
@@ -13,6 +15,8 @@ import com.sun.modules.util.StrUtil;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,6 +40,9 @@ public class GetUserDetail implements IGetUserInfo {
     private String COMMENT_DETAIL_URL = "https://coral.qq.com/article/";
 
     public List<UserPO> getUserInfo(List<VideoPO> videoPOList) throws IOException {
+        AbstractApplicationContext ctx
+                = new ClassPathXmlApplicationContext(new String[]{"spring-mybatis.xml"});
+        IUserDAO userDAO = (IUserDAO) ctx.getBean("userDAO");
 
         Connection con = Jsoup.connect(COMMENT_ID_URL).timeout(5000);
         VideoCommentId videoCommentId;
@@ -117,6 +124,14 @@ public class GetUserDetail implements IGetUserInfo {
     private DataDetail getCommentDetail(String detail) {
         String getStr = StrUtil.getAimedString(detail, "<body>", "</body>");
         String res = StrUtil.replaceString(getStr, "&quot;", "\"");
+        /*int start = res.indexOf("\"certinfo\":") + "\"certinfo\":".length();
+        int end = res.indexOf(",\"remark\":");
+        StringBuilder sb = new StringBuilder();
+        sb.append(res.substring(0, start));
+        sb.append("\"\"");
+        sb.append(res.substring(end, res.length()));
+        res = sb.toString();*/
+
         DataDetail dataDetail = JsonUtil.fromJson(res, new TypeReference<DataDetail>() {
         });
         return dataDetail;

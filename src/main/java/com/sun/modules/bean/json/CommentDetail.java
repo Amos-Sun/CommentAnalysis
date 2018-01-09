@@ -83,6 +83,16 @@ public class CommentDetail {
         public void setWt(String wt) {
             this.wt = wt;
         }
+
+        @Override
+        public String toString() {
+            return "ExtendInfo{" +
+                    "at='" + at + '\'' +
+                    ", ut='" + ut + '\'' +
+                    ", ct='" + ct + '\'' +
+                    ", wt='" + wt + '\'' +
+                    '}';
+        }
     }
 
     public static class UserInfo{
@@ -99,13 +109,18 @@ public class CommentDetail {
         private String hwlevel;
         private String hwannual;
         private String identity;
-        private String certinfo;
+//        private String certinfo;
         private String remark;
         private String fnd;
         private List<WBUserInfo> wbuserinfo;
 
         public static class WBUserInfo{
             public WBUserInfo(){}
+
+            @Override
+            public String toString() {
+                return "WBUserInfo:{}";
+            }
         }
 
         public String getUserid() {
@@ -212,13 +227,6 @@ public class CommentDetail {
             this.identity = identity;
         }
 
-        public String getCertinfo() {
-            return certinfo;
-        }
-
-        public void setCertinfo(String certinfo) {
-            this.certinfo = certinfo;
-        }
 
         public String getRemark() {
             return remark;
@@ -547,5 +555,49 @@ public class CommentDetail {
 
     public void setAbstract__(String abstract__) {
         this.abstract__ = abstract__;
+    }
+
+    @Override
+    public String toString() {
+        return "CommentDetail{" +
+                "id='" + id + '\'' +
+                ", rootid='" + rootid + '\'' +
+                ", targetid='" + targetid + '\'' +
+                ", parent='" + parent + '\'' +
+                ", timeDifference='" + timeDifference + '\'' +
+                ", time='" + time + '\'' +
+                ", content='" + content + '\'' +
+                ", title='" + title + '\'' +
+                ", up='" + up + '\'' +
+                ", rep='" + rep + '\'' +
+                ", type='" + type + '\'' +
+                ", hotscale='" + hotscale + '\'' +
+                ", checktype='" + checktype + '\'' +
+                ", checkstatus='" + checkstatus + '\'' +
+                ", isdeleted='" + isdeleted + '\'' +
+                ", tagself='" + tagself + '\'' +
+                ", taghost='" + taghost + '\'' +
+                ", source='" + source + '\'' +
+                ", location='" + location + '\'' +
+                ", address='" + address + '\'' +
+                ", rank='" + rank + '\'' +
+                ", custom='" + custom + '\'' +
+                ", orireplynum='" + orireplynum + '\'' +
+                ", richtype='" + richtype + '\'' +
+                ", userid='" + userid + '\'' +
+                ", poke='" + poke + '\'' +
+                ", abstract__='" + abstract__ + '\'' +
+                ", thirdid='" + thirdid + '\'' +
+                ", ispick=" + ispick +
+                ", ishide=" + ishide +
+                ", isauthor=" + isauthor +
+                ", replyuser='" + replyuser + '\'' +
+                ", replyuserid='" + replyuserid + '\'' +
+                ", replyhwvip='" + replyhwvip + '\'' +
+                ", replyhwlevel='" + replyhwlevel + '\'' +
+                ", replyhwannual='" + replyhwannual + '\'' +
+                ", extend=" + extend +
+                ", userinfo=" + userinfo +
+                '}';
     }
 }

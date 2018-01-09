@@ -1,3 +1,5 @@
+-- forbid foreign key
+SET FOREIGN_KEY_CHECKS=0;
 drop table if exists `relation`;
 CREATE TABLE `relation` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',

@@ -11,6 +11,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -47,7 +48,10 @@ public class GetVideoDetail implements IGetVideoDetail {
         initCrawlList();
 
         //存放整理好的video数据
-        List<VideoPO> videoPOList = new ArrayList<VideoPO>();
+        List<VideoPO> videoPOList = new ArrayList<>();
+        List<VideoPO> poList = new ArrayList<>();
+        List<String> existsCidList = new ArrayList<>();
+        existsCidList = videoDAO.getAllCid();
         for (int i = 0; i < willCrwalUrl.size(); i++) {
             Document doc = Jsoup.connect(willCrwalUrl.get(i)).timeout(5000).get();
 
@@ -74,15 +78,20 @@ public class GetVideoDetail implements IGetVideoDetail {
                 getActors(detailDoc, videoPO);
                 getDetail(detailDoc, videoPO);
             }
-            videoPOList.add(videoPO);
+            if (!existsCidList.contains(videoPO.getCid())) {
+                videoPOList.add(videoPO);
+            }
+            poList.add(videoPO);
             System.out.println(videoPOList.size());
 
-            if (i == 10) {
+            if (i == 3) {
                 break;
             }
         }
-        videoDAO.insertVideoInfo(videoPOList);
-        return videoPOList;
+        if (!CollectionUtils.isEmpty(videoPOList)) {
+            videoDAO.insertVideoInfo(videoPOList);
+        }
+        return poList;
     }
 
     /**

@@ -29,14 +29,14 @@ public class JsonTest {
         if (flag) {
             StrUtil.replaceString(jsonData, "abstract", "abstract__");
         }
-        int start = jsonData.indexOf("\"certinfo\":") + "\"certinfo\":".length();
+        /*int start = jsonData.indexOf("\"certinfo\":") + "\"certinfo\":".length();
         int end = jsonData.indexOf(",\"remark\":");
         StringBuilder sb = new StringBuilder();
         sb.append(jsonData.substring(0, start));
         sb.append("\"\"");
         sb.append(jsonData.substring(end, jsonData.length()));
         jsonData = sb.toString();
-        System.out.println(jsonData);
+        System.out.println(jsonData);*/
         DataDetail dataDetail = JsonUtil.fromJson(jsonData, DataDetail.class);
         System.out.println(dataDetail.getErrCode());
         System.out.println(dataDetail.getData().getCommentid().get(0).getContent());

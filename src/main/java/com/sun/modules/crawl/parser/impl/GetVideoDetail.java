@@ -16,6 +16,7 @@ import org.springframework.util.CollectionUtils;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -79,6 +80,7 @@ public class GetVideoDetail implements IGetVideoDetail {
                 getDetail(detailDoc, videoPO);
             }
             if (!existsCidList.contains(videoPO.getCid())) {
+                videoPO.setAddTime(new Date());
                 videoPOList.add(videoPO);
             }
             poList.add(videoPO);

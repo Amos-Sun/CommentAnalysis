@@ -18,4 +18,4 @@ CREATE TABLE `video` (
   `modification_time` TIMESTAMP not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新数据时间',
   PRIMARY KEY (`id`),
   INDEX`c_id`(`cid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

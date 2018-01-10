@@ -1,5 +1,9 @@
 package com.sun.modules.bean.po;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
+
 /**
  * Created by sunguiyong on 2017/10/26.
  */
@@ -10,8 +14,11 @@ public class RelationPO {
     private String userName;
     private String comment;
     private Integer evaluation;
-    private String addTime;
-    private String modificationTime;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date addTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date modificationTime;
 
     public Integer getId() {
         return id;
@@ -53,19 +60,19 @@ public class RelationPO {
         this.evaluation = evaluation;
     }
 
-    public String getAddTime() {
+    public Date getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(String addTime) {
+    public void setAddTime(Date addTime) {
         this.addTime = addTime;
     }
 
-    public String getModificationTime() {
+    public Date getModificationTime() {
         return modificationTime;
     }
 
-    public void setModificationTime(String modificationTime) {
+    public void setModificationTime(Date modificationTime) {
         this.modificationTime = modificationTime;
     }
 }

@@ -6,11 +6,11 @@
 
     <insert id="insertVideoInfo" parameterType="list">
         INSERT into
-        video(`cid`,`name`,`time`,`actors`,`type`,`url`,`picture_path`,`detail`,`add_time`,`modification_time`)
-        VALUES
+        `video`(`cid`,`name`,`time`,`actors`,`type`,`url`,`picture_path`,`detail`,`add_time`,`modification_time`)
+         VALUES
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.cid},#{item.name},#{item.time},#{item.actors},#{item.type},
-            #{item.url},#{item.picturePath},#{item.detail},CURRENT_DATE ,CURRENT_TIMESTAMP )
+            #{item.url},#{item.picturePath},#{item.detail},#{item.addTime},CURRENT_TIMESTAMP )
         </foreach>
     </insert>
 </mapper>

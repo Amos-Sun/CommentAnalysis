@@ -1,6 +1,5 @@
 package com.sun.modules.crawl.parser.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.sun.modules.bean.dao.IRelationDAO;
 import com.sun.modules.bean.dao.IUserDAO;
@@ -12,7 +11,6 @@ import com.sun.modules.bean.po.UserPO;
 import com.sun.modules.bean.po.VideoPO;
 import com.sun.modules.constants.SexEnum;
 import com.sun.modules.crawl.parser.IGetUserInfo;
-import com.sun.modules.util.FileUtil;
 import com.sun.modules.util.JsonUtil;
 import com.sun.modules.util.StrUtil;
 import org.jsoup.Connection;
@@ -22,7 +20,9 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -51,6 +51,7 @@ public class GetUserDetail implements IGetUserInfo {
         List<UserPO> userPOList = new ArrayList<>();
         List<RelationPO> relationPOList = new ArrayList<>();
         List<String> userNameList = new ArrayList<>();
+        userNameList = userDAO.getAllName();
         Connection con = Jsoup.connect(COMMENT_ID_URL).timeout(5000);
         VideoCommentId videoCommentId;
         int i = 0;
@@ -69,7 +70,6 @@ public class GetUserDetail implements IGetUserInfo {
                 throw new Error("请求video_comment_id时出错");
             }
             setCommentDetailUrl(videoCommentId.getComment_id());
-            //Connection detailCon = Jsoup.connect(COMMENT_DETAIL_URL).timeout(5000);
             String last = "0";
             int numbers = 0;
             List<String> comments = new ArrayList<String>();
@@ -79,6 +79,10 @@ public class GetUserDetail implements IGetUserInfo {
                         .data("reqnum", "50").get();
                 String detailStr = detailDoc.toString();
                 DataDetail commentData = getCommentDetail(detailStr);
+                if (null == commentData) {
+                    last = last + 50;
+                    continue;
+                }
 
                 DataDetail.Data data = commentData.getData();
                 //获取评论
@@ -92,8 +96,14 @@ public class GetUserDetail implements IGetUserInfo {
 //            FileUtil.writeFileInBatch(comments, "./data/comments.txt");
             break;
         }
-        userDAO.insertUserInfo(userPOList);
-        relationDAO.insertRecord(relationPOList);
+        List<UserPO> list = userPOList.subList(0, userPOList.size() / 2);
+        userDAO.insertUserInfo(list);
+        list = userPOList.subList(userPOList.size() / 2, userPOList.size());
+        userDAO.insertUserInfo(list);
+        List<RelationPO> reList = relationPOList.subList(0, relationPOList.size() / 2);
+        relationDAO.insertRecord(reList);
+        reList = relationPOList.subList(relationPOList.size() / 2, relationPOList.size());
+        relationDAO.insertRecord(reList);
         return null;
     }
 
@@ -108,19 +118,30 @@ public class GetUserDetail implements IGetUserInfo {
     private void getAllComments(DataDetail.Data data, List<String> comments,
                                 List<UserPO> user, List<RelationPO> relaiotn, List<String> nameList, String cid) {
         List<CommentDetail> commentDetail = data.getCommentid();
+        String content;
         for (CommentDetail item : commentDetail) {
             UserPO userPO = new UserPO();
             String name = item.getUserinfo().getNick();
+            try {
+                name = URLEncoder.encode(name, "utf-8");
+                content = URLEncoder.encode(item.getContent());
+            } catch (Exception e) {
+                System.out.println("字符编码出错：" + e.getMessage());
+                continue;
+            }
             if (!nameList.contains(name)) {
                 userPO.setName(name);
+                userPO.setAddTime(new Date());
                 userPO.setSex(SexEnum.getByValue(item.getUserinfo().getGender()).getDesc());
                 user.add(userPO);
+                nameList.add(name);
             }
 
             RelationPO relationPO = new RelationPO();
             relationPO.setUserName(name);
             relationPO.setCid(cid);
-            relationPO.setComment(item.getContent());
+            relationPO.setComment(content);
+            relationPO.setAddTime(new Date());
             relaiotn.add(relationPO);
 //            comments.add(item.getContent() + "\r\n=====================\r\n");
         }

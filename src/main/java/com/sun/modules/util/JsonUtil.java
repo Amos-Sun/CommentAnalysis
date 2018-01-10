@@ -73,7 +73,10 @@ public class JsonUtil {
         try {
             return (T) mapper.readValue(content, valueTypeRef);
         } catch (IOException e) {
-            throw new RuntimeException(String.format("json:%s\nmsg:%s", content, e.getMessage()), e);
+//            throw new RuntimeException(String.format("json:%s\nmsg:%s", content, e.getMessage()), e);
+
+            System.out.println(e.getMessage());
+            return null;
         }
     }
 

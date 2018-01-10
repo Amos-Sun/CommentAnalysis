@@ -5,10 +5,9 @@
 <mapper namespace="com.sun.modules.bean.dao.IRelationDAO">
 
     <insert id="insertRecord" parameterType="list">
-        INSERT into user(`cid`,`user_name`,`comment`,`add_time`,`modification_time`)
-        VALUES
+        INSERT into `relation`(`cid`,`user_name`,`comment`,`add_time`,`modification_time`) VALUES
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.cid},#{item.userName},#{item.comment},CURRENT_DATE ,CURRENT_TIMESTAMP)
+            (#{item.cid},#{item.userName},#{item.comment},#{item.addTime},CURRENT_TIMESTAMP)
         </foreach>
     </insert>
 </mapper>

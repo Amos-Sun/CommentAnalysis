@@ -54,12 +54,7 @@ public class GetUserDetail implements IGetUserInfo {
         userNameList = userDAO.getAllName();
         Connection con = Jsoup.connect(COMMENT_ID_URL).timeout(5000);
         VideoCommentId videoCommentId;
-        int i = 0;
         for (VideoPO item : videoPOList) {
-            if (i != 2) {
-                i++;
-                continue;
-            }
             System.out.println(item.getUrl());
             Document doc = con.data("cid", item.getCid())
                     .ignoreContentType(true).get();
@@ -96,14 +91,8 @@ public class GetUserDetail implements IGetUserInfo {
 //            FileUtil.writeFileInBatch(comments, "./data/comments.txt");
             break;
         }
-        List<UserPO> list = userPOList.subList(0, userPOList.size() / 2);
-        userDAO.insertUserInfo(list);
-        list = userPOList.subList(userPOList.size() / 2, userPOList.size());
-        userDAO.insertUserInfo(list);
-        List<RelationPO> reList = relationPOList.subList(0, relationPOList.size() / 2);
-        relationDAO.insertRecord(reList);
-        reList = relationPOList.subList(relationPOList.size() / 2, relationPOList.size());
-        relationDAO.insertRecord(reList);
+        userDAO.insertUserInfo(userPOList);
+        relationDAO.insertRecord(relationPOList);
         return null;
     }
 
@@ -133,7 +122,9 @@ public class GetUserDetail implements IGetUserInfo {
                 userPO.setName(name);
                 userPO.setAddTime(new Date());
                 userPO.setSex(SexEnum.getByValue(item.getUserinfo().getGender()).getDesc());
-                user.add(userPO);
+                if (user.size() < 10000) {
+                    user.add(userPO);
+                }
                 nameList.add(name);
             }
 
@@ -142,7 +133,9 @@ public class GetUserDetail implements IGetUserInfo {
             relationPO.setCid(cid);
             relationPO.setComment(content);
             relationPO.setAddTime(new Date());
-            relaiotn.add(relationPO);
+            if (relaiotn.size() < 10000) {
+                relaiotn.add(relationPO);
+            }
 //            comments.add(item.getContent() + "\r\n=====================\r\n");
         }
     }
@@ -170,14 +163,6 @@ public class GetUserDetail implements IGetUserInfo {
     private DataDetail getCommentDetail(String detail) {
         String getStr = StrUtil.getAimedString(detail, "<body>", "</body>");
         String res = StrUtil.replaceString(getStr, "&quot;", "\"");
-        /*int start = res.indexOf("\"certinfo\":") + "\"certinfo\":".length();
-        int end = res.indexOf(",\"remark\":");
-        StringBuilder sb = new StringBuilder();
-        sb.append(res.substring(0, start));
-        sb.append("\"\"");
-        sb.append(res.substring(end, res.length()));
-        res = sb.toString();*/
-
         DataDetail dataDetail = JsonUtil.fromJson(res, new TypeReference<DataDetail>() {
         });
         return dataDetail;

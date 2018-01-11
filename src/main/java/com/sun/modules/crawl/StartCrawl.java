@@ -2,8 +2,8 @@ package com.sun.modules.crawl;
 
 import com.sun.modules.bean.po.UserPO;
 import com.sun.modules.bean.po.VideoPO;
-import com.sun.modules.crawl.parser.impl.GetUserDetail;
-import com.sun.modules.crawl.parser.impl.GetVideoDetail;
+import com.sun.modules.crawl.parser.impl.SaveUserAndRelationDetail;
+import com.sun.modules.crawl.parser.impl.SaveVideoDetail;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
@@ -79,11 +79,11 @@ public class StartCrawl {
             e.printStackTrace();
         }*/
 
-        GetVideoDetail getVideoDetail = new GetVideoDetail();
-        GetUserDetail getUserDetail = new GetUserDetail();
+        SaveVideoDetail getVideoDetail = new SaveVideoDetail();
+        SaveUserAndRelationDetail getUserDetail = new SaveUserAndRelationDetail();
         try {
-            List<VideoPO> videoPOList = getVideoDetail.getVideoInfo();
-            List<UserPO> userList = getUserDetail.getUserInfo(videoPOList);
+            List<VideoPO> videoPOList = getVideoDetail.saveVideoInfo();
+            List<UserPO> userList = getUserDetail.saveUserAndRelation(videoPOList);
         }catch(Exception e){
             e.printStackTrace();
         }

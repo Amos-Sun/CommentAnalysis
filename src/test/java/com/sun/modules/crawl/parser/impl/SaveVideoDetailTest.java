@@ -7,10 +7,10 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class GetVideoDetailTest {
+public class SaveVideoDetailTest {
 
     @InjectMocks
-    GetVideoDetail getVideoDetail;
+    SaveVideoDetail saveVideoDetail;
 
     @Mock
     AbstractApplicationContext ctx;

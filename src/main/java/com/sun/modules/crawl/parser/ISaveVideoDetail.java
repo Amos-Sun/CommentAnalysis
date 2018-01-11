@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by sunguiyong on 2017/10/17.
  */
-public interface IGetVideoDetail {
+public interface ISaveVideoDetail {
 
     /**
      * 获取电影信息
@@ -16,5 +16,5 @@ public interface IGetVideoDetail {
      * @return
      * @throws IOException
      */
-    List<VideoPO> getVideoInfo() throws IOException;
+    List<VideoPO> saveVideoInfo() throws IOException;
 }

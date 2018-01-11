@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by sunguiyong on 2017/10/17.
  */
-public interface IGetUserInfo {
+public interface ISaveUserAndRelationDetail {
 
     /**
      * 获取用户信息
@@ -18,5 +18,5 @@ public interface IGetUserInfo {
      * @return
      * @throws IOException
      */
-    List<UserPO> getUserInfo(List<VideoPO> videoDOList) throws IOException;
+    List<UserPO> saveUserAndRelation(List<VideoPO> videoDOList) throws IOException;
 }

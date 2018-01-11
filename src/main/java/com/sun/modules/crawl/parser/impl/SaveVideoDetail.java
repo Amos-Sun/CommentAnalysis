@@ -3,7 +3,7 @@ package com.sun.modules.crawl.parser.impl;
 import com.google.common.base.Joiner;
 import com.sun.modules.bean.dao.IVideoDAO;
 import com.sun.modules.bean.po.VideoPO;
-import com.sun.modules.crawl.parser.IGetVideoDetail;
+import com.sun.modules.crawl.parser.ISaveVideoDetail;
 import com.sun.modules.util.StrUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created by SunGuiyong on 2017/9/26.
  */
-public class GetVideoDetail implements IGetVideoDetail {
+public class SaveVideoDetail implements ISaveVideoDetail {
 
 //        全部
 //        最新上架
@@ -42,7 +42,7 @@ public class GetVideoDetail implements IGetVideoDetail {
 
     private List<String> willCrwalUrl = new ArrayList<String>();
 
-    public List<VideoPO> getVideoInfo() throws IOException {
+    public List<VideoPO> saveVideoInfo() throws IOException {
         AbstractApplicationContext ctx
                 = new ClassPathXmlApplicationContext(new String[]{"spring-mybatis.xml"});
         IVideoDAO videoDAO = (IVideoDAO) ctx.getBean("videoDAO");

@@ -51,7 +51,7 @@ public class SaveVideoDetail implements ISaveVideoDetail {
         //存放整理好的video数据
         List<VideoPO> videoPOList = new ArrayList<>();
         List<VideoPO> poList = new ArrayList<>();
-        List<String> existsCidList = new ArrayList<>();
+        List<String> existsCidList;
         existsCidList = videoDAO.getAllCid();
         for (int i = 0; i < willCrwalUrl.size(); i++) {
             Document doc = Jsoup.connect(willCrwalUrl.get(i)).timeout(5000).get();
@@ -86,9 +86,9 @@ public class SaveVideoDetail implements ISaveVideoDetail {
             poList.add(videoPO);
             System.out.println(videoPOList.size());
 
-            if (i == 3) {
+           /* if (i == 3) {
                 break;
-            }
+            }*/
         }
         if (!CollectionUtils.isEmpty(videoPOList)) {
             videoDAO.insertVideoInfo(videoPOList);

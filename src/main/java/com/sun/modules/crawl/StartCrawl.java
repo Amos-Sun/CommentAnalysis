@@ -84,8 +84,9 @@ public class StartCrawl {
         try {
             List<VideoPO> videoPOList = getVideoDetail.saveVideoInfo();
             List<UserPO> userList = getUserDetail.saveUserAndRelation(videoPOList);
-        }catch(Exception e){
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("多线程爬虫开始出错");
         }
+
     }
 }

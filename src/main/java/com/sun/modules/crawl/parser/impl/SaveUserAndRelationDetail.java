@@ -52,56 +52,60 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         List<RelationPO> relationPOList;
         List<String> userNameList;
 
-        Connection con = Jsoup.connect(COMMENT_ID_URL).timeout(5000);
-        VideoCommentId videoCommentId;
+        try {
+            Connection con = Jsoup.connect(COMMENT_ID_URL).timeout(5000);
+            VideoCommentId videoCommentId;
 
-        String baseUrl = "https://coral.qq.com/article/";
-        for (VideoPO item : videoPOList) {
-            userPOList = new ArrayList<>();
-            relationPOList = new ArrayList<>();
-            userNameList = userDAO.getAllName();
+            String baseUrl = "https://coral.qq.com/article/";
+            for (VideoPO item : videoPOList) {
+                userPOList = new ArrayList<>();
+                relationPOList = new ArrayList<>();
+                userNameList = userDAO.getAllName();
 
-            System.out.println(item.getUrl());
-            Document doc = con.data("cid", item.getCid())
-                    .ignoreContentType(true).get();
-            String pageStr = doc.toString();
-            videoCommentId = getVideoCommentIdContent(pageStr);
+                System.out.println(item.getUrl());
+                Document doc = con.data("cid", item.getCid())
+                        .ignoreContentType(true).get();
+                String pageStr = doc.toString();
+                videoCommentId = getVideoCommentIdContent(pageStr);
 
-            if (!"Success!".equals(videoCommentId.getResult().getMsg())) {
-                System.out.println("请求video_comment_id时出错");
-                continue;
-            }
-            String url = setCommentDetailUrl(baseUrl, videoCommentId.getComment_id());
-            Connection getDateCon = Jsoup.connect(url).timeout(5000);
-            String last = "0";
-            int numbers = 0;
-            List<String> comments = new ArrayList<>();
-            while (true) {
-                Document detailDoc = getDateCon.data("commentid", last)
-                        .data("reqnum", "50").get();
-                String detailStr = detailDoc.toString();
-                DataDetail commentData = getCommentDetail(detailStr);
-                if (null == commentData) {
-                    last = last + 50;
+                if (!"Success!".equals(videoCommentId.getResult().getMsg())) {
+                    System.out.println("请求video_comment_id时出错");
                     continue;
                 }
+                String url = setCommentDetailUrl(baseUrl, videoCommentId.getComment_id());
+                Connection getDateCon = Jsoup.connect(url).timeout(5000);
+                String last = "0";
+                int numbers = 0;
+                List<String> comments = new ArrayList<>();
+                while (true) {
+                    Document detailDoc = getDateCon.data("commentid", last)
+                            .data("reqnum", "50").get();
+                    String detailStr = detailDoc.toString();
+                    DataDetail commentData = getCommentDetail(detailStr);
+                    if (null == commentData) {
+                        last = last + 50;
+                        continue;
+                    }
 
-                DataDetail.Data data = commentData.getData();
-                //获取评论
-                getUserAndRelation(data, comments, userPOList, relationPOList, userNameList, item.getCid());
-                numbers += data.getRetnum();
-                last = data.getLast();
-                if (numbers >= data.getTotal()) {
-                    break;
+                    DataDetail.Data data = commentData.getData();
+                    //获取评论
+                    getUserAndRelation(data, comments, userPOList, relationPOList, userNameList, item.getCid());
+                    numbers += data.getRetnum();
+                    last = data.getLast();
+                    if (numbers >= data.getTotal()) {
+                        break;
+                    }
+                }
+//            FileUtil.writeFileInBatch(comments, "./data/comments.txt");
+                if (!CollectionUtils.isEmpty(userPOList)) {
+                    userDAO.insertUserInfo(userPOList);
+                }
+                if (!CollectionUtils.isEmpty(relationPOList)) {
+                    relationDAO.insertRecord(relationPOList);
                 }
             }
-//            FileUtil.writeFileInBatch(comments, "./data/comments.txt");
-            if (!CollectionUtils.isEmpty(userPOList)) {
-                userDAO.insertUserInfo(userPOList);
-            }
-            if (!CollectionUtils.isEmpty(relationPOList)) {
-                relationDAO.insertRecord(relationPOList);
-            }
+        } catch (Exception e) {
+            System.out.println("获取用户信息时出错 message={}" + e.getMessage());
         }
 
         return null;

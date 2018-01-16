@@ -1,6 +1,7 @@
 package com.sun.modules.crawl.parser.impl;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.google.common.util.concurrent.*;
 import com.sun.modules.bean.dao.IRelationDAO;
 import com.sun.modules.bean.dao.IUserDAO;
 import com.sun.modules.bean.json.CommentDetail;
@@ -25,6 +26,9 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by sunguiyong on 2017/10/17.
@@ -42,11 +46,15 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
      * 1551278768/comment?commentid=6332862978740201115&reqnum=50
      */
     /*private String COMMENT_DETAIL_URL = "https://coral.qq.com/article/";*/
+
+    private ExecutorService exec = Executors.newFixedThreadPool(15);
+    private ListeningExecutorService service = MoreExecutors.listeningDecorator(exec);
+
     public List<UserPO> saveUserAndRelation(List<VideoPO> videoPOList) throws IOException {
         AbstractApplicationContext ctx
                 = new ClassPathXmlApplicationContext(new String[]{"spring-mybatis.xml"});
-        IUserDAO userDAO = (IUserDAO) ctx.getBean("userDAO");
-        IRelationDAO relationDAO = (IRelationDAO) ctx.getBean("relationDAO");
+        final IUserDAO userDAO = (IUserDAO) ctx.getBean("userDAO");
+        final IRelationDAO relationDAO = (IRelationDAO) ctx.getBean("relationDAO");
 
         List<UserPO> userPOList;
         List<RelationPO> relationPOList;
@@ -73,30 +81,18 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
                     continue;
                 }
                 String url = setCommentDetailUrl(baseUrl, videoCommentId.getComment_id());
-                Connection getDateCon = Jsoup.connect(url).timeout(5000);
-                String last = "0";
-                int numbers = 0;
-                List<String> comments = new ArrayList<>();
-                while (true) {
-                    Document detailDoc = getDateCon.data("commentid", last)
-                            .data("reqnum", "50").get();
-                    String detailStr = detailDoc.toString();
-                    DataDetail commentData = getCommentDetail(detailStr);
-                    if (null == commentData) {
-                        last = last + 50;
-                        continue;
+
+                ListenableFuture<Object> future = service.submit(
+                        new ThreadForGetUR(url, userPOList, relationPOList, userNameList, item));
+                Futures.addCallback(future, new FutureCallback<Object>() {
+                    @Override
+                    public void onSuccess(Object object) {
                     }
 
-                    DataDetail.Data data = commentData.getData();
-                    //获取评论
-                    getUserAndRelation(data, comments, userPOList, relationPOList, userNameList, item.getCid());
-                    numbers += data.getRetnum();
-                    last = data.getLast();
-                    if (numbers >= data.getTotal()) {
-                        break;
+                    @Override
+                    public void onFailure(Throwable object) {
                     }
-                }
-//            FileUtil.writeFileInBatch(comments, "./data/comments.txt");
+                });
                 if (!CollectionUtils.isEmpty(userPOList)) {
                     userDAO.insertUserInfo(userPOList);
                 }
@@ -106,9 +102,56 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
             }
         } catch (Exception e) {
             System.out.println("获取用户信息时出错 message={}" + e.getMessage());
+        } finally {
+            service.shutdown();
+        }
+        return null;
+    }
+
+    public class ThreadForGetUR implements Callable<Object> {
+
+        private String url;
+        private List<UserPO> userPOList;
+        private List<RelationPO> relationPOList;
+        private List<String> userNameList;
+        private VideoPO item;
+
+        ThreadForGetUR(String url, List<UserPO> userPOList, List<RelationPO> relationPOList,
+                       List<String> userNameList, VideoPO videoPO) {
+            this.url = url;
+            this.userNameList = userNameList;
+            this.userPOList = userPOList;
+            this.relationPOList = relationPOList;
+            this.item = videoPO;
         }
 
-        return null;
+        @Override
+        public Object call() throws Exception {
+            Connection getDateCon = Jsoup.connect(url).timeout(5000);
+            String last = "0";
+            int numbers = 0;
+            List<String> comments = new ArrayList<>();
+            while (true) {
+                Document detailDoc = getDateCon.data("commentid", last)
+                        .data("reqnum", "50").get();
+                String detailStr = detailDoc.toString();
+                DataDetail commentData = getCommentDetail(detailStr);
+                if (null == commentData) {
+                    last = last + 50;
+                    continue;
+                }
+
+                DataDetail.Data data = commentData.getData();
+                //获取评论
+                getUserAndRelation(data, comments, userPOList, relationPOList, userNameList, item.getCid());
+                numbers += data.getRetnum();
+                last = data.getLast();
+                if (numbers >= data.getTotal()) {
+                    break;
+                }
+            }
+            return null;
+        }
     }
 
     /**

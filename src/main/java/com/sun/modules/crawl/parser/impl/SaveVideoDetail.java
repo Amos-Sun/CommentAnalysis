@@ -1,10 +1,12 @@
 package com.sun.modules.crawl.parser.impl;
 
 import com.google.common.base.Joiner;
+import com.google.common.util.concurrent.*;
 import com.sun.modules.bean.dao.IVideoDAO;
 import com.sun.modules.bean.po.VideoPO;
 import com.sun.modules.crawl.parser.ISaveVideoDetail;
 import com.sun.modules.util.StrUtil;
+import jdk.nashorn.internal.codegen.CompilerConstants;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -18,6 +20,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * Created by SunGuiyong on 2017/9/26.
@@ -39,6 +45,8 @@ public class SaveVideoDetail implements ISaveVideoDetail {
     private final String url = "http://v.qq.com/x/list/movie?area=-1&sort=19&offset=0";
 
     private String BASE_URL = "http://v.qq.com/x/list/movie?area=-1&sort=19&offset=";
+    private ExecutorService exec = Executors.newFixedThreadPool(15);
+    private ListeningExecutorService service = MoreExecutors.listeningDecorator(exec);
 
     private List<String> willCrwalUrl = new ArrayList<String>();
 
@@ -53,47 +61,70 @@ public class SaveVideoDetail implements ISaveVideoDetail {
         List<VideoPO> poList = new ArrayList<>();
         List<String> existsCidList;
         existsCidList = videoDAO.getAllCid();
+        List<ListenableFuture<VideoPO>> futures = new ArrayList<>();
+
         for (int i = 0; i < willCrwalUrl.size(); i++) {
             Document doc = Jsoup.connect(willCrwalUrl.get(i)).timeout(5000).get();
-
             //figures_list
             Document ulDoc = getChildDocument(doc, "figures_list");
             Elements liContainer = ulDoc.select(".list_item");
 
             VideoPO videoPO = new VideoPO();
-            for (Element liItem : liContainer) {
-                Document liDoc = Jsoup.parse(liItem.toString());
-                Elements title = liDoc.select("strong a");
+            ListenableFuture<VideoPO> future = service.submit(new ThreadForGetVideo(liContainer, videoPO));
+            Futures.addCallback(future, new FutureCallback<VideoPO>() {
+                @Override
+                public void onSuccess(VideoPO videoPO) {
+                    if (!existsCidList.contains(videoPO.getCid())) {
+                        videoPO.setAddTime(new Date());
+                        videoPOList.add(videoPO);
+                    }
+                }
 
-                videoPO.setUrl(title.attr("href"));
-                getCid(videoPO);
-                videoPO.setName(title.text());
-
-                title = liDoc.select("a img");
-                //图片地址 r-lazyload
-                videoPO.setPicturePath(title.attr("r-lazyload"));
-
-                Document detailDoc = Jsoup.connect(videoPO.getUrl()).timeout(5000).get();
-
-                getTypeAndTime(detailDoc, videoPO);
-                getActors(detailDoc, videoPO);
-                getDetail(detailDoc, videoPO);
-            }
-            if (!existsCidList.contains(videoPO.getCid())) {
-                videoPO.setAddTime(new Date());
-                videoPOList.add(videoPO);
-            }
+                @Override
+                public void onFailure(Throwable throwable) {}
+            });
             poList.add(videoPO);
             System.out.println(videoPOList.size());
-
-           /* if (i == 3) {
-                break;
-            }*/
         }
         if (!CollectionUtils.isEmpty(videoPOList)) {
             videoDAO.insertVideoInfo(videoPOList);
         }
+        service.shutdown();
         return poList;
+    }
+
+    public class ThreadForGetVideo implements Callable<VideoPO> {
+
+        private Elements liContainer;
+        private VideoPO videoPO;
+
+        ThreadForGetVideo(Elements liContainer, VideoPO videoPO) {
+            this.liContainer = liContainer;
+            this.videoPO = videoPO;
+        }
+
+        @Override
+        public VideoPO call() throws Exception {
+            for (Element liItem : this.liContainer) {
+                Document liDoc = Jsoup.parse(liItem.toString());
+                Elements title = liDoc.select("strong a");
+
+                this.videoPO.setUrl(title.attr("href"));
+                getCid(this.videoPO);
+                this.videoPO.setName(title.text());
+
+                title = liDoc.select("a img");
+                //图片地址 r-lazyload
+                this.videoPO.setPicturePath(title.attr("r-lazyload"));
+
+                Document detailDoc = Jsoup.connect(this.videoPO.getUrl()).timeout(5000).get();
+
+                getTypeAndTime(detailDoc, this.videoPO);
+                getActors(detailDoc, this.videoPO);
+                getDetail(detailDoc, this.videoPO);
+            }
+            return this.videoPO;
+        }
     }
 
     /**

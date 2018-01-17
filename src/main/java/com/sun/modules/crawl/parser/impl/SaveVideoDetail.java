@@ -11,6 +11,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.CollectionUtils;
@@ -50,79 +51,98 @@ public class SaveVideoDetail implements ISaveVideoDetail {
 
     private List<String> willCrwalUrl = new ArrayList<String>();
 
-    public List<VideoPO> saveVideoInfo() throws IOException {
+    public List<VideoPO> saveVideoInfo() {
         AbstractApplicationContext ctx
                 = new ClassPathXmlApplicationContext(new String[]{"spring-mybatis.xml"});
         IVideoDAO videoDAO = (IVideoDAO) ctx.getBean("videoDAO");
         initCrawlList();
 
         //存放整理好的video数据
-        List<VideoPO> videoPOList = new ArrayList<>();
-        List<VideoPO> poList = new ArrayList<>();
-        List<String> existsCidList;
+        List<String> existsCidList; //判断名字是否已存在的list
+        List<VideoPO> poList = new ArrayList<>(); //代爬取评论的list
+        poList = videoDAO.getAllVideo();
         existsCidList = videoDAO.getAllCid();
-        List<ListenableFuture<VideoPO>> futures = new ArrayList<>();
 
         for (int i = 0; i < willCrwalUrl.size(); i++) {
-            Document doc = Jsoup.connect(willCrwalUrl.get(i)).timeout(5000).get();
-            //figures_list
-            Document ulDoc = getChildDocument(doc, "figures_list");
-            Elements liContainer = ulDoc.select(".list_item");
+            if (i == 0) {
+                break;
+            }
+            try {
+                List<VideoPO> videoPOList = new ArrayList<>(); //要存到数据库的list
 
-            VideoPO videoPO = new VideoPO();
-            ListenableFuture<VideoPO> future = service.submit(new ThreadForGetVideo(liContainer, videoPO));
-            Futures.addCallback(future, new FutureCallback<VideoPO>() {
-                @Override
-                public void onSuccess(VideoPO videoPO) {
-                    if (!existsCidList.contains(videoPO.getCid())) {
-                        videoPO.setAddTime(new Date());
-                        videoPOList.add(videoPO);
-                    }
+                List<ListenableFuture<VideoPO>> futures = new ArrayList<>();
+                Document doc = Jsoup.connect(willCrwalUrl.get(i)).timeout(5000).get();
+                //figures_list
+                Document ulDoc = getChildDocument(doc, "figures_list");
+                Elements liContainer = ulDoc.select(".list_item");
+
+                for (Element liItem : liContainer) {
+                    VideoPO videoPO = new VideoPO();
+                    ListenableFuture<VideoPO> future = service.submit(new ThreadForGetVideo(liItem, videoPO));
+                    Futures.addCallback(future, new FutureCallback<VideoPO>() {
+                        @Override
+                        public void onSuccess(VideoPO videoPO) {
+                            System.out.println("video name " + videoPO.getName());
+                        }
+
+                        @Override
+                        public void onFailure(Throwable throwable) {
+                        }
+                    });
+                    futures.add(future);
                 }
-
-                @Override
-                public void onFailure(Throwable throwable) {}
-            });
-            poList.add(videoPO);
-            System.out.println(videoPOList.size());
+                try {
+                    ListenableFuture<List<VideoPO>> resList = Futures.allAsList(futures);
+                    poList = resList.get();
+                    for (VideoPO item : poList) {
+                        if (!existsCidList.contains(item.getCid())) {
+                            existsCidList.add(item.getCid());
+                            videoPOList.add(item);
+                        }
+                    }
+                    if (!CollectionUtils.isEmpty(videoPOList)) {
+                        videoDAO.insertVideoInfo(videoPOList);
+                    }
+                } catch (Exception e) {
+                    System.out.println("listenableFuture get result error " + e.getMessage());
+                }
+            } catch (Exception e) {
+                System.out.println("connection error " + e.getMessage());
+            }
         }
-        if (!CollectionUtils.isEmpty(videoPOList)) {
-            videoDAO.insertVideoInfo(videoPOList);
-        }
+        exec.shutdown();
         service.shutdown();
         return poList;
     }
 
     public class ThreadForGetVideo implements Callable<VideoPO> {
 
-        private Elements liContainer;
+        private Element liItem;
         private VideoPO videoPO;
 
-        ThreadForGetVideo(Elements liContainer, VideoPO videoPO) {
-            this.liContainer = liContainer;
+        ThreadForGetVideo(Element liItem, VideoPO videoPO) {
+            this.liItem = liItem;
             this.videoPO = videoPO;
         }
 
         @Override
         public VideoPO call() throws Exception {
-            for (Element liItem : this.liContainer) {
-                Document liDoc = Jsoup.parse(liItem.toString());
-                Elements title = liDoc.select("strong a");
+            Document liDoc = Jsoup.parse(this.liItem.toString());
+            Elements title = liDoc.select("strong a");
 
-                this.videoPO.setUrl(title.attr("href"));
-                getCid(this.videoPO);
-                this.videoPO.setName(title.text());
+            this.videoPO.setUrl(title.attr("href"));
+            getCid(this.videoPO);
+            this.videoPO.setName(title.text());
 
-                title = liDoc.select("a img");
-                //图片地址 r-lazyload
-                this.videoPO.setPicturePath(title.attr("r-lazyload"));
+            title = liDoc.select("a img");
+            //图片地址 r-lazyload
+            this.videoPO.setPicturePath(title.attr("r-lazyload"));
 
-                Document detailDoc = Jsoup.connect(this.videoPO.getUrl()).timeout(5000).get();
+            Document detailDoc = Jsoup.connect(this.videoPO.getUrl()).timeout(5000).get();
 
-                getTypeAndTime(detailDoc, this.videoPO);
-                getActors(detailDoc, this.videoPO);
-                getDetail(detailDoc, this.videoPO);
-            }
+            getTypeAndTime(detailDoc, this.videoPO);
+            getActors(detailDoc, this.videoPO);
+            getDetail(detailDoc, this.videoPO);
             return this.videoPO;
         }
     }

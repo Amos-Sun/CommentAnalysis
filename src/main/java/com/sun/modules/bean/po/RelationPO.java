@@ -16,7 +16,7 @@ public class RelationPO {
     private Integer evaluation;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date addTime;
+    private Date addTime = new Date();
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date modificationTime;
 

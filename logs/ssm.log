@@ -2356,4 +2356,141 @@ Caused by: java.lang.IllegalStateException: Cannot convert value of type [org.ap
   [INFO] [2018-01-16 19:06:21][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@7b1d7fff: startup date [Tue Jan 16 19:06:21 CST 2018]; root of context hierarchy
   [INFO] [2018-01-16 19:06:21][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
   [INFO] [2018-01-16 19:06:22][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 10:44:55][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@74650e52: startup date [Wed Jan 17 10:44:55 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 10:44:55][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 10:44:56][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 10:46:32][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@7b1d7fff: startup date [Wed Jan 17 10:46:32 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 10:46:33][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 10:46:33][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 10:51:13][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@74650e52: startup date [Wed Jan 17 10:51:13 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 10:51:13][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 10:51:14][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 10:57:14][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@74650e52: startup date [Wed Jan 17 10:57:14 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 10:57:14][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 10:57:15][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 11:00:09][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@74650e52: startup date [Wed Jan 17 11:00:09 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 11:00:09][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 11:00:10][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 11:01:00][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@2f66e802: startup date [Wed Jan 17 11:01:00 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 11:01:00][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 11:01:01][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 11:21:23][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@7b1d7fff: startup date [Wed Jan 17 11:21:23 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 11:21:23][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 11:21:23][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 11:26:12][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+  [INFO] [2018-01-17 11:26:12][org.springframework.jdbc.support.SQLErrorCodesFactory]SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase]
+  [INFO] [2018-01-17 11:29:39][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@10bbd20a: startup date [Wed Jan 17 11:29:39 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 11:29:39][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 11:29:40][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 11:34:27][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@7889a1ac: startup date [Wed Jan 17 11:34:27 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 11:34:27][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 12:18:57][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@2a33fae0: startup date [Wed Jan 17 12:18:57 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 12:18:57][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 12:18:58][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 12:23:44][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+  [INFO] [2018-01-17 12:23:44][org.springframework.jdbc.support.SQLErrorCodesFactory]SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase]
+  [INFO] [2018-01-17 12:26:58][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@10bbd20a: startup date [Wed Jan 17 12:26:58 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 12:26:58][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 12:26:58][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 12:32:10][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+  [INFO] [2018-01-17 12:32:10][org.springframework.jdbc.support.SQLErrorCodesFactory]SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase]
+  [INFO] [2018-01-17 12:34:49][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@2a33fae0: startup date [Wed Jan 17 12:34:49 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 12:34:49][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 12:34:49][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 12:39:03][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4d1bf319: startup date [Wed Jan 17 12:39:03 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 12:39:03][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 12:39:03][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 13:31:37][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@2a33fae0: startup date [Wed Jan 17 13:31:37 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 13:31:37][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 13:31:38][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 13:32:34][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@2a33fae0: startup date [Wed Jan 17 13:32:34 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 13:32:34][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 13:32:34][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 13:35:57][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@2a33fae0: startup date [Wed Jan 17 13:35:57 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 13:35:57][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 13:35:58][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 13:49:00][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@10bbd20a: startup date [Wed Jan 17 13:49:00 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 13:49:00][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 13:49:02][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 13:50:58][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@2a33fae0: startup date [Wed Jan 17 13:50:58 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 13:50:58][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 13:50:58][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 13:52:19][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@10bbd20a: startup date [Wed Jan 17 13:52:19 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 13:52:19][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 13:52:19][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 13:53:20][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@10bbd20a: startup date [Wed Jan 17 13:53:20 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 13:53:20][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 13:53:20][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 13:54:47][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@10bbd20a: startup date [Wed Jan 17 13:54:47 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 13:54:47][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 13:54:48][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 13:57:29][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@10bbd20a: startup date [Wed Jan 17 13:57:29 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 13:57:30][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 13:57:30][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 13:59:25][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@2a33fae0: startup date [Wed Jan 17 13:59:25 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 13:59:25][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 13:59:25][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 14:01:29][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+  [INFO] [2018-01-17 14:01:29][org.springframework.jdbc.support.SQLErrorCodesFactory]SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase]
+  [INFO] [2018-01-17 14:06:07][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1ef6d34c: startup date [Wed Jan 17 14:06:07 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 14:06:07][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 14:06:07][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 14:18:43][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@2a33fae0: startup date [Wed Jan 17 14:18:43 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 14:18:43][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 14:18:43][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 14:18:45][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@3a6bb9bf: startup date [Wed Jan 17 14:18:45 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 14:18:45][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 14:18:45][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 14:18:49][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+  [INFO] [2018-01-17 14:18:50][org.springframework.jdbc.support.SQLErrorCodesFactory]SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase]
+  [INFO] [2018-01-17 14:26:25][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@2a33fae0: startup date [Wed Jan 17 14:26:25 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 14:26:25][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 14:26:26][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 14:26:27][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@68c72235: startup date [Wed Jan 17 14:26:27 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 14:26:27][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 14:26:27][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 14:27:20][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+  [INFO] [2018-01-17 14:27:20][org.springframework.jdbc.support.SQLErrorCodesFactory]SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase]
+  [INFO] [2018-01-17 14:32:22][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@2a33fae0: startup date [Wed Jan 17 14:32:22 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 14:32:22][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 14:32:23][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 14:32:25][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@3a6bb9bf: startup date [Wed Jan 17 14:32:25 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 14:32:25][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 14:32:26][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 14:33:18][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+  [INFO] [2018-01-17 14:33:18][org.springframework.jdbc.support.SQLErrorCodesFactory]SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase]
+  [INFO] [2018-01-17 14:35:04][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@10bbd20a: startup date [Wed Jan 17 14:35:04 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 14:35:04][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 14:35:05][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 14:35:07][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4c37b5b: startup date [Wed Jan 17 14:35:07 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 14:35:07][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 14:35:07][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 14:53:50][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+  [INFO] [2018-01-17 14:53:50][org.springframework.jdbc.support.SQLErrorCodesFactory]SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase]
+  [INFO] [2018-01-17 16:56:16][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@2a33fae0: startup date [Wed Jan 17 16:56:16 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 16:56:16][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 16:56:17][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 16:56:18][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@482bce4f: startup date [Wed Jan 17 16:56:18 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 16:56:18][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 16:56:18][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 16:56:49][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@2a33fae0: startup date [Wed Jan 17 16:56:49 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 16:56:49][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 16:56:49][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 17:00:27][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]
+  [INFO] [2018-01-17 17:00:27][org.springframework.jdbc.support.SQLErrorCodesFactory]SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase]
+  [INFO] [2018-01-17 17:04:23][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@1d483de4: startup date [Wed Jan 17 17:04:23 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 17:04:23][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 17:04:23][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 17:07:44][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@10bbd20a: startup date [Wed Jan 17 17:07:44 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 17:07:44][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 17:07:45][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 17:07:47][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@4c37b5b: startup date [Wed Jan 17 17:07:47 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 17:07:47][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 17:07:47][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 17:17:49][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@2a33fae0: startup date [Wed Jan 17 17:17:49 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 17:17:49][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 17:17:50][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
+  [INFO] [2018-01-17 17:17:52][org.springframework.context.support.ClassPathXmlApplicationContext]Refreshing org.springframework.context.support.ClassPathXmlApplicationContext@68c72235: startup date [Wed Jan 17 17:17:52 CST 2018]; root of context hierarchy
+  [INFO] [2018-01-17 17:17:52][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [spring-mybatis.xml]
+  [INFO] [2018-01-17 17:17:52][org.springframework.beans.factory.config.PropertyPlaceholderConfigurer]Loading properties file from class path resource [database.properties]
   

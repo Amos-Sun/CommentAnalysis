@@ -15,7 +15,7 @@ public class UserPO {
     private Integer age = 0;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date addTime;
+    private Date addTime = new Date();
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date modificationTime;
 

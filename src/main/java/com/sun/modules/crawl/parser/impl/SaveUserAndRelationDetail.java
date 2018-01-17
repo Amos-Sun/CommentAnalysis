@@ -1,7 +1,7 @@
 package com.sun.modules.crawl.parser.impl;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.google.common.util.concurrent.*;
+import com.mysql.jdbc.StringUtils;
 import com.sun.modules.bean.dao.IRelationDAO;
 import com.sun.modules.bean.dao.IUserDAO;
 import com.sun.modules.bean.json.CommentDetail;
@@ -12,6 +12,7 @@ import com.sun.modules.bean.po.UserPO;
 import com.sun.modules.bean.po.VideoPO;
 import com.sun.modules.constants.SexEnum;
 import com.sun.modules.crawl.parser.ISaveUserAndRelationDetail;
+import com.sun.modules.util.FileUtil;
 import com.sun.modules.util.JsonUtil;
 import com.sun.modules.util.StrUtil;
 import org.jsoup.Connection;
@@ -21,12 +22,16 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.CollectionUtils;
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
+import java.io.LineNumberReader;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -48,9 +53,11 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
     /*private String COMMENT_DETAIL_URL = "https://coral.qq.com/article/";*/
 
     private ExecutorService exec = Executors.newFixedThreadPool(15);
-    private ListeningExecutorService service = MoreExecutors.listeningDecorator(exec);
+    private CountDownLatch latch;
 
-    public List<UserPO> saveUserAndRelation(List<VideoPO> videoPOList) throws IOException {
+    private volatile List<String> userNameList;
+
+    public List<UserPO> saveUserAndRelation(List<VideoPO> videoPOList) {
         AbstractApplicationContext ctx
                 = new ClassPathXmlApplicationContext(new String[]{"spring-mybatis.xml"});
         final IUserDAO userDAO = (IUserDAO) ctx.getBean("userDAO");
@@ -58,20 +65,20 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
 
         List<UserPO> userPOList;
         List<RelationPO> relationPOList;
-        List<String> userNameList;
 
         try {
             Connection con = Jsoup.connect(COMMENT_ID_URL).timeout(5000);
             VideoCommentId videoCommentId;
 
             String baseUrl = "https://coral.qq.com/article/";
-            for (VideoPO item : videoPOList) {
+            for (int i = 0; i < videoPOList.size(); ) {
+                latch = new CountDownLatch(10);
                 userPOList = new ArrayList<>();
                 relationPOList = new ArrayList<>();
                 userNameList = userDAO.getAllName();
 
-                System.out.println(item.getUrl());
-                Document doc = con.data("cid", item.getCid())
+                System.out.println(videoPOList.get(i).getUrl());
+                Document doc = con.data("cid", videoPOList.get(i).getCid())
                         .ignoreContentType(true).get();
                 String pageStr = doc.toString();
                 videoCommentId = getVideoCommentIdContent(pageStr);
@@ -82,33 +89,65 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
                 }
                 String url = setCommentDetailUrl(baseUrl, videoCommentId.getComment_id());
 
-                ListenableFuture<Object> future = service.submit(
-                        new ThreadForGetUR(url, userPOList, relationPOList, userNameList, item));
-                Futures.addCallback(future, new FutureCallback<Object>() {
-                    @Override
-                    public void onSuccess(Object object) {
-                    }
-
-                    @Override
-                    public void onFailure(Throwable object) {
-                    }
-                });
+                for (int j = 0; j < 10; j++) {
+                    exec.execute(new ThreadForGetUR(url, userPOList, relationPOList, userNameList, videoPOList.get(i + j)));
+                }
+                try {
+                    latch.await();
+                } catch (Exception e) {
+                    System.out.println("latch.await error " + e.getMessage());
+                }
+                i = i + 10;
                 if (!CollectionUtils.isEmpty(userPOList)) {
-                    userDAO.insertUserInfo(userPOList);
+                    insertUser(userDAO, userPOList);
                 }
                 if (!CollectionUtils.isEmpty(relationPOList)) {
-                    relationDAO.insertRecord(relationPOList);
+                    insertRelations(relationDAO, relationPOList);
                 }
             }
         } catch (Exception e) {
             System.out.println("获取用户信息时出错 message={}" + e.getMessage());
         } finally {
-            service.shutdown();
+            exec.shutdown();
         }
         return null;
     }
 
-    public class ThreadForGetUR implements Callable<Object> {
+    private void insertUser(IUserDAO userDAO, List<UserPO> userPOList) {
+        List<UserPO> insertPO = new ArrayList<>();
+        int num = 0;
+        for (UserPO item : userPOList) {
+            if (null == item) {
+                continue;
+            }
+            insertPO.add(item);
+            num++;
+            if (num == 1000) {
+                userDAO.insertUserInfo(insertPO);
+                insertPO = new ArrayList<>();
+                num = 0;
+            }
+        }
+    }
+
+    private void insertRelations(IRelationDAO relationDAO, List<RelationPO> relationPOList) {
+        List<RelationPO> insertPO = new ArrayList<>();
+        int num = 0;
+        for (RelationPO item : relationPOList) {
+            if (null == item) {
+                continue;
+            }
+            insertPO.add(item);
+            num++;
+            if (num == 1000) {
+                relationDAO.insertRecord(insertPO);
+                insertPO = new ArrayList<>();
+                num = 0;
+            }
+        }
+    }
+
+    public class ThreadForGetUR implements Runnable {
 
         private String url;
         private List<UserPO> userPOList;
@@ -126,31 +165,38 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         }
 
         @Override
-        public Object call() throws Exception {
-            Connection getDateCon = Jsoup.connect(url).timeout(5000);
-            String last = "0";
-            int numbers = 0;
-            List<String> comments = new ArrayList<>();
-            while (true) {
-                Document detailDoc = getDateCon.data("commentid", last)
-                        .data("reqnum", "50").get();
-                String detailStr = detailDoc.toString();
-                DataDetail commentData = getCommentDetail(detailStr);
-                if (null == commentData) {
-                    last = last + 50;
-                    continue;
-                }
+        public void run() {
+            try {
+                Connection getDateCon = Jsoup.connect(url)
+                        .userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31")
+                        .timeout(5000);
+                String last = "0";
+                int numbers = 0;
+                List<String> comments = new ArrayList<>();
+                while (true) {
+                    Document detailDoc = getDateCon.data("commentid", last)
+                            .data("reqnum", "50").get();
+                    String detailStr = detailDoc.toString();
+                    DataDetail commentData = getCommentDetail(detailStr);
+                    if (null == commentData) {
+                        last = last + 50;
+                        continue;
+                    }
 
-                DataDetail.Data data = commentData.getData();
-                //获取评论
-                getUserAndRelation(data, comments, userPOList, relationPOList, userNameList, item.getCid());
-                numbers += data.getRetnum();
-                last = data.getLast();
-                if (numbers >= data.getTotal()) {
-                    break;
+                    DataDetail.Data data = commentData.getData();
+                    //获取评论
+                    getUserAndRelation(data, comments, userPOList, relationPOList, userNameList, item.getCid());
+                    numbers += data.getRetnum();
+                    last = data.getLast();
+                    if (numbers >= data.getTotal()) {
+                        break;
+                    }
                 }
+            } catch (Exception e) {
+                System.out.println("thread error when get user and relation " + e.getMessage());
+            } finally {
+                latch.countDown();
             }
-            return null;
         }
     }
 
@@ -175,8 +221,10 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
             }
 
             getUserInfo(item, user, nameList);
+            if (StringUtils.isNullOrEmpty(cid)) {
+                continue;
+            }
             getRelationInfo(item, relation, cid);
-//            comments.add(item.getContent() + "\r\n=====================\r\n");
         }
     }
 
@@ -195,9 +243,7 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
             userPO.setName(name);
             userPO.setAddTime(new Date());
             userPO.setSex(SexEnum.getByValue(item.getUserinfo().getGender()).getDesc());
-            if (user.size() < 10000) {
-                user.add(userPO);
-            }
+            user.add(userPO);
             nameList.add(name);
         }
     }
@@ -215,13 +261,41 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         RelationPO relationPO = new RelationPO();
         String name = item.getUserinfo().getNick();
         String content = item.getContent();
+        int mention = analysisMention(content);
+        relationPO.setEvaluation(mention);
         relationPO.setUserName(name);
         relationPO.setCid(cid);
         relationPO.setComment(content);
         relationPO.setAddTime(new Date());
-        if (relation.size() < 10000) {
-            relation.add(relationPO);
+        relation.add(relationPO);
+    }
+
+    /**
+     * 调用python进行情感分析
+     *
+     * @param str 要分析的句子
+     * @return
+     */
+    private int analysisMention(String str) {
+        try {
+//            D:\self\CommentAnalysis\src\main\java\com\sun\modules\analysis\analysis.py
+//            analysis/analysis.py  ---新增一个module可以用相对路径
+//            analysis.py
+            Process pr = Runtime.getRuntime().exec("python analysis/analysis.py " + str);
+//            Process pr = Runtime.getRuntime().exec("python D:\\self\\CommentAnalysis\\src\\main\\java\\com\\sun\\modules\\analysis\\analysis.py " + str);
+            pr.waitFor();
+            BufferedReader in = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+            String line;
+            LineNumberReader input = new LineNumberReader(in);
+            line = input.readLine();
+
+            in.close();
+            System.out.println("result " + line);
+            return Integer.valueOf(line);
+        } catch (Exception e) {
+            System.out.println("error occur when use python " + e.getMessage());
         }
+        return 0;
     }
 
     /**
@@ -254,5 +328,18 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
 
     private String setCommentDetailUrl(String baseUrl, String commentId) {
         return (baseUrl + commentId + "/comment?");
+    }
+
+    public static void main(String[] args) throws Exception {
+        long start = System.currentTimeMillis();
+        File file = new File("./data/train/positive");
+        File[] files = file.listFiles();
+        for (File item : files) {
+            String content = FileUtil.readFileAllContents(item.getPath());
+            int mention = new SaveUserAndRelationDetail().analysisMention(URLDecoder.decode(content, "utf-8"));
+            System.out.println(mention);
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("运行时间是： " + (start - end));
     }
 }

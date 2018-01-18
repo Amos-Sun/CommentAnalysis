@@ -12,7 +12,6 @@ import com.sun.modules.bean.po.UserPO;
 import com.sun.modules.bean.po.VideoPO;
 import com.sun.modules.constants.SexEnum;
 import com.sun.modules.crawl.parser.ISaveUserAndRelationDetail;
-import com.sun.modules.util.FileUtil;
 import com.sun.modules.util.JsonUtil;
 import com.sun.modules.util.StrUtil;
 import org.jsoup.Connection;
@@ -23,7 +22,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.CollectionUtils;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.net.URLDecoder;
@@ -71,11 +69,12 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
             VideoCommentId videoCommentId;
 
             String baseUrl = "https://coral.qq.com/article/";
+            userNameList = userDAO.getAllName();
             for (int i = 0; i < videoPOList.size(); ) {
+                System.out.println("开始爬取第 " + i + " 个电影");
                 latch = new CountDownLatch(10);
                 userPOList = new ArrayList<>();
                 relationPOList = new ArrayList<>();
-                userNameList = userDAO.getAllName();
 
                 System.out.println(videoPOList.get(i).getUrl());
                 Document doc = con.data("cid", videoPOList.get(i).getCid())
@@ -90,7 +89,8 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
                 String url = setCommentDetailUrl(baseUrl, videoCommentId.getComment_id());
 
                 for (int j = 0; j < 10; j++) {
-                    exec.execute(new ThreadForGetUR(url, userPOList, relationPOList, userNameList, videoPOList.get(i + j)));
+                    exec.execute(new ThreadForGetUR(url, userPOList, relationPOList,
+                            userNameList, videoPOList.get(i + j), relationDAO));
                 }
                 try {
                     latch.await();
@@ -113,20 +113,42 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         return null;
     }
 
+    /**
+     * 对数据库中的userName进行转码
+     */
+    private void userNameDecode() {
+        for (int i = 0; i < userNameList.size(); i++) {
+            userNameList.set(i, URLDecoder.decode(userNameList.get(i)));
+        }
+    }
+
+    /**
+     * 向user表中插入数据
+     *
+     * @param userDAO
+     * @param userPOList
+     */
     private void insertUser(IUserDAO userDAO, List<UserPO> userPOList) {
         List<UserPO> insertPO = new ArrayList<>();
-        int num = 0;
-        for (UserPO item : userPOList) {
-            if (null == item) {
-                continue;
+        try {
+            int num = 0;
+            for (UserPO item : userPOList) {
+                if (null == item) {
+                    continue;
+                }
+                insertPO.add(item);
+                num++;
+                if (num == 1000) {
+                    userDAO.insertUserInfo(insertPO);
+                    insertPO = new ArrayList<>();
+                    num = 0;
+                }
             }
-            insertPO.add(item);
-            num++;
-            if (num == 1000) {
+            if (num != 0) {
                 userDAO.insertUserInfo(insertPO);
-                insertPO = new ArrayList<>();
-                num = 0;
             }
+        } catch (Exception e) {
+            System.out.println("mysql error " + e.getMessage());
         }
     }
 
@@ -145,6 +167,9 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
                 num = 0;
             }
         }
+        if (num != 0) {
+            relationDAO.insertRecord(insertPO);
+        }
     }
 
     public class ThreadForGetUR implements Runnable {
@@ -154,14 +179,16 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         private List<RelationPO> relationPOList;
         private List<String> userNameList;
         private VideoPO item;
+        private IRelationDAO relationDAO;
 
         ThreadForGetUR(String url, List<UserPO> userPOList, List<RelationPO> relationPOList,
-                       List<String> userNameList, VideoPO videoPO) {
+                       List<String> userNameList, VideoPO videoPO, IRelationDAO relationDAO) {
             this.url = url;
             this.userNameList = userNameList;
             this.userPOList = userPOList;
             this.relationPOList = relationPOList;
             this.item = videoPO;
+            this.relationDAO = relationDAO;
         }
 
         @Override
@@ -185,7 +212,7 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
 
                     DataDetail.Data data = commentData.getData();
                     //获取评论
-                    getUserAndRelation(data, comments, userPOList, relationPOList, userNameList, item.getCid());
+                    getUserAndRelation(data, relationDAO, userPOList, relationPOList, userNameList, item.getCid());
                     numbers += data.getRetnum();
                     last = data.getLast();
                     if (numbers >= data.getTotal()) {
@@ -204,11 +231,11 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
      * 获取所有的评论
      *
      * @param data
-     * @param comments
+     * @param relationDAO
      * @param relation
      * @param user
      */
-    private void getUserAndRelation(DataDetail.Data data, List<String> comments,
+    private void getUserAndRelation(DataDetail.Data data, IRelationDAO relationDAO,
                                     List<UserPO> user, List<RelationPO> relation, List<String> nameList, String cid) {
         List<CommentDetail> commentDetail = data.getCommentid();
         for (CommentDetail item : commentDetail) {
@@ -224,7 +251,7 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
             if (StringUtils.isNullOrEmpty(cid)) {
                 continue;
             }
-            getRelationInfo(item, relation, cid);
+            getRelationInfo(relationDAO, item, relation, cid);
         }
     }
 
@@ -239,13 +266,14 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
 
         UserPO userPO = new UserPO();
         String name = item.getUserinfo().getNick();
-        if (!nameList.contains(name)) {
-            userPO.setName(name);
-            userPO.setAddTime(new Date());
-            userPO.setSex(SexEnum.getByValue(item.getUserinfo().getGender()).getDesc());
-            user.add(userPO);
-            nameList.add(name);
+        if (nameList.contains(name)) {
+            return;
         }
+        userPO.setName(name);
+        userPO.setAddTime(new Date());
+        userPO.setSex(SexEnum.getByValue(item.getUserinfo().getGender()).getDesc());
+        user.add(userPO);
+        nameList.add(name);
     }
 
 
@@ -256,46 +284,20 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
      * @param relation relationPOList
      * @param cid      电影的cid
      */
-    private void getRelationInfo(CommentDetail item, List<RelationPO> relation, String cid) {
+    private void getRelationInfo(IRelationDAO relationDAO, CommentDetail item, List<RelationPO> relation, String cid) {
 
+        String comment = relationDAO.getCommentByCidAndUserNaem(cid, item.getUserinfo().getNick());
+        if (comment != null) {
+            return;
+        }
         RelationPO relationPO = new RelationPO();
         String name = item.getUserinfo().getNick();
         String content = item.getContent();
-        int mention = analysisMention(content);
-        relationPO.setEvaluation(mention);
         relationPO.setUserName(name);
         relationPO.setCid(cid);
         relationPO.setComment(content);
         relationPO.setAddTime(new Date());
         relation.add(relationPO);
-    }
-
-    /**
-     * 调用python进行情感分析
-     *
-     * @param str 要分析的句子
-     * @return
-     */
-    private int analysisMention(String str) {
-        try {
-//            D:\self\CommentAnalysis\src\main\java\com\sun\modules\analysis\analysis.py
-//            analysis/analysis.py  ---新增一个module可以用相对路径
-//            analysis.py
-            Process pr = Runtime.getRuntime().exec("python analysis/analysis.py " + str);
-//            Process pr = Runtime.getRuntime().exec("python D:\\self\\CommentAnalysis\\src\\main\\java\\com\\sun\\modules\\analysis\\analysis.py " + str);
-            pr.waitFor();
-            BufferedReader in = new BufferedReader(new InputStreamReader(pr.getInputStream()));
-            String line;
-            LineNumberReader input = new LineNumberReader(in);
-            line = input.readLine();
-
-            in.close();
-            System.out.println("result " + line);
-            return Integer.valueOf(line);
-        } catch (Exception e) {
-            System.out.println("error occur when use python " + e.getMessage());
-        }
-        return 0;
     }
 
     /**
@@ -328,18 +330,5 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
 
     private String setCommentDetailUrl(String baseUrl, String commentId) {
         return (baseUrl + commentId + "/comment?");
-    }
-
-    public static void main(String[] args) throws Exception {
-        long start = System.currentTimeMillis();
-        File file = new File("./data/train/positive");
-        File[] files = file.listFiles();
-        for (File item : files) {
-            String content = FileUtil.readFileAllContents(item.getPath());
-            int mention = new SaveUserAndRelationDetail().analysisMention(URLDecoder.decode(content, "utf-8"));
-            System.out.println(mention);
-        }
-        long end = System.currentTimeMillis();
-        System.out.println("运行时间是： " + (start - end));
     }
 }

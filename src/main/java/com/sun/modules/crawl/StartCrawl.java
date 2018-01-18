@@ -12,10 +12,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.io.Writer;
+import java.io.*;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,11 +23,37 @@ public class StartCrawl {
 
     public static void main(String[] args) {
 
-        SaveVideoDetail getVideoDetail = new SaveVideoDetail();
+       /* SaveVideoDetail getVideoDetail = new SaveVideoDetail();
         SaveUserAndRelationDetail getUserDetail = new SaveUserAndRelationDetail();
         List<VideoPO> videoPOList = getVideoDetail.saveVideoInfo();
         getUserDetail.saveUserAndRelation(videoPOList);
 
-        System.out.println("爬虫结束");
+        System.out.println("爬虫结束");*/
+        analysisMention();
+    }
+
+
+    /**
+     * 调用python进行情感分析
+     *
+     * @return
+     */
+    private static void analysisMention() {
+        try {
+//            D:\self\CommentAnalysis\src\main\java\com\sun\modules\analysis\analysis.py
+//            analysis/analysis.py  ---新增一个module可以用相对路径
+//            analysis.py
+            Process pr = Runtime.getRuntime().exec("python D:\\self\\CommentAnalysis\\analysis\\analysis.py");
+//            Process pr = Runtime.getRuntime().exec("python D:\\self\\CommentAnalysis\\src\\main\\java\\com\\sun\\modules\\analysis\\analysis.py " + str);
+            pr.waitFor();
+            BufferedReader in = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+            String line;
+            LineNumberReader input = new LineNumberReader(in);
+            line = input.readLine();
+            System.out.println("result:" + line);
+            in.close();
+        } catch (Exception e) {
+            System.out.println("error occur when use python " + e.getMessage());
+        }
     }
 }

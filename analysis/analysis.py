@@ -1,6 +1,37 @@
-# -*- coding=utf-8 -*-
+#!usr/bin/python3
+# -*- coding -*-
+# python3 use pymysql
+
+import pymysql
+import urllib.parse
 from snownlp import SnowNLP
-import sys
+
+
+def db_handler():
+    sql = "select cid from relation group by cid"
+    db = pymysql.connect("localhost", "root", "root", "comment_analysis")
+    cursor = db.cursor()
+    cursor.execute(sql)
+    cid_list = cursor.fetchall()
+    for item in cid_list:
+        sql = "select * from relation where cid='%s';" % item
+        cursor.execute(sql)
+        relation_list = cursor.fetchall()
+        for relation in relation_list:
+            print(relation)
+            content = relation[3]
+            content = urllib.parse.unquote(content)
+            mention = analysis(content)
+            sql_1 = "update relation set evaluation='%d' where id='%d';" % (mention, relation[0])
+            try:
+                cursor.execute(sql_1)
+                db.commit()
+            except:
+                print("failed update")
+                db.rollback()
+            pass
+        break
+    db.close()
 
 
 def analysis(text):
@@ -15,6 +46,5 @@ def analysis(text):
 
 
 if __name__ == "__main__":
-    text = sys.argv[1]
-    mention = analysis(text)
-    print(mention)
+    print("test")
+    db_handler()

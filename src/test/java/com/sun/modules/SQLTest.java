@@ -9,7 +9,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
-import javax.management.relation.Relation;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Date;

@@ -12,11 +12,36 @@ public class StrUtil {
         throw new Error("can't get this class's instance");
     }
 
+    /**
+     * 识别数字
+     */
     private static Pattern NUMBER_PATTERN = Pattern.compile("[0-9]*");
 
+    /**
+     * 识别指定字符
+     */
     private static Pattern CONSTANT_ABSTRACT_PATTERN = Pattern.compile("abstract");
 
+    /**
+     * 识别表情
+     */
     private static Pattern EMOTION_PATTERN = Pattern.compile("[\ud83c\udc00-\ud83c\udfff]|[\ud83d\udc00-\ud83d\udfff]|[\u2600-\u27ff]");
+
+
+    public static String handleMarks(String originStr) {
+        String str = originStr.replaceAll("\"", "‘");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == '‘'
+                    && ((str.charAt(i - 1) == '{' || str.charAt(i - 1) == ':' || str.charAt(i - 1) == ',')
+                    || (str.charAt(i + 1) == ':' || str.charAt(i + 1) == ',' || str.charAt(i + 1) == '}'))) {
+                sb.append("\"");
+                continue;
+            }
+            sb.append(str.charAt(i));
+        }
+        return sb.toString();
+    }
 
     /**
      * 判断字符串中是否包含表情符号

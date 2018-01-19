@@ -28,7 +28,7 @@ public class CommentDetail {
     private String location;
     private String address;
     private String rank;
-    private String custom;
+//    private String custom;
     private String orireplynum;
     private String richtype;
     private String userid;
@@ -421,13 +421,6 @@ public class CommentDetail {
         this.rank = rank;
     }
 
-    public String getCustom() {
-        return custom;
-    }
-
-    public void setCustom(String custom) {
-        this.custom = custom;
-    }
 
     public String getOrireplynum() {
         return orireplynum;
@@ -581,7 +574,6 @@ public class CommentDetail {
                 ", location='" + location + '\'' +
                 ", address='" + address + '\'' +
                 ", rank='" + rank + '\'' +
-                ", custom='" + custom + '\'' +
                 ", orireplynum='" + orireplynum + '\'' +
                 ", richtype='" + richtype + '\'' +
                 ", userid='" + userid + '\'' +

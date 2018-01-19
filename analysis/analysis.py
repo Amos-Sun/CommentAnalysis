@@ -8,8 +8,8 @@ from snownlp import SnowNLP
 
 
 def db_handler():
-    sql = "select cid from relation group by cid"
     db = pymysql.connect("localhost", "root", "root", "comment_analysis")
+    sql = "select cid from relation group by cid"
     cursor = db.cursor()
     cursor.execute(sql)
     cid_list = cursor.fetchall()
@@ -18,9 +18,11 @@ def db_handler():
         cursor.execute(sql)
         relation_list = cursor.fetchall()
         for relation in relation_list:
-            print(relation)
             content = relation[3]
             content = urllib.parse.unquote(content)
+            if len(content) <= 0:
+                continue
+                pass
             mention = analysis(content)
             sql_1 = "update relation set evaluation='%d' where id='%d';" % (mention, relation[0])
             try:
@@ -30,7 +32,7 @@ def db_handler():
                 print("failed update")
                 db.rollback()
             pass
-        break
+            # break
     db.close()
 
 

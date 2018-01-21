@@ -11,5 +11,5 @@ CREATE TABLE `relation` (
   `add_time` DateTime not null,
   `modification_time` TIMESTAMP not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `user_cid` (`cid`,`user_name`)
+  INDEX `user_cid` (`cid`,`user_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

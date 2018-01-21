@@ -8,5 +8,5 @@ CREATE TABLE `user` (
   `add_time` DateTime not null,
   `modification_time` TIMESTAMP not null default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `user_name` (`name`)
+  INDEX `user_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

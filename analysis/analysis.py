@@ -6,11 +6,12 @@ import pymysql
 import urllib.parse
 from snownlp import SnowNLP
 
+db = pymysql.connect("localhost", "root", "root", "comment_analysis")
+cursor = db.cursor()
+
 
 def db_handler():
-    db = pymysql.connect("localhost", "root", "root", "comment_analysis")
     sql = "select cid from relation group by cid"
-    cursor = db.cursor()
     cursor.execute(sql)
     cid_list = cursor.fetchall()
     for item in cid_list:
@@ -28,11 +29,11 @@ def db_handler():
             try:
                 cursor.execute(sql_1)
                 db.commit()
+                print("update success ", relation[0])
             except:
                 print("failed update")
                 db.rollback()
             pass
-            # break
     db.close()
 
 
@@ -47,6 +48,14 @@ def analysis(text):
         return 0
 
 
+def count_have_calculated():
+    sql = "select count(*) from relation where evaluation != 0"
+    cursor.execute(sql)
+
+    result = cursor.fetchall()
+    print(result)
+
+
 if __name__ == "__main__":
-    print("test")
-    db_handler()
+    count_have_calculated()
+# db_handler()

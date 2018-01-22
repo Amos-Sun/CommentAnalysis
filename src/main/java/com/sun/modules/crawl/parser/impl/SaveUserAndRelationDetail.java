@@ -1,4 +1,3 @@
-/*
 package com.sun.modules.crawl.parser.impl;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -13,7 +12,6 @@ import com.sun.modules.bean.po.UserPO;
 import com.sun.modules.bean.po.VideoPO;
 import com.sun.modules.constants.SexEnum;
 import com.sun.modules.crawl.parser.ISaveUserAndRelationDetail;
-import com.sun.modules.util.FileUtil;
 import com.sun.modules.util.JsonUtil;
 import com.sun.modules.util.StrUtil;
 import org.jsoup.Connection;
@@ -33,29 +31,28 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-*/
 /**
  * Created by sunguiyong on 2017/10/17.
- *//*
+ */
 
 public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
 
-    */
-/**
+
+    /**
      * 对应https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3&cid=
-     *//*
+     */
 
     private String COMMENT_ID_URL = "https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3";
 
-    */
-/**
+
+    /**
      * 对应comment详细信息的url
      * https://coral.qq.com/article/1551278768/comment?commentid=6332862978740201115&reqnum=50
      * 1551278768/comment?commentid=6332862978740201115&reqnum=50
-     *//*
+     */
 
-    */
-/*private String COMMENT_DETAIL_URL = "https://coral.qq.com/article/";*//*
+
+    private String COMMENT_DETAIL_URL = "https://coral.qq.com/article/";
 
 
     private ExecutorService exec = Executors.newFixedThreadPool(15);
@@ -73,7 +70,6 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         List<RelationPO> relationPOList;
 
         try {
-            Connection con = Jsoup.connect(COMMENT_ID_URL).timeout(5000);
             VideoCommentId videoCommentId;
 
             String baseUrl = "https://coral.qq.com/article/";
@@ -88,7 +84,10 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
                     System.out.println(videoPOList.get(i + j).getUrl());
                     Document doc;
                     try {
-                        doc = con.data("cid", videoPOList.get(i + j).getCid())
+                        doc = Jsoup.connect(COMMENT_ID_URL)
+                                .userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31")
+                                .timeout(5000)
+                                .data("cid", videoPOList.get(i + j).getCid())
                                 .ignoreContentType(true).get();
                     } catch (Exception e) {
                         System.out.println("get cid error " + e.getMessage());
@@ -100,6 +99,7 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
 
                     if (!"Success!".equals(videoCommentId.getResult().getMsg())) {
                         System.out.println("请求video_comment_id时出错");
+                        latch.countDown();
                         continue;
                     }
                     String url = setCommentDetailUrl(baseUrl, videoCommentId.getComment_id());
@@ -129,10 +129,10 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         return null;
     }
 
-    */
-/**
+
+    /**
      * 对数据库中的userName进行转码
-     *//*
+     */
 
     private void userNameDecode() {
         for (int i = 0; i < userNameList.size(); i++) {
@@ -140,35 +140,41 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         }
     }
 
-    */
-/**
+
+    /**
      * 向user表中插入数据
      *
      * @param userDAO
      * @param userPOList
-     *//*
+     */
 
     private void insertUser(IUserDAO userDAO, List<UserPO> userPOList) {
         List<UserPO> insertPO = new ArrayList<>();
-        try {
-            int num = 0;
-            for (UserPO item : userPOList) {
-                if (null == item) {
-                    continue;
-                }
-                insertPO.add(item);
-                num++;
-                if (num == 1000) {
+
+        int num = 0;
+        for (UserPO item : userPOList) {
+            if (null == item) {
+                continue;
+            }
+            insertPO.add(item);
+            num++;
+            if (num == 1000) {
+                try {
                     userDAO.insertUserInfo(insertPO);
+                } catch (Exception e) {
+                    System.out.println("insert user error " + e.getMessage());
+                } finally {
                     insertPO = new ArrayList<>();
                     num = 0;
                 }
             }
-            if (num != 0) {
+        }
+        if (num != 0) {
+            try {
                 userDAO.insertUserInfo(insertPO);
+            } catch (Exception e) {
+                System.out.println("insert user error " + e.getMessage());
             }
-        } catch (Exception e) {
-            System.out.println("mysql error " + e.getMessage());
         }
     }
 
@@ -182,13 +188,22 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
             insertPO.add(item);
             num++;
             if (num == 1000) {
-                relationDAO.insertRecord(insertPO);
-                insertPO = new ArrayList<>();
-                num = 0;
+                try {
+                    relationDAO.insertRecord(insertPO);
+                } catch (Exception e) {
+                    System.out.println("insert relation error " + e.getMessage());
+                } finally {
+                    insertPO = new ArrayList<>();
+                    num = 0;
+                }
             }
         }
         if (num != 0) {
-            relationDAO.insertRecord(insertPO);
+            try {
+                relationDAO.insertRecord(insertPO);
+            } catch (Exception e) {
+                System.out.println("insert relation error " + e.getMessage());
+            }
         }
     }
 
@@ -216,11 +231,15 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
             try {
                 String last = "0";
                 int numbers = 0;
+                Connection getDataConn = Jsoup.connect(url)
+                        .userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31")
+                        .timeout(5000);
+                Connection tempConn = Jsoup.connect(url)
+                        .userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31")
+                        .timeout(5000);
                 while (true) {
+                    getDataConn = tempConn;
                     //保持url的纯洁性
-                    Connection getDataConn = Jsoup.connect(url)
-                            .userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31")
-                            .timeout(5000);
                     Document detailDoc = getDataConn.data("commentid", last)
                             .data("reqnum", "50").get();
                     String detailStr = detailDoc.toString();
@@ -250,15 +269,15 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         }
     }
 
-    */
-/**
+
+    /**
      * 获取所有的评论
      *
      * @param data
      * @param relationDAO
      * @param relation
      * @param user
-     *//*
+     */
 
     private void getUserAndRelation(DataDetail.Data data, IRelationDAO relationDAO,
                                     List<UserPO> user, List<RelationPO> relation, List<String> nameList, String cid) {
@@ -280,14 +299,14 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         }
     }
 
-    */
-/**
+
+    /**
      * 根据评论获取用户信息
      *
      * @param item     每一天评论
      * @param user     userPOLIst
      * @param nameList 已存的用户名字
-     *//*
+     */
 
     private void getUserInfo(CommentDetail item, List<UserPO> user, List<String> nameList) {
 
@@ -304,15 +323,13 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
     }
 
 
-    */
-/**
+    /**
      * 获取评论信息
      *
      * @param item     每一条评论
      * @param relation relationPOList
      * @param cid      电影的cid
-     *//*
-
+     */
     private void getRelationInfo(IRelationDAO relationDAO, CommentDetail item, List<RelationPO> relation, String cid) {
 
         String comment = relationDAO.getCommentByCidAndUserNaem(cid, item.getUserinfo().getNick());
@@ -329,13 +346,13 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         relation.add(relationPO);
     }
 
-    */
-/**
+
+    /**
      * 获取commentid 中targetid
      *
      * @param pageStr video_commentid 中的内容
      * @return
-     *//*
+     */
 
     private VideoCommentId getVideoCommentIdContent(String pageStr) {
         String getStr = StrUtil.getAimedString(pageStr, "QZOutputJson=", "</body>");
@@ -345,14 +362,13 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         return videoCommentId;
     }
 
-    */
-/**
+
+    /**
      * 获取评论的详细信息
      *
      * @param detail
      * @return
-     *//*
-
+     */
     private DataDetail getCommentDetail(String detail) {
         String getStr = StrUtil.getAimedString(detail, "<body>", "</body>");
         String res = StrUtil.replaceString(getStr, "&quot;", "\"");
@@ -371,8 +387,9 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
     private String setCommentDetailUrl(String baseUrl, String commentId) {
         return (baseUrl + commentId + "/comment?");
     }
-}*/
+}
 
+/*
 
 package com.sun.modules.crawl.parser.impl;
 
@@ -397,9 +414,6 @@ import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.CollectionUtils;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.LineNumberReader;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -409,22 +423,513 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+*/
 /**
  * Created by sunguiyong on 2017/10/17.
- */
+ * <p>
+ * 对应https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3&cid=
+ * <p>
+ * 对应comment详细信息的url
+ * https://coral.qq.com/article/1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * 1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * <p>
+ * 对数据库中的userName进行转码
+ * <p>
+ * 向user表中插入数据
+ *
+ * @param userDAO
+ * @param userPOList
+ * <p>
+ * 获取所有的评论
+ * @param data
+ * @param relationDAO
+ * @param relation
+ * @param user
+ * <p>
+ * 根据评论获取用户信息
+ * @param item     每一天评论
+ * @param user     userPOLIst
+ * @param nameList 已存的用户名字
+ * <p>
+ * 获取评论信息
+ * @param item     每一条评论
+ * @param relation relationPOList
+ * @param cid      电影的cid
+ * <p>
+ * 获取commentid 中targetid
+ * @param pageStr video_commentid 中的内容
+ * @return 获取评论的详细信息
+ * @param detail
+ * @return 对应https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3&cid=
+ * <p>
+ * 对应comment详细信息的url
+ * https://coral.qq.com/article/1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * 1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * <p>
+ * 对数据库中的userName进行转码
+ * <p>
+ * 向user表中插入数据
+ * @param userDAO
+ * @param userPOList
+ * <p>
+ * 获取所有的评论
+ * @param data
+ * @param relationDAO
+ * @param relation
+ * @param user
+ * <p>
+ * 根据评论获取用户信息
+ * @param item     每一天评论
+ * @param user     userPOLIst
+ * @param nameList 已存的用户名字
+ * <p>
+ * 获取评论信息
+ * @param item     每一条评论
+ * @param relation relationPOList
+ * @param cid      电影的cid
+ * <p>
+ * 获取commentid 中targetid
+ * @param pageStr video_commentid 中的内容
+ * @return 获取评论的详细信息
+ * @param detail
+ * @return 对应https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3&cid=
+ * <p>
+ * 对应comment详细信息的url
+ * https://coral.qq.com/article/1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * 1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * <p>
+ * 对数据库中的userName进行转码
+ * <p>
+ * 向user表中插入数据
+ * @param userDAO
+ * @param userPOList
+ * <p>
+ * 获取所有的评论
+ * @param data
+ * @param relationDAO
+ * @param relation
+ * @param user
+ * <p>
+ * 根据评论获取用户信息
+ * @param item     每一天评论
+ * @param user     userPOLIst
+ * @param nameList 已存的用户名字
+ * <p>
+ * 获取评论信息
+ * @param item     每一条评论
+ * @param relation relationPOList
+ * @param cid      电影的cid
+ * <p>
+ * 获取commentid 中targetid
+ * @param pageStr video_commentid 中的内容
+ * @return 获取评论的详细信息
+ * @param detail
+ * @return 对应https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3&cid=
+ * <p>
+ * 对应comment详细信息的url
+ * https://coral.qq.com/article/1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * 1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * <p>
+ * 对数据库中的userName进行转码
+ * <p>
+ * 向user表中插入数据
+ * @param userDAO
+ * @param userPOList
+ * <p>
+ * 获取所有的评论
+ * @param data
+ * @param relationDAO
+ * @param relation
+ * @param user
+ * <p>
+ * 根据评论获取用户信息
+ * @param item     每一天评论
+ * @param user     userPOLIst
+ * @param nameList 已存的用户名字
+ * <p>
+ * 获取评论信息
+ * @param item     每一条评论
+ * @param relation relationPOList
+ * @param cid      电影的cid
+ * <p>
+ * 获取commentid 中targetid
+ * @param pageStr video_commentid 中的内容
+ * @return 获取评论的详细信息
+ * @param detail
+ * @return 对应https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3&cid=
+ * <p>
+ * 对应comment详细信息的url
+ * https://coral.qq.com/article/1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * 1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * <p>
+ * 对数据库中的userName进行转码
+ * <p>
+ * 向user表中插入数据
+ * @param userDAO
+ * @param userPOList
+ * <p>
+ * 获取所有的评论
+ * @param data
+ * @param relationDAO
+ * @param relation
+ * @param user
+ * <p>
+ * 根据评论获取用户信息
+ * @param item     每一天评论
+ * @param user     userPOLIst
+ * @param nameList 已存的用户名字
+ * <p>
+ * 获取评论信息
+ * @param item     每一条评论
+ * @param relation relationPOList
+ * @param cid      电影的cid
+ * <p>
+ * 获取commentid 中targetid
+ * @param pageStr video_commentid 中的内容
+ * @return 获取评论的详细信息
+ * @param detail
+ * @return 对应https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3&cid=
+ * <p>
+ * 对应comment详细信息的url
+ * https://coral.qq.com/article/1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * 1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * <p>
+ * 对数据库中的userName进行转码
+ * <p>
+ * 向user表中插入数据
+ * @param userDAO
+ * @param userPOList
+ * <p>
+ * 获取所有的评论
+ * @param data
+ * @param relationDAO
+ * @param relation
+ * @param user
+ * <p>
+ * 根据评论获取用户信息
+ * @param item     每一天评论
+ * @param user     userPOLIst
+ * @param nameList 已存的用户名字
+ * <p>
+ * 获取评论信息
+ * @param item     每一条评论
+ * @param relation relationPOList
+ * @param cid      电影的cid
+ * <p>
+ * 获取commentid 中targetid
+ * @param pageStr video_commentid 中的内容
+ * @return 获取评论的详细信息
+ * @param detail
+ * @return 对应https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3&cid=
+ * <p>
+ * 对应comment详细信息的url
+ * https://coral.qq.com/article/1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * 1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * <p>
+ * 对数据库中的userName进行转码
+ * <p>
+ * 向user表中插入数据
+ * @param userDAO
+ * @param userPOList
+ * <p>
+ * 获取所有的评论
+ * @param data
+ * @param relationDAO
+ * @param relation
+ * @param user
+ * <p>
+ * 根据评论获取用户信息
+ * @param item     每一天评论
+ * @param user     userPOLIst
+ * @param nameList 已存的用户名字
+ * <p>
+ * 获取评论信息
+ * @param item     每一条评论
+ * @param relation relationPOList
+ * @param cid      电影的cid
+ * <p>
+ * 获取commentid 中targetid
+ * @param pageStr video_commentid 中的内容
+ * @return 获取评论的详细信息
+ * @param detail
+ * @return 对应https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3&cid=
+ * <p>
+ * 对应comment详细信息的url
+ * https://coral.qq.com/article/1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * 1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * <p>
+ * 对数据库中的userName进行转码
+ * <p>
+ * 向user表中插入数据
+ * @param userDAO
+ * @param userPOList
+ * <p>
+ * 获取所有的评论
+ * @param data
+ * @param relationDAO
+ * @param relation
+ * @param user
+ * <p>
+ * 根据评论获取用户信息
+ * @param item     每一天评论
+ * @param user     userPOLIst
+ * @param nameList 已存的用户名字
+ * <p>
+ * 获取评论信息
+ * @param item     每一条评论
+ * @param relation relationPOList
+ * @param cid      电影的cid
+ * <p>
+ * 获取commentid 中targetid
+ * @param pageStr video_commentid 中的内容
+ * @return 获取评论的详细信息
+ * @param detail
+ * @return 对应https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3&cid=
+ * <p>
+ * 对应comment详细信息的url
+ * https://coral.qq.com/article/1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * 1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * <p>
+ * 对数据库中的userName进行转码
+ * <p>
+ * 向user表中插入数据
+ * @param userDAO
+ * @param userPOList
+ * <p>
+ * 获取所有的评论
+ * @param data
+ * @param relationDAO
+ * @param relation
+ * @param user
+ * <p>
+ * 根据评论获取用户信息
+ * @param item     每一天评论
+ * @param user     userPOLIst
+ * @param nameList 已存的用户名字
+ * <p>
+ * 获取评论信息
+ * @param item     每一条评论
+ * @param relation relationPOList
+ * @param cid      电影的cid
+ * <p>
+ * 获取commentid 中targetid
+ * @param pageStr video_commentid 中的内容
+ * @return 获取评论的详细信息
+ * @param detail
+ * @return 对应https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3&cid=
+ * <p>
+ * 对应comment详细信息的url
+ * https://coral.qq.com/article/1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * 1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * <p>
+ * 对数据库中的userName进行转码
+ * <p>
+ * 向user表中插入数据
+ * @param userDAO
+ * @param userPOList
+ * <p>
+ * 获取所有的评论
+ * @param data
+ * @param relationDAO
+ * @param relation
+ * @param user
+ * <p>
+ * 根据评论获取用户信息
+ * @param item     每一天评论
+ * @param user     userPOLIst
+ * @param nameList 已存的用户名字
+ * <p>
+ * 获取评论信息
+ * @param item     每一条评论
+ * @param relation relationPOList
+ * @param cid      电影的cid
+ * <p>
+ * 获取commentid 中targetid
+ * @param pageStr video_commentid 中的内容
+ * @return 获取评论的详细信息
+ * @param detail
+ * @return 对应https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3&cid=
+ * <p>
+ * 对应comment详细信息的url
+ * https://coral.qq.com/article/1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * 1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * <p>
+ * 对数据库中的userName进行转码
+ * <p>
+ * 向user表中插入数据
+ * @param userDAO
+ * @param userPOList
+ * <p>
+ * 获取所有的评论
+ * @param data
+ * @param relationDAO
+ * @param relation
+ * @param user
+ * <p>
+ * 根据评论获取用户信息
+ * @param item     每一天评论
+ * @param user     userPOLIst
+ * @param nameList 已存的用户名字
+ * <p>
+ * 获取评论信息
+ * @param item     每一条评论
+ * @param relation relationPOList
+ * @param cid      电影的cid
+ * <p>
+ * 获取commentid 中targetid
+ * @param pageStr video_commentid 中的内容
+ * @return 获取评论的详细信息
+ * @param detail
+ * @return 对应https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3&cid=
+ * <p>
+ * 对应comment详细信息的url
+ * https://coral.qq.com/article/1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * 1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * <p>
+ * 对数据库中的userName进行转码
+ * <p>
+ * 向user表中插入数据
+ * @param userDAO
+ * @param userPOList
+ * <p>
+ * 获取所有的评论
+ * @param data
+ * @param relationDAO
+ * @param relation
+ * @param user
+ * <p>
+ * 根据评论获取用户信息
+ * @param item     每一天评论
+ * @param user     userPOLIst
+ * @param nameList 已存的用户名字
+ * <p>
+ * 获取评论信息
+ * @param item     每一条评论
+ * @param relation relationPOList
+ * @param cid      电影的cid
+ * <p>
+ * 获取commentid 中targetid
+ * @param pageStr video_commentid 中的内容
+ * @return 获取评论的详细信息
+ * @param detail
+ * @return 对应https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3&cid=
+ * <p>
+ * 对应comment详细信息的url
+ * https://coral.qq.com/article/1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * 1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * <p>
+ * 对数据库中的userName进行转码
+ * <p>
+ * 向user表中插入数据
+ * @param userDAO
+ * @param userPOList
+ * <p>
+ * 获取所有的评论
+ * @param data
+ * @param relationDAO
+ * @param relation
+ * @param user
+ * <p>
+ * 根据评论获取用户信息
+ * @param item     每一天评论
+ * @param user     userPOLIst
+ * @param nameList 已存的用户名字
+ * <p>
+ * 获取评论信息
+ * @param item     每一条评论
+ * @param relation relationPOList
+ * @param cid      电影的cid
+ * <p>
+ * 获取commentid 中targetid
+ * @param pageStr video_commentid 中的内容
+ * @return 获取评论的详细信息
+ * @param detail
+ * @return 对应https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3&cid=
+ * <p>
+ * 对应comment详细信息的url
+ * https://coral.qq.com/article/1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * 1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * <p>
+ * 对数据库中的userName进行转码
+ * <p>
+ * 向user表中插入数据
+ * @param userDAO
+ * @param userPOList
+ * <p>
+ * 获取所有的评论
+ * @param data
+ * @param relationDAO
+ * @param relation
+ * @param user
+ * <p>
+ * 根据评论获取用户信息
+ * @param item     每一天评论
+ * @param user     userPOLIst
+ * @param nameList 已存的用户名字
+ * <p>
+ * 获取评论信息
+ * @param item     每一条评论
+ * @param relation relationPOList
+ * @param cid      电影的cid
+ * <p>
+ * 获取commentid 中targetid
+ * @param pageStr video_commentid 中的内容
+ * @return 获取评论的详细信息
+ * @param detail
+ * @return 对应https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3&cid=
+ * <p>
+ * 对应comment详细信息的url
+ * https://coral.qq.com/article/1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * 1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * <p>
+ * 对数据库中的userName进行转码
+ * <p>
+ * 向user表中插入数据
+ * @param userDAO
+ * @param userPOList
+ * <p>
+ * 获取所有的评论
+ * @param data
+ * @param relationDAO
+ * @param relation
+ * @param user
+ * <p>
+ * 根据评论获取用户信息
+ * @param item     每一天评论
+ * @param user     userPOLIst
+ * @param nameList 已存的用户名字
+ * <p>
+ * 获取评论信息
+ * @param item     每一条评论
+ * @param relation relationPOList
+ * @param cid      电影的cid
+ * <p>
+ * 获取commentid 中targetid
+ * @param pageStr video_commentid 中的内容
+ * @return 获取评论的详细信息
+ * @param detail
+ * @return
+ *//*
+
 public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
 
-    /**
-     * 对应https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3&cid=
-     */
+    */
+/**
+ * 对应https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3&cid=
+ *//*
+
     private String COMMENT_ID_URL = "https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3";
 
-    /**
-     * 对应comment详细信息的url
-     * https://coral.qq.com/article/1551278768/comment?commentid=6332862978740201115&reqnum=50
-     * 1551278768/comment?commentid=6332862978740201115&reqnum=50
-     */
-    /*private String COMMENT_DETAIL_URL = "https://coral.qq.com/article/";*/
+    */
+/**
+ * 对应comment详细信息的url
+ * https://coral.qq.com/article/1551278768/comment?commentid=6332862978740201115&reqnum=50
+ * 1551278768/comment?commentid=6332862978740201115&reqnum=50
+ *//*
+
+    */
+/*private String COMMENT_DETAIL_URL = "https://coral.qq.com/article/";*//*
+
 
     private ExecutorService exec = Executors.newFixedThreadPool(15);
     private CountDownLatch latch;
@@ -489,21 +994,25 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         return null;
     }
 
-    /**
-     * 对数据库中的userName进行转码
-     */
+    */
+/**
+ * 对数据库中的userName进行转码
+ *//*
+
     private void userNameDecode() {
         for (int i = 0; i < userNameList.size(); i++) {
             userNameList.set(i, URLDecoder.decode(userNameList.get(i)));
         }
     }
 
-    /**
-     * 向user表中插入数据
-     *
-     * @param userDAO
-     * @param userPOList
-     */
+    */
+/**
+ * 向user表中插入数据
+ *
+ * @param userDAO
+ * @param userPOList
+ *//*
+
     private void insertUser(IUserDAO userDAO, List<UserPO> userPOList) {
         List<UserPO> insertPO = new ArrayList<>();
         try {
@@ -603,14 +1112,16 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         }
     }
 
-    /**
-     * 获取所有的评论
-     *
-     * @param data
-     * @param relationDAO
-     * @param relation
-     * @param user
-     */
+    */
+/**
+ * 获取所有的评论
+ *
+ * @param data
+ * @param relationDAO
+ * @param relation
+ * @param user
+ *//*
+
     private void getUserAndRelation(DataDetail.Data data, IRelationDAO relationDAO,
                                     List<UserPO> user, List<RelationPO> relation, List<String> nameList, String cid) {
         List<CommentDetail> commentDetail = data.getCommentid();
@@ -631,13 +1142,15 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         }
     }
 
-    /**
-     * 根据评论获取用户信息
-     *
-     * @param item     每一天评论
-     * @param user     userPOLIst
-     * @param nameList 已存的用户名字
-     */
+    */
+/**
+ * 根据评论获取用户信息
+ *
+ * @param item     每一天评论
+ * @param user     userPOLIst
+ * @param nameList 已存的用户名字
+ *//*
+
     private void getUserInfo(CommentDetail item, List<UserPO> user, List<String> nameList) {
 
         UserPO userPO = new UserPO();
@@ -653,13 +1166,15 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
     }
 
 
-    /**
-     * 获取评论信息
-     *
-     * @param item     每一条评论
-     * @param relation relationPOList
-     * @param cid      电影的cid
-     */
+    */
+/**
+ * 获取评论信息
+ *
+ * @param item     每一条评论
+ * @param relation relationPOList
+ * @param cid      电影的cid
+ *//*
+
     private void getRelationInfo(IRelationDAO relationDAO, CommentDetail item, List<RelationPO> relation, String cid) {
 
         String comment = relationDAO.getCommentByCidAndUserNaem(cid, item.getUserinfo().getNick());
@@ -676,12 +1191,14 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         relation.add(relationPO);
     }
 
-    /**
-     * 获取commentid 中targetid
-     *
-     * @param pageStr video_commentid 中的内容
-     * @return
-     */
+    */
+/**
+ * 获取commentid 中targetid
+ *
+ * @param pageStr video_commentid 中的内容
+ * @return
+ *//*
+
     private VideoCommentId getVideoCommentIdContent(String pageStr) {
         String getStr = StrUtil.getAimedString(pageStr, "QZOutputJson=", "</body>");
         String res = StrUtil.replaceString(getStr, "&quot;", "\"");
@@ -690,12 +1207,14 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         return videoCommentId;
     }
 
-    /**
-     * 获取评论的详细信息
-     *
-     * @param detail
-     * @return
-     */
+    */
+/**
+ * 获取评论的详细信息
+ *
+ * @param detail
+ * @return
+ *//*
+
     private DataDetail getCommentDetail(String detail) {
         String getStr = StrUtil.getAimedString(detail, "<body>", "</body>");
         String res = StrUtil.replaceString(getStr, "&quot;", "\"");
@@ -707,4 +1226,4 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
     private String setCommentDetailUrl(String baseUrl, String commentId) {
         return (baseUrl + commentId + "/comment?");
     }
-}
+}*/

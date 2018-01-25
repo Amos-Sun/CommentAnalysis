@@ -14,13 +14,14 @@ public class StartCrawl {
 
     public static void main(String[] args) {
 
-        SaveVideoDetail getVideoDetail = new SaveVideoDetail();
+        /*SaveVideoDetail getVideoDetail = new SaveVideoDetail();
         SaveUserAndRelationDetail getUserDetail = new SaveUserAndRelationDetail();
         List<VideoPO> videoPOList = getVideoDetail.saveVideoInfo();
         getUserDetail.saveUserAndRelation(videoPOList);
 
-        System.out.println("爬虫结束");
-//        analysisMention();
+        System.out.println("爬虫结束");*/
+        analysisMention();
+        System.out.println("运行python脚本成功");
     }
 
 
@@ -34,7 +35,7 @@ public class StartCrawl {
 //            D:\self\CommentAnalysis\src\main\java\com\sun\modules\analysis\analysis.py
 //            analysis/analysis.py  ---新增一个module可以用相对路径
 //            analysis.py
-            Process pr = Runtime.getRuntime().exec("python D:\\self\\CommentAnalysis\\analysis\\analysis.py");
+            Process pr = Runtime.getRuntime().exec("python D:\\self\\CommentAnalysis\\analysis\\analysis.py ");
 //            Process pr = Runtime.getRuntime().exec("python D:\\self\\CommentAnalysis\\src\\main\\java\\com\\sun\\modules\\analysis\\analysis.py " + str);
             pr.waitFor();
             BufferedReader in = new BufferedReader(new InputStreamReader(pr.getInputStream()));

@@ -48,14 +48,14 @@
         <servlet-name>SpringMVC</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-
+<!--
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.html</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
 
-    <welcome-file-list>
+ <!--   <welcome-file-list>
         <welcome-file>/views/html/login.html</welcome-file>
-    </welcome-file-list>
+    </welcome-file-list>-->
 
 </web-app>

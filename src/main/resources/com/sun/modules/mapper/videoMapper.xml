@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.sun.modules.bean.dao.IVideoDAO">
-
+    
     <insert id="insertVideoInfo" parameterType="list">
         INSERT into
         `video`(`cid`,`name`,`time`,`actors`,`type`,`url`,`picture_path`,`detail`,`add_time`,`modification_time`)

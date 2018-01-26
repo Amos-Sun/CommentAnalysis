@@ -9,7 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
  * Created by SunGuiyong on 2017/10/10.
  */
 @Controller
-@RequestMapping(value = "/test")
 public class ClientController {
 
     @RequestMapping(value = "/login")
@@ -21,7 +20,7 @@ public class ClientController {
     @RequestMapping(value = "/login2")
 //    @ResponseBody
     public String login() {
-        return "login";
+        return "index";
     }
 
     @RequestMapping(value = "/ok2")

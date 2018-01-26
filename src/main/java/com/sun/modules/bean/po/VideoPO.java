@@ -18,8 +18,8 @@ public class VideoPO {
     private String type;
     private String url;
     private String detail;
-    private String goodPercent;
-    private String badPercent;
+    private Integer goodPercent;
+    private Integer badPercent;
     private String evaluate;
     private String lastEvaluateTime;
 
@@ -108,19 +108,19 @@ public class VideoPO {
         this.detail = detail;
     }
 
-    public String getGoodPercent() {
+    public Integer getGoodPercent() {
         return goodPercent;
     }
 
-    public void setGoodPercent(String goodPercent) {
+    public void setGoodPercent(Integer goodPercent) {
         this.goodPercent = goodPercent;
     }
 
-    public String getBadPercent() {
+    public Integer getBadPercent() {
         return badPercent;
     }
 
-    public void setBadPercent(String badPercent) {
+    public void setBadPercent(Integer badPercent) {
         this.badPercent = badPercent;
     }
 

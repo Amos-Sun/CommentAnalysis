@@ -36,8 +36,8 @@
         <property name="dataSource" ref="dataSource"/>
         <!-- 自动扫描mapping.xml文件 -->
         <property name="mapperLocations" value="classpath*:com/sun/modules/mapper/*Mapper.xml"/>
-
         <property name="typeHandlersPackage" value="com.sun.modules.common.JsonTypeHandler"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
     </bean>
 
     <!-- 配置mybatis mapper接口 -->

@@ -74,6 +74,13 @@
             <version>1.2.40</version>
         </dependency>
 
+        <!--使用注解代替setter getter方法-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.8</version>
+            <!--<type>pom</type>-->
+        </dependency>
 
         <!-- spring核心包 -->
         <dependency>
@@ -279,6 +286,13 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+            </plugin>
+
+            <!--lombok 编译-->
+            <plugin>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok-maven-plugin</artifactId>
+                <version>1.16.6.1</version>
             </plugin>
         </plugins>
     </build>

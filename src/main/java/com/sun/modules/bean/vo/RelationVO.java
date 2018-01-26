@@ -1,9 +1,9 @@
-package com.sun.modules.bean.domain;
+package com.sun.modules.bean.vo;
 
 /**
  * Created by sunguiyong on 2017/10/26.
  */
-public class RelationDO {
+public class RelationVO {
 
     private Integer userId;
     private Integer videoId;

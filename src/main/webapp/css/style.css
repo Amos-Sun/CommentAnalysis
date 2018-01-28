@@ -549,6 +549,8 @@ a.btn.btn-primary.btn-lg.see-button.hvr-shutter-out-horizontal {
 
 .resent-grid-img {
     position: relative;
+    width:200px;
+    height:300px;
 }
 
 .resent-grid-img iframe {
@@ -658,6 +660,8 @@ a.btn.btn-primary.btn-lg.see-button.hvr-shutter-out-horizontal {
 .resent-grid-info {
     background: #f7f7f7;
     padding: 1em;
+    width:200px;
+    height:150px;
 }
 
 .resent-grid-info a.title {
@@ -2444,7 +2448,7 @@ span.glyphicon.glyphicon-user {
     }
 
     .slider-top-grids {
-        width: 33.33% !important;
+        width: 19% !important;
         float: left !important;
     }
 

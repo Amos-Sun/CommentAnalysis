@@ -11,13 +11,13 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ClientController {
 
-    @RequestMapping(value = "/login")
+    @RequestMapping(value = "/login2")
 //    @ResponseBody
     public ModelAndView ok() {
         return new ModelAndView("login");
     }
 
-    @RequestMapping(value = "/login2")
+    @RequestMapping(value = "/login")
 //    @ResponseBody
     public String login() {
         return "index";

@@ -1,33 +1,45 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <title>Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords" content="My Play Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
-    <script type="application/x-javascript"> addEventListener("load", function () {
-        setTimeout(hideURLbar, 0);
-    }, false);
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache"/>
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache"/>
+    <META HTTP-EQUIV="Expires" CONTENT="0"/>
 
-    function hideURLbar() {
-        window.scrollTo(0, 1);
-    } </script>
+    <script type="application/x-javascript">
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            var fun = getVideos
+            fun()
+            window.scrollTo(0, 1);
+        }
+    </script>
     <!-- bootstrap -->
     <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' media="all"/>
     <!-- //bootstrap -->
     <link href="css/dashboard.css" rel="stylesheet">
     <!-- Custom Theme files -->
     <link href="css/style.css" rel='stylesheet' type='text/css' media="all"/>
+    <!--page style files-->
+    <link href="css/page.css" rel="stylesheet" type="text/css" media="all"/>
     <!--start-smoth-scrolling-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/interact.js"></script>
 </head>
-<body href="javascript:getVideos()">
+<body>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-            aria-expanded="false" aria-controls="navbar">
+                    aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -64,17 +76,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </div>
                             <div class="button-bottom">
                                 <p>Already have an account? <a href="#small-dialog"
-                                    class="play-icon popup-with-zoom-anim">Login</a></p>
+                                                               class="play-icon popup-with-zoom-anim">Login</a></p>
                             </div>
                         </div>
                         <div class="signup">
                             <form>
                                 <input type="text" class="email" placeholder="Mobile Number" maxlength="10"
-                                pattern="[1-9]{1}\d{9}" title="Enter a valid mobile number"/>
+                                       pattern="[1-9]{1}\d{9}" title="Enter a valid mobile number"/>
                             </form>
                             <div class="continue-button">
                                 <a href="#small-dialog3"
-                                class="hvr-shutter-out-horizontal play-icon popup-with-zoom-anim">CONTINUE</a>
+                                   class="hvr-shutter-out-horizontal play-icon popup-with-zoom-anim">CONTINUE</a>
                             </div>
                         </div>
                         <div class="clearfix"></div>
@@ -90,17 +102,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </div>
                             <div class="button-bottom">
                                 <p>Already have an account? <a href="#small-dialog"
-                                    class="play-icon popup-with-zoom-anim">Login</a></p>
+                                                               class="play-icon popup-with-zoom-anim">Login</a></p>
                             </div>
                         </div>
                         <div class="signup">
                             <form>
                                 <input type="text" class="email" placeholder="Email" required="required"
-                                pattern="([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?" title="Enter a valid email"/>
+                                       pattern="([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?" title="Enter a valid email"/>
                                 <input type="password" placeholder="Password" required="required" pattern=".{6,}"
-                                title="Minimum 6 characters required" autocomplete="off"/>
+                                       title="Minimum 6 characters required" autocomplete="off"/>
                                 <input type="text" class="email" placeholder="Mobile Number" maxlength="10"
-                                pattern="[1-9]{1}\d{9}" title="Enter a valid mobile number"/>
+                                       pattern="[1-9]{1}\d{9}" title="Enter a valid mobile number"/>
                                 <input type="submit" value="Sign Up"/>
                             </form>
                         </div>
@@ -117,15 +129,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </div>
                             <div class="button-bottom">
                                 <p>Already have an account? <a href="#small-dialog"
-                                    class="play-icon popup-with-zoom-anim">Login</a></p>
+                                                               class="play-icon popup-with-zoom-anim">Login</a></p>
                             </div>
                         </div>
                         <div class="signup">
                             <form action="upload.html">
                                 <input type="text" class="email" placeholder="Email" required="required"
-                                pattern="([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?" title="Enter a valid email"/>
+                                       pattern="([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?" title="Enter a valid email"/>
                                 <input type="password" placeholder="Password" required="required" pattern=".{6,}"
-                                title="Minimum 6 characters required" autocomplete="off"/>
+                                       title="Minimum 6 characters required" autocomplete="off"/>
                                 <input type="submit" value="Sign In"/>
                             </form>
                         </div>
@@ -201,20 +213,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </div>
                     </div>
                     <script>
-                    $(document).ready(function () {
-                    $('.popup-with-zoom-anim').magnificPopup({
-                    type: 'inline',
-                    fixedContentPos: false,
-                    fixedBgPos: true,
-                    overflowY: 'auto',
-                    closeBtnInside: true,
-                    preloader: false,
-                    midClick: true,
-                    removalDelay: 300,
-                    mainClass: 'my-mfp-zoom-in'
-                    });
+                        $(document).ready(function () {
+                            $('.popup-with-zoom-anim').magnificPopup({
+                                type: 'inline',
+                                fixedContentPos: false,
+                                fixedBgPos: true,
+                                overflowY: 'auto',
+                                closeBtnInside: true,
+                                preloader: false,
+                                midClick: true,
+                                removalDelay: 300,
+                                mainClass: 'my-mfp-zoom-in'
+                            });
 
-                    });
+                        });
                     </script>
                 </div>
                 <div class="signin">
@@ -230,15 +242,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </div>
                             <div class="button-bottom">
                                 <p>New account? <a href="#small-dialog2"
-                                    class="play-icon popup-with-zoom-anim">Signup</a></p>
+                                                   class="play-icon popup-with-zoom-anim">Signup</a></p>
                             </div>
                         </div>
                         <div class="signup">
                             <form>
                                 <input type="text" class="email" placeholder="Enter email / mobile" required="required"
-                                pattern="([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?"/>
+                                       pattern="([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?"/>
                                 <input type="password" placeholder="Password" required="required" pattern=".{6,}"
-                                title="Minimum 6 characters required" autocomplete="off"/>
+                                       title="Minimum 6 characters required" autocomplete="off"/>
                                 <input type="submit" value="LOGIN"/>
                             </form>
                             <div class="forgot">
@@ -265,32 +277,32 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
     <div class="drop-navigation drop-navigation">
         <ul class="nav nav-sidebar">
-            <li class="active"><a href="index.html" class="home-icon"><span class="glyphicon glyphicon-home"
-                aria-hidden="true"></span>Home</a></li>
+            <li class="active"><a href="#" class="home-icon"><span class="glyphicon glyphicon-home"
+                                                                   aria-hidden="true"></span>Home</a></li>
 
             <li><a href="#" class="menu"><span class="glyphicon glyphicon-film glyphicon-king"
-                aria-hidden="true"></span>Sex<span
-                class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a></li>
+                                               aria-hidden="true"></span>Sex<span
+                    class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a></li>
             <ul class="cl-effect-1">
                 <li><a href="sports.html">boy</a></li>
                 <li><a href="sports.html">gril</a></li>
             </ul>
             <!-- script-for-menu -->
             <script>
-            $("li a.menu").click(function () {
-            $("ul.cl-effect-1").slideToggle(300, function () {
-            // Animation complete.
-            });
-            });
+                $("li a.menu").click(function () {
+                    $("ul.cl-effect-1").slideToggle(300, function () {
+                        // Animation complete.
+                    });
+                });
             </script>
         </ul>
         <!-- script-for-menu -->
         <script>
-        $(".top-navigation").click(function () {
-        $(".drop-navigation").slideToggle(300, function () {
-        // Animation complete.
-        });
-        });
+            $(".top-navigation").click(function () {
+                $(".drop-navigation").slideToggle(300, function () {
+                    // Animation complete.
+                });
+            });
         </script>
         <div class="side-bottom">
             <div class="side-bottom-icons">
@@ -309,13 +321,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="main-grids">
-        <div class="top-grids">
-            <div class="col-md-4 resent-grid recommended-grid slider-top-grids">
+        <div id="content" class="top-grids">
+            <!--电影显示-->
+            <!--<div class="col-md-4 resent-grid recommended-grid slider-top-grids">
                 <div class="resent-grid-img recommended-grid-img">
                     <a href="single.html"><img src="images/t1.jpg" alt=""/></a>
-                    <div class="time">
-                        <p>3:04</p>
-                    </div>
                     <div class="clck">
                         <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
                     </div>
@@ -327,136 +337,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <li class="right-list"><p class="views views-info">type</p></li>
                     </ul>
                 </div>
-            </div>
-            <!--  <div class="col-md-4 resent-grid recommended-grid slider-top-grids">
-                  <div class="resent-grid-img recommended-grid-img">
-                      <a href="single.html"><img src="../images/t1.jpg" alt=""/></a>
-                      <div class="time">
-                          <p>3:04</p>
-                      </div>
-                      <div class="clck">
-                          <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                      </div>
-                  </div>
-                  <div class="resent-grid-info recommended-grid-info">
-                      <h3><a href="single.html" class="title title-info">this is a test name</a></h3>
-                      <ul>
-                          <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-                          <li class="right-list"><p class="views views-info">type</p></li>
-                      </ul>
-                  </div>
-              </div>
-              <div class="col-md-4 resent-grid recommended-grid slider-top-grids">
-                  <div class="resent-grid-img recommended-grid-img">
-                      <a href="single.html"><img src="../images/t1.jpg" alt=""/></a>
-                      <div class="time">
-                          <p>3:04</p>
-                      </div>
-                      <div class="clck">
-                          <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                      </div>
-                  </div>
-                  <div class="resent-grid-info recommended-grid-info">
-                      <h3><a href="single.html" class="title title-info">this is a test name</a></h3>
-                      <ul>
-                          <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-                          <li class="right-list"><p class="views views-info">type</p></li>
-                      </ul>
-                  </div>
-              </div>
-              <div class="col-md-4 resent-grid recommended-grid slider-top-grids">
-                  <div class="resent-grid-img recommended-grid-img">
-                      <a href="single.html"><img src="../images/t1.jpg" alt=""/></a>
-                      <div class="time">
-                          <p>3:04</p>
-                      </div>
-                      <div class="clck">
-                          <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                      </div>
-                  </div>
-                  <div class="resent-grid-info recommended-grid-info">
-                      <h3><a href="single.html" class="title title-info">this is a test name</a></h3>
-                      <ul>
-                          <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-                          <li class="right-list"><p class="views views-info">type</p></li>
-                      </ul>
-                  </div>
-              </div>
-              <div class="col-md-4 resent-grid recommended-grid slider-top-grids">
-                  <div class="resent-grid-img recommended-grid-img">
-                      <a href="single.html"><img src="../images/t1.jpg" alt=""/></a>
-                      <div class="time">
-                          <p>3:04</p>
-                      </div>
-                      <div class="clck">
-                          <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                      </div>
-                  </div>
-                  <div class="resent-grid-info recommended-grid-info">
-                      <h3><a href="single.html" class="title title-info">this is a test name</a></h3>
-                      <ul>
-                          <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-                          <li class="right-list"><p class="views views-info">type</p></li>
-                      </ul>
-                  </div>
-              </div>
-              <div class="col-md-4 resent-grid recommended-grid slider-top-grids">
-                  <div class="resent-grid-img recommended-grid-img">
-                      <a href="single.html"><img src="../images/t1.jpg" alt=""/></a>
-                      <div class="time">
-
-                          <p>3:04</p>
-                      </div>
-                      <div class="clck">
-                          <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                      </div>
-                  </div>
-                  <div class="resent-grid-info recommended-grid-info">
-                      <h3><a href="single.html" class="title title-info">this is a test name</a></h3>
-                      <ul>
-                          <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-                          <li class="right-list"><p class="views views-info">type</p></li>
-                      </ul>
-                  </div>
-              </div>
-              <div class="col-md-4 resent-grid recommended-grid slider-top-grids">
-                  <div class="resent-grid-img recommended-grid-img">
-                      <a href="single.html"><img src="../images/t1.jpg" alt=""/></a>
-                      <div class="time">
-                          <p>3:04</p>
-                      </div>
-                      <div class="clck">
-                          <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                      </div>
-                  </div>
-                  <div class="resent-grid-info recommended-grid-info">
-                      <h3><a href="single.html" class="title title-info">this is a test name</a></h3>
-                      <ul>
-                          <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-                          <li class="right-list"><p class="views views-info">type</p></li>
-                      </ul>
-                  </div>
-              </div>
-              <div class="col-md-4 resent-grid recommended-grid slider-top-grids">
-                  <div class="resent-grid-img recommended-grid-img">
-                      <a href="single.html"><img src="../images/t1.jpg" alt=""/></a>
-                      <div class="time">
-                          <p>3:04</p>
-                      </div>
-                      <div class="clck">
-                          <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-                      </div>
-                  </div>
-                  <div class="resent-grid-info recommended-grid-info">
-                      <h3><a href="single.html" class="title title-info">this is a test name</a></h3>
-                      <ul>
-                          <li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-                          <li class="right-list"><p class="views views-info">type</p></li>
-                      </ul>
-                  </div>
-              </div>-->
-            <div class="clearfix"></div>
+            </div>-->
+            <!--<div class="clearfix"></div>-->
         </div>
+        <!--分页-->
+        <div class="page-bar">
+            <ul>
+                <li v-if="cur>1"><a v-on:click="cur--,pageClick()">上一页</a></li>
+                <li v-if="cur==1"><a class="banclick">上一页</a></li>
+                <li v-for="index in indexs" v-bind:class="{ 'active': cur == index}">
+                    <a v-on:click="btnClick(index)">{{ index }}</a>
+                </li>
+                <li v-if="cur!=all"><a v-on:click="cur++,pageClick()">下一页</a></li>
+                <li v-if="cur == all"><a class="banclick">下一页</a></li>
+                <li><a>共<i>{{all}}</i>页</a></li>
+            </ul>
+        </div>
+        <div class="clearfix"></div>
     </div>
     <!-- footer -->
     <div class="footer">
@@ -499,8 +396,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="js/jquery-1.11.1.min.js"></script>
 
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="js/interact.js"></script>
+
 <script src="js/bootstrap.min.js"></script>
 <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 </body>

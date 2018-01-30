@@ -1,5 +1,4 @@
 axios.defaults.baseURL = 'http://localhost:8080/analysis/';
-// axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.post['Content-Type'] = 'text/plain';
 
 function getVideos() {
@@ -18,6 +17,7 @@ function getVideos() {
             console.log(response);
         });
 }
+
 function getVideoDetail(videos, data, index) {
     videos[index] = new Array();
     videos[index][0] = data.videoUrl;
@@ -28,80 +28,36 @@ function getVideoDetail(videos, data, index) {
     videos[index][5] = data.picUrl;
     return videos;
 }
+
 function setDiv(videos, index) {
-    return '<div class="col-md-4 resent-grid recommended-grid slider-top-grids">'
+    return '<div class="col-md-3 resent-grid recommended-grid">'
         + '<div class="resent-grid-img recommended-grid-img">'
-        + '<a href="' + videos[index][0] + '" target="_blank"> <img src="' + videos[index][5] + '" alt=""/></a> '
-        + '<div class="clck"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></div>'
-        + '</div>'
-        + '<div class="resent-grid-info recommended-grid-info">'
+        + '<a href="' + videos[index][0] + '" target="_blank"> '
+        + '<img style="height: 300px;" src="' + videos[index][5] + '" alt=""/>'
+        + '</a> '
+        + '<div class="resent-grid-info recommended-grid-info video-info-grid">'
         + '<h3><a href="' + videos[index][0] + '" target="_blank" '
         + 'class="title title-info">' + videos[index][1] + '</a></h3>'
-        + '<ul>'
-        + '<li><p class="author author-info"><a href="#" class="author">' + videos[index][4] + '</a></p></li>'
-        + '<li class="right-list"><p class="views views-info">' + videos[index][3] + '</p></li>'
-        + '</ul>'
+        + '<p class="author author-info">' + videos[index][4] + '</p><br/>'
+        + '<p class="views views-info">' + videos[index][3] + '</p>'
+        + '</div>'
         + '</div>'
         + '</div>';
 }
+
 function addToMainContent(videos) {
     var contentDiv = document.getElementById('content');
+    var allDiv = '';
     var html = '';
     for (var i = 0; i < videos.length; i++) {
         html += setDiv(videos, i);
+        if ((i + 1) % 4 == 0) {
+            html += '<div class="clearfix"></div>';
+            html = '<div class="recommended-grids">' + html + '</div>';
+            allDiv += html;
+            html = '';
+        }
     }
-    html += '<div class="clearfix"></div>';
-    contentDiv.innerHTML = html;
+    contentDiv.innerHTML = allDiv;
 }
-
-var pageBar = new Vue({
-    el: '.page-bar',
-    data: {
-        all: 8, //总页数
-        cur: 1//当前页码
-    },
-    watch: {
-        cur: function (oldValue, newValue) {
-            console.log(arguments);
-        }
-    },
-    methods: {
-        btnClick: function (data) {//页码点击事件
-            if (data != this.cur) {
-                this.cur = data
-            }
-        },
-        pageClick: function () {
-            console.log('现在在' + this.cur + '页');
-        }
-    },
-
-    computed: {
-        indexs: function () {
-            var left = 1;
-            var right = this.all;
-            var ar = [];
-            if (this.all >= 5) {
-                if (this.cur > 3 && this.cur < this.all - 2) {
-                    left = this.cur - 2
-                    right = this.cur + 2
-                } else {
-                    if (this.cur <= 3) {
-                        left = 1
-                        right = 5
-                    } else {
-                        right = this.all
-                        left = this.all - 4
-                    }
-                }
-            }
-            while (left <= right) {
-                ar.push(left)
-                left++
-            }
-            return ar
-        }
-
-    }
-})
 

@@ -544,13 +544,10 @@ a.btn.btn-primary.btn-lg.see-button.hvr-shutter-out-horizontal {
 
 .resent-grid {
     padding-left: 0.1em;
-    padding-top: 0.9em;
 }
 
 .resent-grid-img {
     position: relative;
-    width:200px;
-    height:300px;
 }
 
 .resent-grid-img iframe {
@@ -616,12 +613,6 @@ a.btn.btn-primary.btn-lg.see-button.hvr-shutter-out-horizontal {
     bottom: 2%;
 }
 
-.glyphicon-time:before {
-    content: "\e023";
-    color: #fff;
-    font-size: 1em;
-}
-
 .show-clock {
     right: 22%;
     bottom: 1%;
@@ -660,8 +651,6 @@ a.btn.btn-primary.btn-lg.see-button.hvr-shutter-out-horizontal {
 .resent-grid-info {
     background: #f7f7f7;
     padding: 1em;
-    width:200px;
-    height:150px;
 }
 
 .resent-grid-info a.title {
@@ -695,7 +684,7 @@ a.btn.btn-primary.btn-lg.see-button.hvr-shutter-out-horizontal {
 
 .resent-grid-info p.views {
     font-size: 14px;
-    color: #9E9E9E;
+    color: black;
     margin: 0;
 }
 
@@ -726,7 +715,7 @@ a.btn.btn-primary.btn-lg.see-button.hvr-shutter-out-horizontal {
 .recommended-grid-info h3 {
     margin: 0;
     overflow: hidden;
-    height: 54px;
+    height: 40px;
 }
 
 .recommended-grid-info h5 {
@@ -741,7 +730,7 @@ a.btn.btn-primary.btn-lg.see-button.hvr-shutter-out-horizontal {
 
 .recommended-grid-info p.author {
     font-size: 13px;
-    margin: 1em 0 0 0;
+    margin: 0 0 0 0;
 }
 
 .resent-grid-info ul {
@@ -802,6 +791,23 @@ a.btn.btn-primary.btn-lg.see-button.hvr-shutter-out-horizontal {
 .recommended-grid-info {
     box-shadow: 0px 0 2px #C1C1C1 !important;
     background: none;
+}
+
+.recommended-grid-info p {
+    width: 18em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.recommended-grid-info p:hover {
+    width: 240px;
+    border: 0px solid #ddd;
+    text-align: left;
+    cursor: pointer;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap
 }
 
 .heading {
@@ -1562,13 +1568,13 @@ select.form-control.bfh-countries:hover {
 .single-right-grid-right p.author {
     font-size: 14px;
     color: #9E9E9E;
-    margin: .5em 0;
+    margin: 0 0;
 }
 
 .single-right-grid-right p.author {
     font-size: 13px;
     color: #9E9E9E;
-    margin: 0em 0;
+    margin: 0 0;
 }
 
 .single-right-grid-right p.author a {
@@ -2448,7 +2454,7 @@ span.glyphicon.glyphicon-user {
     }
 
     .slider-top-grids {
-        width: 19% !important;
+        width: 33.33% !important;
         float: left !important;
     }
 
@@ -3125,7 +3131,7 @@ span.glyphicon.glyphicon-user {
     }
 
     .recommended-grid-info h3 {
-        line-height: .8em;
+        line-height: normal;
     }
 
     .recommended-grid-info a.title {

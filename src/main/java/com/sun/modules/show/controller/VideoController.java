@@ -2,6 +2,7 @@ package com.sun.modules.show.controller;
 
 import com.sun.modules.bean.vo.VideoVO;
 import com.sun.modules.common.response.MsgResponse;
+import com.sun.modules.common.response.OtherInfo;
 import com.sun.modules.show.service.IVideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,7 @@ public class VideoController {
             return MsgResponse.paragramError("当前页码小于0");
         }
         List<VideoVO> res = videoService.getVideosByPage(pageNum, pageSize);
-        return MsgResponse.success(res);
+        int totalRecord = videoService.getTotalNum();
+        return MsgResponse.success(res, new OtherInfo(totalRecord));
     }
 }

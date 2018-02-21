@@ -24,4 +24,6 @@ public interface IVideoService {
      * @return
      */
     List<VideoVO> getVideosByPage(Integer pageNum, Integer pageSize);
+
+    int getTotalNum();
 }

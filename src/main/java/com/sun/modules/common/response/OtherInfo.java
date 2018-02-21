@@ -9,12 +9,14 @@ import lombok.Setter;
  */
 public class OtherInfo {
 
-    @Setter @Getter
+    @Setter
+    @Getter
     private Integer total;
 
-    OtherInfo(Integer total) {
+    public OtherInfo(Integer total) {
         this.total = total;
     }
 
-    OtherInfo(){}
+    public OtherInfo() {
+    }
 }

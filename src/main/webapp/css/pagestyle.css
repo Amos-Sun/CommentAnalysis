@@ -1,0 +1,56 @@
+@charset "utf-8";
+a {
+    text-decoration: none;
+}
+
+.barcon {
+    width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.barcon1 {
+    font-size: 17px;
+    float: left;
+    margin-top: 20px;
+}
+
+.barcon2 {
+    float: right;
+}
+
+.barcon2 ul {
+    margin: 20px 0;
+    padding-left: 0;
+    list-style: none;
+    text-align: center;
+}
+
+.barcon2 li {
+    display: inline;
+}
+
+.barcon2 a {
+    font-size: 16px;
+    font-weight: normal;
+    display: inline-block;
+    padding: 5px;
+    padding-top: 0;
+    color: black;
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.barcon2 a:hover {
+    background-color: #eee;
+}
+
+.ban {
+    opacity: .4;
+}
+
+/*
+#jumpWhere {
+    width: 3em;
+    height: 2em;
+}*/

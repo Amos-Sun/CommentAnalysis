@@ -3,37 +3,15 @@
 <head>
     <title>Shows</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="keywords" content="My Play Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
+    <meta name="keywords" content=""/>
     <script type="application/x-javascript"> addEventListener("load", function () {
         setTimeout(hideURLbar, 0);
-        getVideos();
     }, false);
 
     function hideURLbar() {
         window.scrollTo(0, 1);
     }
-    </script>
-
-    <script type="text/html" class="hidden" id="template_pagination">
-        <nav v-if="page > 1">
-            <ul class="pagination">
-                <li><a href="javascript:;" v-show="current > 1" @click="current =1"> È¶ñÈ°µ </a></li>
-                <li><a href="javascript:;" v-show="current > 1" @click="--current"> ‰∏ä‰∏ÄÈ°µ </a></li>
-                <li v-for="n in page" :class="{ 'active': n + 1 == current }"><a href="javascript:;"
-                                                                                 @click="current = n + 1"> {{ n + 1
-                    }} </a></li>
-                <li><a href="javascript:;" v-show="current < page" @click="++current"> ‰∏ã‰∏ÄÈ°µ</a></li>
-                <li><a href="javascript:;" v-show="current < page" @click="current = page"> Â∞æÈ°µ </a></li>
-            </ul>
-            <ul class="pagination pull-right">
-                <li><span> ÂÖ± {{ total }} Êù°Êï∞ÊçÆ </span></li>
-                <li><span> ÊØèÈ°µ {{ display }} Êù°Êï∞ÊçÆ </span></li>
-                <li><span> ÂÖ± {{ page }} È°µ </span></li>
-                <li><span> ÂΩìÂâçÁ¨¨ {{ current }} È°µ </span></li>
-            </ul>
-        </nav>
     </script>
     <!-- bootstrap -->
     <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' media="all"/>
@@ -42,7 +20,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- Custom Theme files -->
     <link href="css/style.css" rel='stylesheet' type='text/css' media="all"/>
     <script src="js/jquery-1.11.1.min.js"></script>
-    <!--‰ΩøÁî®axiosÂøÖÈ°ªÊúâ-->
+    <!--∑÷“≥µƒcss—˘ Ω-->
+    <link href="css/pagestyle.css" rel="stylesheet">
+    <!-- π”√axios±ÿ–Î”–-->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="js/interact.js"></script>
     <!--start-smoth-scrolling-->
@@ -102,23 +82,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 });
             </script>
         </ul>
-        <!-- script-for-menu -->
-        <!--<script>
-            $(".top-navigation").click(function () {
-                $(".drop-navigation").slideToggle(300, function () {
-                    // Animation complete.
-                });
-            });
-        </script>-->
         <div class="side-bottom">
-            <!--  <div class="side-bottom-icons">
-                  <ul class="nav2">
-                      <li><a href="#" class="facebook"> </a></li>
-                      <li><a href="#" class="facebook twitter"> </a></li>
-                      <li><a href="#" class="facebook chrome"> </a></li>
-                      <li><a href="#" class="facebook dribbble"> </a></li>
-                  </ul>
-              </div>-->
             <div class="copyright">
                 <p>Copyright &copy; 2015.Company name All rights reserved.</p>
             </div>
@@ -128,6 +92,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div id="content" class="recommended">
     </div>
+    <div id="barcon" class="barcon">
+        <div id="barcon1" class="barcon1"></div>
+        <div id="barcon2" class="barcon2">
+            <ul>
+                <li><a href="#" id="firstPage"> ◊“≥</a></li>
+                <li><a href="#" id="prePage">…œ“ª“≥</a></li>
+                <li><a href="#" id="nextPage">œ¬“ª“≥</a></li>
+                <li><a href="#" id="lastPage">Œ≤“≥</a></li>
+                <li><select id="jumpWhere">
+                </select></li>
+                <li><a href="#" id="jumpPage" onclick="jumpPage()">Ã¯◊™</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="clearfix"></div>
     <!-- footer -->
     <div class="footer">
         <div class="footer-grids">

@@ -38,6 +38,11 @@ public class VideoServiceImpl implements IVideoService {
         return toVOList(poList);
     }
 
+    @Override
+    public int getTotalNum() {
+        return videoDAO.getTotalRecord();
+    }
+
     /**
      * 把PO转成VO
      *

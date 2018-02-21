@@ -13,6 +13,9 @@ import java.util.List;
 @Repository(value = "videoDAO")
 public interface IVideoDAO {
 
+    @Select("select count(*) from video")
+    int getTotalRecord();
+
     @Select("select * from video")
     List<VideoPO> getAllVideo();
 

@@ -1,11 +1,10 @@
 #!/usr/bin/python3
 # -*- coding:utf-8 -*-
-
+import datetime
 import threading
 from queue import Queue
 import pymysql
 import snownlp
-import datetime
 import urllib.parse
 
 db = pymysql.connect("localhost", "root", "root", "comment_analysis")
@@ -18,6 +17,7 @@ row_distance = 500
 total_rows = 1579882
 
 
+# 从数据库中读数据
 class Producer(threading.Thread):
     def __init__(self, block_queue):
         threading.Thread.__init__(self)
@@ -65,6 +65,7 @@ class Producer(threading.Thread):
         return record[0]
 
 
+# 向数据库中存数据
 class Consumer(threading.Thread):
     def __init__(self, block_queue):
         threading.Thread.__init__(self)
@@ -147,6 +148,7 @@ class Consumer(threading.Thread):
         return result_list
 
 
+# 计算文本情感值
 class CalculateMention(threading.Thread):
     def __init__(self, item):
         threading.Thread.__init__(self)
@@ -190,6 +192,67 @@ class CalculateMention(threading.Thread):
         pass
 
 
+# 更新每一个电影对应的情感概率
+class CalculationEvaluation():
+    def __init__(self):
+        pass
+
+    @staticmethod
+    def calculation():
+        sql = "select cid from video group by cid"
+        try:
+            cursor.execute(sql)
+            pass
+        except Exception as e:
+            print("select exception ", str(e))
+            pass
+
+        cid_res = cursor.fetchall()
+        for item in cid_res:
+            sql = "select evaluation from relation where cid='%s'" % (item[0])
+            try:
+                cursor.execute(sql)
+                pass
+            except Exception as e:
+                print(str(e))
+                pass
+            relation_res = cursor.fetchall()
+            # 进行计算
+            res_list = CalculationEvaluation.doing_calculation(relation_res)
+            update_sql = "update video set good_percent='%s',bad_percent='%s' where cid='%s'" % (
+                res_list[0], res_list[2], item[0])
+            try:
+                cursor.execute(update_sql)
+                db.commit()
+                pass
+            except Exception as e:
+                print(str(e))
+                pass
+            pass
+        pass
+
+    @staticmethod
+    def doing_calculation(relation_res):
+        total = len(relation_res)
+        if total == 0:
+            return [0, 0, 0]
+        num_1 = 0
+        num_0 = 0
+        num_others = 0
+        for item in relation_res:
+            if item[0] == 1:
+                num_1 += 1
+                pass
+            elif item[0] == 0:
+                num_0 += 1
+                pass
+            elif item[0] == -1:
+                num_others += 1
+            pass
+        res_list = [num_1 / total, num_0 / total, num_others / total]
+        return res_list
+
+
 if __name__ == "__main__":
     start = datetime.datetime.now()
     queue = Queue(row_distance)
@@ -198,6 +261,13 @@ if __name__ == "__main__":
     producer.start()
     consumer.start()
 
+    producer.join()
+    consumer.join()
     end = datetime.datetime.now()
 
     print("运行时间", (end - start).seconds)
+
+    calculation = CalculationEvaluation()
+    calculation.calculation()
+
+    # db.close()

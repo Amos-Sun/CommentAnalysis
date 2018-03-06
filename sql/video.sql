@@ -10,8 +10,8 @@ CREATE TABLE `video` (
   `time` varchar(16) DEFAULT NULL COMMENT '上映时间',
   `actors` varchar(256) DEFAULT NULL COMMENT '演员',
   `type` varchar(256) DEFAULT NULL COMMENT '电影的分类',
-  `good_percent` varchar(5) DEFAULT '0' COMMENT '好评百分比',
-  `bad_percent` varchar(5) DEFAULT '0' COMMENT '差评百分比',
+  `good_percent` varchar(32) DEFAULT '0' COMMENT '好评百分比',
+  `bad_percent` varchar(32) DEFAULT '0' COMMENT '差评百分比',
   `evaluate` varchar(256) DEFAULT NULL COMMENT '电影评价信息存储',
   `last_evaluate_time` VARCHAR (10) default null COMMENT '最后一条评论的时间',
   `add_time` DateTime not null,
@@ -19,3 +19,6 @@ CREATE TABLE `video` (
   PRIMARY KEY (`id`),
   INDEX`c_id`(`cid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+alter table `video` change `last_evaluate_time` `woman_good_percent` varchar(32) COMMENT '好评中，女生占的比率';
+alter table `video` change `evaluate` `man_good_percent` varchar(32) COMMENT '好评中，男生占的比率';

@@ -7,7 +7,7 @@ import pymysql
 import snownlp
 import urllib.parse
 
-db = pymysql.connect("localhost", "root", "root", "comment_analysis")
+db = pymysql.connect("localhost", "root", "root", "comment_analysis", charset="utf8")
 cursor = db.cursor()
 update_cursor = db.cursor()
 db.ping(True)
@@ -208,8 +208,10 @@ class CalculationEvaluation():
             pass
 
         cid_res = cursor.fetchall()
+        num = 0
         for item in cid_res:
-            sql = "select evaluation from relation where cid='%s'" % (item[0])
+            print(num)
+            sql = "select * from relation where cid='%s'" % (item[0])
             try:
                 cursor.execute(sql)
                 pass
@@ -219,8 +221,8 @@ class CalculationEvaluation():
             relation_res = cursor.fetchall()
             # 进行计算
             res_list = CalculationEvaluation.doing_calculation(relation_res)
-            update_sql = "update video set good_percent='%s',bad_percent='%s' where cid='%s'" % (
-                res_list[0], res_list[2], item[0])
+            update_sql = "update video set good_percent='%s',bad_percent='%s', man_good_percent='%s', woman_good_percent='%s' where cid='%s'" % (
+                res_list[0], res_list[2], res_list[3], res_list[4], item[0])
             try:
                 cursor.execute(update_sql)
                 db.commit()
@@ -228,28 +230,59 @@ class CalculationEvaluation():
             except Exception as e:
                 print(str(e))
                 pass
+            num += 1
+            # break
             pass
         pass
 
     @staticmethod
     def doing_calculation(relation_res):
+        # third is user_name
+        # fifth is evaluation
         total = len(relation_res)
         if total == 0:
-            return [0, 0, 0]
+            return [0, 0, 0, 0, 0]
+        # good_percent
         num_1 = 0
+        # bad_percent
         num_0 = 0
+        # neutral_percent
         num_others = 0
+        # man_good_percent  woman_good_percent
+        num_man = 0
+        num_woman = 0
         for item in relation_res:
-            if item[0] == 1:
+            evaluation = item[4]
+            user_name = item[2]
+            if evaluation == 1:
                 num_1 += 1
+                user_sql = "select sex from user where name='%s'" % (user_name)
+                cursor.execute(user_sql)
+                sex = cursor.fetchone()
+                if sex == None:
+                    continue
+                if sex[0] == "男":
+                    num_man += 1
+                    pass
+                elif sex[0] == "女":
+                    num_woman += 1
+                    pass
                 pass
-            elif item[0] == 0:
+            elif evaluation == 0:
                 num_0 += 1
                 pass
-            elif item[0] == -1:
+            elif evaluation == -1:
                 num_others += 1
             pass
-        res_list = [num_1 / total, num_0 / total, num_others / total]
+        if num_1 == 0:
+            num_man = 0
+            num_woman = 0
+            pass
+        elif num_1 != 0:
+            num_woman = num_woman / num_1
+            num_man = num_man / num_1
+            pass
+        res_list = [num_1 / total, num_0 / total, num_others / total, num_man, num_woman]
         return res_list
 
 

@@ -19,7 +19,7 @@ public interface IVideoDAO {
     @Select("select * from video")
     List<VideoPO> getAllVideo();
 
-    @Select("select * from video where id>=#{pageNum}  limit #{pageSize}")
+    @Select("select * from video order by good_percent desc limit #{pageNum},#{pageSize}")
     List<VideoPO> getBySize(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 
     @Select("select cid from video")

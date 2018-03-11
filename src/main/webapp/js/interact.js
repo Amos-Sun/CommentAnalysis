@@ -2,7 +2,7 @@ axios.defaults.baseURL = 'http://localhost:8080/analysis/';
 axios.defaults.headers.post['Content-Type'] = 'text/plain';
 
 var totalRecord;
-
+var currentPageStatus; // 0 全部电影，1 根据男生评价排序  2 根据女生评价排序
 function getVideos(pageNum, pageSize) {
     axios.get('/video/get-all', {
         params: {
@@ -18,6 +18,7 @@ function getVideos(pageNum, pageSize) {
                 videos = getVideoDetail(videos, response.data.data[i], i);
             }
             addToMainContent(videos);
+            currentPageStatus = 0;
             console.log(videos);
         })
         .catch(function (response) {
@@ -70,19 +71,9 @@ function addToMainContent(videos) {
     contentDiv.innerHTML = allDiv;
 }
 
-/*动态生成用户函数
- num为生成的用户数量
-*/
-function dynamicAddUser(num) {
-    alert(num);
-}
-
 var pageSize = 20;//每页显示行数
 var currentPage_ = 1;//当前页全局变量，用于跳转时判断是否在相同页，在就不跳，否则跳转。
 var totalPage;//总页数
-$(function () {
-    getVideos(currentPage_, pageSize);
-});
 
 /**
  * 分页函数
@@ -91,8 +82,6 @@ $(function () {
  * 分页部分是从真实数据行开始，因而存在加减某个常数，以确定真正的记录数
  * 纯js分页实质是数据行全部加载，通过是否显示属性完成分页功能
  **/
-
-
 function goPage(pno, psize) {
     var num = totalRecord;//表格所有行数(所有记录数)
 
@@ -143,8 +132,14 @@ function goPage(pno, psize) {
 function jumpPage() {
     var num = parseInt($("#jumpWhere").val());
     if (num != currentPage_) {
-        getVideos(num, pageSize);
+        if (currentPageStatus == 0) {
+            getVideos(num, pageSize);
+        }
     }
 }
+
+$(function () {
+    getVideos(currentPage_, pageSize);
+});
 
 

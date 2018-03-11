@@ -33,7 +33,7 @@ public class VideoServiceImpl implements IVideoService {
 
     @Override
     public List<VideoVO> getVideosByPage(Integer pageNum, Integer pageSize) {
-        int num = (pageNum - 1) * pageSize + 1;
+        int num = (pageNum - 1) * pageSize;
         List<VideoPO> poList = videoDAO.getBySize(num, pageSize);
         return toVOList(poList);
     }

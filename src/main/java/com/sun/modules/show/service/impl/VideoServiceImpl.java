@@ -17,10 +17,6 @@ public class VideoServiceImpl implements IVideoService {
     @Autowired
     private IVideoDAO videoDAO;
 
-    public String strTest() {
-        return "this connect is ok";
-    }
-
     @Override
     public List<VideoVO> getAllVideos() {
 
@@ -32,9 +28,23 @@ public class VideoServiceImpl implements IVideoService {
     }
 
     @Override
-    public List<VideoVO> getVideosByPage(Integer pageNum, Integer pageSize) {
+    public List<VideoVO> getVideosByGoodPercent(Integer pageNum, Integer pageSize) {
         int num = (pageNum - 1) * pageSize;
-        List<VideoPO> poList = videoDAO.getBySize(num, pageSize);
+        List<VideoPO> poList = videoDAO.getOrderByGoodPercent(num, pageSize);
+        return toVOList(poList);
+    }
+
+    @Override
+    public List<VideoVO> getVideosByManGood(Integer pageNum, Integer pageSize) {
+        int num = (pageNum - 1) * pageSize;
+        List<VideoPO> poList = videoDAO.getOrderByManGood(num, pageSize);
+        return toVOList(poList);
+    }
+
+    @Override
+    public List<VideoVO> getVideosByWomanGood(Integer pageNum, Integer pageSize) {
+        int num = (pageNum - 1) * pageSize;
+        List<VideoPO> poList = videoDAO.getOrderByWomanGood(num, pageSize);
         return toVOList(poList);
     }
 

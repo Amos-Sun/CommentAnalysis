@@ -29,7 +29,29 @@ public class VideoController {
         if (pageNum <= 0) {
             return MsgResponse.paragramError("当前页码小于0");
         }
-        List<VideoVO> res = videoService.getVideosByPage(pageNum, pageSize);
+        List<VideoVO> res = videoService.getVideosByGoodPercent(pageNum, pageSize);
+        int totalRecord = videoService.getTotalNum();
+        return MsgResponse.success(res, new OtherInfo(totalRecord));
+    }
+
+    @RequestMapping(value = "/get-man", method = {RequestMethod.GET})
+    @ResponseBody
+    public MsgResponse getByMan(Integer pageNum, Integer pageSize) {
+        if (pageNum <= 0) {
+            return MsgResponse.paragramError("当前页码小于0");
+        }
+        List<VideoVO> res = videoService.getVideosByManGood(pageNum, pageSize);
+        int totalRecord = videoService.getTotalNum();
+        return MsgResponse.success(res, new OtherInfo(totalRecord));
+    }
+
+    @RequestMapping(value = "/get-woman", method = {RequestMethod.GET})
+    @ResponseBody
+    public MsgResponse getByWoman(Integer pageNum, Integer pageSize) {
+        if (pageNum <= 0) {
+            return MsgResponse.paragramError("当前页码小于0");
+        }
+        List<VideoVO> res = videoService.getVideosByWomanGood(pageNum, pageSize);
         int totalRecord = videoService.getTotalNum();
         return MsgResponse.success(res, new OtherInfo(totalRecord));
     }

@@ -20,7 +20,13 @@ public interface IVideoDAO {
     List<VideoPO> getAllVideo();
 
     @Select("select * from video order by good_percent desc limit #{pageNum},#{pageSize}")
-    List<VideoPO> getBySize(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
+    List<VideoPO> getOrderByGoodPercent(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
+
+    @Select("select * from video order by man_good_percent limit #{pageNum}, #{pageSize}")
+    List<VideoPO> getOrderByManGood(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
+
+    @Select("select * from video order by woman_good_percent limit #{pageNum}, #{pageSize}")
+    List<VideoPO> getOrderByWomanGood(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 
     @Select("select cid from video")
     List<String> getAllCid();

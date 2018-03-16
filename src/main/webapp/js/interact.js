@@ -42,7 +42,7 @@ function getVideoDetail(videos, data, index) {
 function setDiv(videos, index) {
     return '<div class="col-md-3 resent-grid recommended-grid">'
         + '<div class="resent-grid-img recommended-grid-img">'
-        + '<a href="' + videos[index][0] + '" target="_blank"> '
+        + '<a href="chart" target="_blank"> '
         + '<img style="height: 300px;" src="' + videos[index][5] + '" alt=""/>'
         + '</a> '
         + '<div class="resent-grid-info recommended-grid-info video-info-grid">'
@@ -142,4 +142,52 @@ $(function () {
     getVideos(currentPage_, pageSize);
 });
 
+
+// document.getElementById("sexall").onclick = function () {
+//     alert("all");
+// };
+//点击性别all的时候
+$("#sex-all").click(function () {
+    currentPage_ = 1;
+    getVideos(currentPage_, pageSize);
+});
+
+
+//点击man
+$("#sex-boy").click(function () {
+    currentPage_ = 1;
+    getBySex("男", currentPage_, pageSize);
+});
+
+//点击woman
+$("#sex-girl").click(function () {
+    currentPage_ = 1;
+    getBySex("女", currentPage_, pageSize);
+});
+
+function getBySex(sex, pageNum, pageSize) {
+    axios.get('/video/get-bysex', {
+        params: {
+            sex: sex,
+            pageNum: pageNum,
+            pageSize: pageSize
+        }
+    })
+        .then(function (response) {
+            var len = response.data.data.length;
+            totalRecord = response.data.other.total;
+            goPage(pageNum, pageSize);
+            for (var i = 0; i < len; i++) {
+                videos = getVideoDetail(videos, response.data.data[i], i);
+            }
+            addToMainContent(videos);
+            currentPageStatus = 0;
+            console.log(videos);
+        })
+        .catch(function (response) {
+            alert(response);
+            console.log(response);
+        });
+    var videos = new Array();
+}
 

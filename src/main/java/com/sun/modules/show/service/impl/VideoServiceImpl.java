@@ -35,16 +35,14 @@ public class VideoServiceImpl implements IVideoService {
     }
 
     @Override
-    public List<VideoVO> getVideosByManGood(Integer pageNum, Integer pageSize) {
+    public List<VideoVO> getVideosBySexGood(String sex, Integer pageNum, Integer pageSize) {
         int num = (pageNum - 1) * pageSize;
-        List<VideoPO> poList = videoDAO.getOrderByManGood(num, pageSize);
-        return toVOList(poList);
-    }
-
-    @Override
-    public List<VideoVO> getVideosByWomanGood(Integer pageNum, Integer pageSize) {
-        int num = (pageNum - 1) * pageSize;
-        List<VideoPO> poList = videoDAO.getOrderByWomanGood(num, pageSize);
+        List<VideoPO> poList;
+        if ("男".equals(sex)) {
+            poList = videoDAO.getOrderByManGood(num, pageSize);
+        } else {
+            poList = videoDAO.getOrderByWomanGood(num, pageSize);
+        }
         return toVOList(poList);
     }
 

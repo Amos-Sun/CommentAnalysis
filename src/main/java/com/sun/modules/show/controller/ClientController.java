@@ -2,8 +2,6 @@ package com.sun.modules.show.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by SunGuiyong on 2017/10/10.
@@ -11,21 +9,13 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ClientController {
 
-    @RequestMapping(value = "/login2")
-//    @ResponseBody
-    public ModelAndView ok() {
-        return new ModelAndView("login");
-    }
-
-    @RequestMapping(value = "/login")
-//    @ResponseBody
+    @RequestMapping(value = "/index")
     public String login() {
         return "index";
     }
 
-    @RequestMapping(value = "/ok2")
-    @ResponseBody
-    public String oktest() {
-        return "ttt";
+    @RequestMapping(value = "/chart")
+    public String pageJump() {
+        return "chart";
     }
 }

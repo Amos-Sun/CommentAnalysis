@@ -13,6 +13,20 @@ body a {
     -ms-transition: 0.5s all;
 }
 
+/*.button {*/
+/*background-color: #4CAF50;*/
+/*border: none;*/
+/*color: white;*/
+/*padding: 150px 320px;*/
+/*text-align: center;*/
+/*text-decoration: none;*/
+/*display: inline-block;*/
+/*font-size: 16px;*/
+/*margin: 10px 5px;*/
+/*cursor: pointer;*/
+/*float: left;*/
+/*}*/
+
 a.navbar-brand {
     padding: 0 0 0 1em;
 }
@@ -219,9 +233,21 @@ ul.cl-effect-1, ul.cl-effect-2 {
 }
 
 .nav-sidebar ul li a {
-    padding: .5em 0 .5em 7em !important;
+    padding: .5em 0 .5em 4.5em !important;
     display: block;
     text-decoration: none;
+}
+
+.nav-sidebar ul li button {
+    background: #272c2e;
+    /*padding: .5em 0 .5em 4.5em !important;*/
+    margin: .5em 0 .5em 4.5em;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    display: inline-block;
+    font-size: 13px;
+    border: none;
 }
 
 .glyphicon-film {

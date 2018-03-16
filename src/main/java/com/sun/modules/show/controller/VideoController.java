@@ -6,6 +6,7 @@ import com.sun.modules.common.response.OtherInfo;
 import com.sun.modules.show.service.IVideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,24 +35,16 @@ public class VideoController {
         return MsgResponse.success(res, new OtherInfo(totalRecord));
     }
 
-    @RequestMapping(value = "/get-man", method = {RequestMethod.GET})
+    @RequestMapping(value = "/get-bysex", method = {RequestMethod.GET})
     @ResponseBody
-    public MsgResponse getByMan(Integer pageNum, Integer pageSize) {
+    public MsgResponse getBySex(String sex, Integer pageNum, Integer pageSize) {
         if (pageNum <= 0) {
             return MsgResponse.paragramError("当前页码小于0");
         }
-        List<VideoVO> res = videoService.getVideosByManGood(pageNum, pageSize);
-        int totalRecord = videoService.getTotalNum();
-        return MsgResponse.success(res, new OtherInfo(totalRecord));
-    }
-
-    @RequestMapping(value = "/get-woman", method = {RequestMethod.GET})
-    @ResponseBody
-    public MsgResponse getByWoman(Integer pageNum, Integer pageSize) {
-        if (pageNum <= 0) {
-            return MsgResponse.paragramError("当前页码小于0");
+        if (StringUtils.isEmpty(sex.trim())) {
+            return MsgResponse.paragramError();
         }
-        List<VideoVO> res = videoService.getVideosByWomanGood(pageNum, pageSize);
+        List<VideoVO> res = videoService.getVideosBySexGood(sex, pageNum, pageSize);
         int totalRecord = videoService.getTotalNum();
         return MsgResponse.success(res, new OtherInfo(totalRecord));
     }

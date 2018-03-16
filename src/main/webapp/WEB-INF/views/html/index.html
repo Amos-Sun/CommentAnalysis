@@ -24,7 +24,7 @@
     <link href="css/pagestyle.css" rel="stylesheet">
     <!--使用axios必须有-->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="js/interact.js"></script>
+    <!--<script src="js/interact.js"></script>-->
     <!--start-smoth-scrolling-->
 
 </head>
@@ -52,6 +52,9 @@
             <div class="header-top-right">
                 <div class="clearfix"></div>
             </div>
+            <!--<button class="button">全部</button>-->
+            <!--<button class="button">女生</button>-->
+            <!--<button class="button">男生</button>-->
         </div>
         <div class="clearfix"></div>
     </div>
@@ -68,10 +71,17 @@
         <ul class="nav nav-sidebar">
             <li><a href="#" class="home-icon">home</a>
             </li>
-            <li><a href="#" class="menu1">sex</span></a></li>
+            <li><a href="#" class="menu1">sex</a></li>
             <ul class="cl-effect-2">
-                <li><a href="#">movies for boy</a></li>
-                <li><a href="#">movies for girl</a></li>
+                <li>
+                    <button id="sex-all">all</button>
+                </li>
+                <li>
+                    <button id="sex-boy">boy</button>
+                </li>
+                <li>
+                    <button id="sex-girl">girl</button>
+                </li>
             </ul>
             <!-- script-for-menu -->
             <script>
@@ -147,6 +157,7 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="js/bootstrap.min.js"></script>
+<script src="js/interact.js"></script>
 <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 </body>
 </html>

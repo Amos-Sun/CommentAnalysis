@@ -29,16 +29,7 @@ public interface IVideoService {
      * @param pageSize 一页有多少数据
      * @return
      */
-    List<VideoVO> getVideosByManGood(Integer pageNum, Integer pageSize);
-
-    /**
-     * 根据电影的女生好评百分比返回数据
-     *
-     * @param pageNum  当前是第几页
-     * @param pageSize 一页有多少数据
-     * @return
-     */
-    List<VideoVO> getVideosByWomanGood(Integer pageNum, Integer pageSize);
+    List<VideoVO> getVideosBySexGood(String sex, Integer pageNum, Integer pageSize);
 
     /**
      * 获取所有电影的数量

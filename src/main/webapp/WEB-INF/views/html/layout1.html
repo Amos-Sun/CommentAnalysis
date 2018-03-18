@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>图表分析</title>
+    <style>
+        #main {
+            width: 85%;
+            margin: 0 auto;
+        }
+
+        #herder {
+            height: 50px;
+            background: blue;
+        }
+
+        .main-left {
+            width: 30%;
+            background: red;
+            float: left;
+        }
+
+        .main-right {
+            width: 70%;
+            margin: 10px 0 10px 10px;
+            float: right;
+        }
+
+        #footer {
+            clear: both;
+            height: 50px;
+            background: gray;
+        }
+
+        .break-up {
+            width: 100%;
+            height: 20px;
+            background: gray;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+<div id="herder">页头</div>
+<div id="main">
+    <div class="main-left">左列</div>
+
+    <div class="main-right">
+        <div id="chart-all" style="height:400px"></div>
+        <div class="break-up"></div>
+        <div id="chart-sex" style="height:400px"></div>
+    </div>
+</div>
+<div id="footer">页脚</div>
+
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+<script type="text/javascript">
+    // 路径配置
+    // 基于准备好的dom，初始化echarts图表
+    var chartAll = echarts.init(document.getElementById('chart-all'));
+    var chartSex = echarts.init(document.getElementById('chart-sex'));
+
+    var subStr = "性别";
+    var title = "影评情感分布";
+    var data = ['直接访问', '邮件营销', '联盟广告'];
+    var option = {
+        title: {
+            text: title,
+            subtext: subStr,
+            x: 'center'
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+            data: [data[0], data[1], data[2]]
+        },
+        toolbox: {
+            show: true,
+            feature: {
+//                mark: {show: true},
+                dataView: {show: true, readOnly: false},
+                magicType: {
+                    show: true,
+                    type: ['pie', 'funnel'],
+                    option: {
+                        funnel: {
+                            x: '25%',
+                            width: '50%',
+                            funnelAlign: 'left',
+                            max: 1548
+                        }
+                    }
+                },
+                restore: {show: true}
+            }
+        },
+        calculable: true,
+        series: [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '60%'],
+                data: [
+                    {value: 335, name: data[0]},
+                    {value: 310, name: data[1]},
+                    {value: 234, name: data[2]}
+                ]
+            }
+        ]
+    };
+    // 为echarts对象加载数据
+    chartAll.setOption(option);
+    chartSex.setOption(option);
+</script>
+</body>
+</html>

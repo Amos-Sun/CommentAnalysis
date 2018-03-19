@@ -81,7 +81,7 @@ function setOption(subStr, title, data, value, chart) {
         toolbox: {
             show: true,
             feature: {
-                mark: {show: true},
+                // mark: {show: true},
                 dataView: {show: true, readOnly: false},
                 magicType: {
                     show: true,
@@ -98,7 +98,7 @@ function setOption(subStr, title, data, value, chart) {
                 restore: {show: true}
             }
         },
-        // calculable: true,
+        calculable: true,
         series: [
             {
                 // name: '情感分布',

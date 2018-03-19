@@ -1,5 +1,5 @@
 #main {
-    width: 88%;
+    width: 80%;
     margin: 0 auto;
 }
 
@@ -20,12 +20,12 @@
 }
 
 .main-left #video .videoInfo {
-    max-width: 100%;
-    overflow: hidden;
+    text-align: left;
+    display: block;
+    height: 400px;
+    overflow: auto;
+    width: 100%;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    float: left;
-    /*/ / 文本不换行，这样超出一行的部分被截取，显示 . . .*/
 }
 
 .main-right {

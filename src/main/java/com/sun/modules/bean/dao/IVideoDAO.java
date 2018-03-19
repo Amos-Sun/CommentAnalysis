@@ -31,5 +31,8 @@ public interface IVideoDAO {
     @Select("select cid from video")
     List<String> getAllCid();
 
+    @Select("select * from video where cid=#{cid}")
+    VideoPO getByCid(@Param("cid") String cid);
+
     void insertVideoInfo(List<VideoPO> list);
 }

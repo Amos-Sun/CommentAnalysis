@@ -18,19 +18,12 @@ public class VideoServiceImpl implements IVideoService {
     private IVideoDAO videoDAO;
 
     @Override
-    public List<VideoVO> getAllVideos() {
-
-        List<VideoPO> videoPOList = videoDAO.getAllVideo();
-        if (CollectionUtils.isEmpty(videoPOList)) {
-            return null;
-        }
-        return toVOList(videoPOList);
-    }
-
-    @Override
     public List<VideoVO> getVideosByGoodPercent(Integer pageNum, Integer pageSize) {
         int num = (pageNum - 1) * pageSize;
         List<VideoPO> poList = videoDAO.getOrderByGoodPercent(num, pageSize);
+        if (CollectionUtils.isEmpty(poList)) {
+            return new ArrayList<>();
+        }
         return toVOList(poList);
     }
 
@@ -43,12 +36,24 @@ public class VideoServiceImpl implements IVideoService {
         } else {
             poList = videoDAO.getOrderByWomanGood(num, pageSize);
         }
+        if (CollectionUtils.isEmpty(poList)) {
+            return new ArrayList<>();
+        }
         return toVOList(poList);
     }
 
     @Override
     public int getTotalNum() {
         return videoDAO.getTotalRecord();
+    }
+
+    @Override
+    public VideoVO getByCid(String cid) {
+        VideoPO video = videoDAO.getByCid(cid);
+        if (video == null) {
+            return null;
+        }
+        return new VideoVO(video, cid);
     }
 
     /**

@@ -7,13 +7,6 @@ import java.util.List;
 public interface IVideoService {
 
     /**
-     * 获取所有电影
-     *
-     * @return
-     */
-    List<VideoVO> getAllVideos();
-
-    /**
      * 根据电影的好评百分比返回数据
      *
      * @param pageNum  当前是第几页
@@ -37,4 +30,9 @@ public interface IVideoService {
      * @return
      */
     int getTotalNum();
+
+    /**
+     * 根据电影的cid进行查询
+     */
+    VideoVO getByCid(String cid);
 }

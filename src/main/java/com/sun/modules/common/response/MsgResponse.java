@@ -7,16 +7,12 @@ import lombok.Setter;
  * Created by SunGuiyong
  * on 2018/1/26.
  */
+@Getter
+@Setter
 public class MsgResponse {
 
-    @Setter
-    @Getter
     private Integer code;
-    @Setter
-    @Getter
     private Object data;
-    @Setter
-    @Getter
     private OtherInfo other;
 
     public static MsgResponse success() {

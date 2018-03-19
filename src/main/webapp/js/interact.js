@@ -19,7 +19,6 @@ function getVideos(pageNum, pageSize) {
             }
             addToMainContent(videos);
             currentPageStatus = 0;
-            console.log(videos);
         })
         .catch(function (response) {
             alert(response);
@@ -36,13 +35,14 @@ function getVideoDetail(videos, data, index) {
     videos[index][3] = data.videoType;
     videos[index][4] = data.actors;
     videos[index][5] = data.picUrl;
+    videos[index][6] = data.cid;
     return videos;
 }
 
 function setDiv(videos, index) {
     return '<div class="col-md-3 resent-grid recommended-grid">'
         + '<div class="resent-grid-img recommended-grid-img">'
-        + '<a href="chart" target="_blank"> '
+        + '<a href= "javascript:void(0)" target="_blank" onclick="pageTrans(\'' + videos[index][6] + '\')"> '
         + '<img style="height: 300px;" src="' + videos[index][5] + '" alt=""/>'
         + '</a> '
         + '<div class="resent-grid-info recommended-grid-info video-info-grid">'
@@ -189,5 +189,11 @@ function getBySex(sex, pageNum, pageSize) {
             console.log(response);
         });
     var videos = new Array();
+}
+
+//点击图片是，页面跳转
+function pageTrans(video) {
+    var url = "chart.html?video=" + video;
+    window.open(url);
 }
 

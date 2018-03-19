@@ -41,11 +41,24 @@ public class VideoController {
         if (pageNum <= 0) {
             return MsgResponse.paragramError("当前页码小于0");
         }
-        if (StringUtils.isEmpty(sex.trim())) {
-            return MsgResponse.paragramError();
+        if (sex == null || StringUtils.isEmpty(sex.trim())) {
+            return MsgResponse.paragramError("系统异常");
         }
         List<VideoVO> res = videoService.getVideosBySexGood(sex, pageNum, pageSize);
         int totalRecord = videoService.getTotalNum();
         return MsgResponse.success(res, new OtherInfo(totalRecord));
+    }
+
+    @RequestMapping(value = "/get-bycid", method = {RequestMethod.GET})
+    @ResponseBody
+    public MsgResponse getByCid(String cid) {
+        if (cid == null || StringUtils.isEmpty(cid.trim())) {
+            return MsgResponse.paragramError("系统异常");
+        }
+        VideoVO video = videoService.getByCid(cid);
+        if (null == video) {
+            return MsgResponse.success("系统中无此电影");
+        }
+        return MsgResponse.success(video);
     }
 }

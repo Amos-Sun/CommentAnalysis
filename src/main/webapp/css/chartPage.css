@@ -4,8 +4,7 @@
 }
 
 #herder {
-    height: 50px;
-    background: blue;
+    height: 100px;
 }
 
 .main-left {
@@ -15,7 +14,7 @@
 
 .main-left #video {
     width: 100%;
-    margin: 10px 10px 0 0;
+    margin: 1em 10px 0 0;
     float: left;
 }
 

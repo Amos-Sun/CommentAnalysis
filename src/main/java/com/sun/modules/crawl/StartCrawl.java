@@ -14,12 +14,12 @@ public class StartCrawl {
 
     public static void main(String[] args) {
 
-        /*SaveVideoDetail getVideoDetail = new SaveVideoDetail();
+        SaveVideoDetail getVideoDetail = new SaveVideoDetail();
         SaveUserAndRelationDetail getUserDetail = new SaveUserAndRelationDetail();
         List<VideoPO> videoPOList = getVideoDetail.saveVideoInfo();
         getUserDetail.saveUserAndRelation(videoPOList);
 
-        System.out.println("爬虫结束");*/
+        System.out.println("爬虫结束");
         analysisMention();
         System.out.println("运行python脚本成功");
     }

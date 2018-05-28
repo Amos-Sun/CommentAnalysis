@@ -165,10 +165,10 @@ $("#sex-girl").click(function () {
     getBySex("女", currentPage_, pageSize);
 });
 
-function getBySex(sex, pageNum, pageSize) {
+function getBySex(gender, pageNum, pageSize) {
     axios.get('/video/get-bysex', {
         params: {
-            sex: sex,
+            gender: gender,
             pageNum: pageNum,
             pageSize: pageSize
         }

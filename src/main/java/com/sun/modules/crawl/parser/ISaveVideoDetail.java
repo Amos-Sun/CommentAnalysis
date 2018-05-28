@@ -10,11 +10,6 @@ import java.util.List;
  */
 public interface ISaveVideoDetail {
 
-    /**
-     * 获取电影信息
-     *
-     * @return
-     * @throws IOException
-     */
+
     List<VideoPO> saveVideoInfo() throws IOException;
 }

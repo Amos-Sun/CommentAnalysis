@@ -35,17 +35,7 @@ import java.util.concurrent.Executors;
  */
 public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
 
-    /**
-     * 对应https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3&cid=
-     */
     private String COMMENT_ID_URL = "https://ncgi.video.qq.com/fcgi-bin/video_comment_id?otype=json&op=3";
-
-    /**
-     * 对应comment详细信息的url
-     * https://coral.qq.com/article/1551278768/comment?commentid=6332862978740201115&reqnum=50
-     * 1551278768/comment?commentid=6332862978740201115&reqnum=50
-     */
-    private String COMMENT_DETAIL_URL = "https://coral.qq.com/article/";
 
     private ExecutorService exec = Executors.newFixedThreadPool(15);
     private CountDownLatch latch;
@@ -121,21 +111,13 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         return null;
     }
 
-    /**
-     * 对数据库中的userName进行转码
-     */
+
     private void userNameDecode() {
         for (int i = 0; i < userNameList.size(); i++) {
             userNameList.set(i, URLDecoder.decode(userNameList.get(i)));
         }
     }
 
-    /**
-     * 向user表中插入数据
-     *
-     * @param userDAO
-     * @param userPOList
-     */
     private void insertUser(IUserDAO userDAO, List<UserPO> userPOList) {
         List<UserPO> insertPO = new ArrayList<>();
 
@@ -257,14 +239,6 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         }
     }
 
-    /**
-     * 获取所有的评论
-     *
-     * @param data
-     * @param relationDAO
-     * @param relation
-     * @param user
-     */
     private void getUserAndRelation(DataDetail.Data data, IRelationDAO relationDAO,
                                     List<UserPO> user, List<RelationPO> relation, List<String> nameList, String cid) {
         List<CommentDetail> commentDetail = data.getCommentid();
@@ -285,13 +259,6 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         }
     }
 
-    /**
-     * 根据评论获取用户信息
-     *
-     * @param item     每一天评论
-     * @param user     userPOLIst
-     * @param nameList 已存的用户名字
-     */
     private void getUserInfo(CommentDetail item, List<UserPO> user, List<String> nameList) {
 
         UserPO userPO = new UserPO();
@@ -306,13 +273,6 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         nameList.add(name);
     }
 
-    /**
-     * 获取评论信息
-     *
-     * @param item     每一条评论
-     * @param relation relationPOList
-     * @param cid      电影的cid
-     */
     private void getRelationInfo(IRelationDAO relationDAO, CommentDetail item, List<RelationPO> relation, String cid) {
 
         String comment = relationDAO.getCommentByCidAndUserNaem(cid, item.getUserinfo().getNick());
@@ -329,12 +289,6 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         relation.add(relationPO);
     }
 
-    /**
-     * 获取commentid 中targetid
-     *
-     * @param pageStr video_commentid 中的内容
-     * @return
-     */
     private VideoCommentId getVideoCommentIdContent(String pageStr) {
         String getStr = StrUtil.getAimedString(pageStr, "QZOutputJson=", "</body>");
         String res = StrUtil.replaceString(getStr, "&quot;", "\"");
@@ -343,12 +297,6 @@ public class SaveUserAndRelationDetail implements ISaveUserAndRelationDetail {
         return videoCommentId;
     }
 
-    /**
-     * 获取评论的详细信息
-     *
-     * @param detail
-     * @return
-     */
     private DataDetail getCommentDetail(String detail) {
         String getStr = StrUtil.getAimedString(detail, "<body>", "</body>");
         String res = StrUtil.replaceString(getStr, "&quot;", "\"");

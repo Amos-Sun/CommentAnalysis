@@ -37,14 +37,15 @@ public class VideoController {
 
     @RequestMapping(value = "/get-bysex", method = {RequestMethod.GET})
     @ResponseBody
-    public MsgResponse getBySex(String sex, Integer pageNum, Integer pageSize) {
-        if (pageNum <= 0) {
-            return MsgResponse.paragramError("当前页码小于0");
+    public MsgResponse getBySex(String gender, Integer pageNum, Integer pageSize) {
+        if (gender == null || pageNum == null || pageSize == null
+                || pageNum <= 0 || pageSize <= 0) {
+            return MsgResponse.paragramError("输入参数错误");
         }
-        if (sex == null || StringUtils.isEmpty(sex.trim())) {
+        if (gender == null || StringUtils.isEmpty(gender.trim())) {
             return MsgResponse.paragramError("系统异常");
         }
-        List<VideoVO> res = videoService.getVideosBySexGood(sex, pageNum, pageSize);
+        List<VideoVO> res = videoService.getVideosBySexGood(gender, pageNum, pageSize);
         int totalRecord = videoService.getTotalNum();
         return MsgResponse.success(res, new OtherInfo(totalRecord));
     }

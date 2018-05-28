@@ -11,12 +11,6 @@ import java.util.List;
  */
 public interface ISaveUserAndRelationDetail {
 
-    /**
-     * 获取用户信息
-     *
-     * @param videoDOList
-     * @return
-     * @throws IOException
-     */
+
     List<UserPO> saveUserAndRelation(List<VideoPO> videoDOList) throws IOException;
 }

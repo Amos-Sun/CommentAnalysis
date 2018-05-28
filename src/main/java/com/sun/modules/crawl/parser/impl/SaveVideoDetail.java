@@ -31,20 +31,6 @@ import java.util.concurrent.Future;
  */
 public class SaveVideoDetail implements ISaveVideoDetail {
 
-//        全部
-//        最新上架
-    /**
-     * actors  type  detail
-     * get from video url
-     */
-
-    /*@Resource
-    private IVideoDAO videoDAO;*/
-    /**
-     * 这个界面中可以得到url name picture
-     */
-    private final String url = "http://v.qq.com/x/list/movie?area=-1&sort=19&offset=0";
-
     private String BASE_URL = "http://v.qq.com/x/list/movie?area=-1&sort=19&offset=";
     private ExecutorService exec = Executors.newFixedThreadPool(15);
     private ListeningExecutorService service = MoreExecutors.listeningDecorator(exec);
@@ -57,22 +43,18 @@ public class SaveVideoDetail implements ISaveVideoDetail {
         IVideoDAO videoDAO = (IVideoDAO) ctx.getBean("videoDAO");
         initCrawlList();
 
-        //存放整理好的video数据
-        List<String> existsCidList; //判断名字是否已存在的list
-        List<VideoPO> poList = new ArrayList<>(); //代爬取评论的list
+        List<String> existsCidList;
+        List<VideoPO> poList = new ArrayList<>();
         poList = videoDAO.getAllVideo();
         existsCidList = videoDAO.getAllCid();
 
         for (int i = 0; i < willCrwalUrl.size(); i++) {
-            if (i == 0) {
-                break;
-            }
             try {
-                List<VideoPO> videoPOList = new ArrayList<>(); //要存到数据库的list
+                List<VideoPO> videoPOList = new ArrayList<>();
 
                 List<ListenableFuture<VideoPO>> futures = new ArrayList<>();
                 Document doc = Jsoup.connect(willCrwalUrl.get(i)).timeout(5000).get();
-                //figures_list
+
                 Document ulDoc = getChildDocument(doc, "figures_list");
                 Elements liContainer = ulDoc.select(".list_item");
 

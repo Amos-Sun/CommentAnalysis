@@ -56,12 +56,6 @@ public class VideoServiceImpl implements IVideoService {
         return new VideoVO(video, cid);
     }
 
-    /**
-     * 把PO转成VO
-     *
-     * @param poList po列表
-     * @return 转换之后的list
-     */
     private List<VideoVO> toVOList(List<VideoPO> poList) {
         List<VideoVO> list = new ArrayList<>();
         for (VideoPO item : poList) {
